@@ -3,10 +3,13 @@
 namespace CBA;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    protected $primaryKey = 'id_users';
+    use SoftDeletes;
+
+    // protected $primaryKey = 'id_users';
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +33,8 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
+    protected $dates = ['deleted_at'];
+    
     // public function isAdmin()
     // {
     //     return $this->is_admin;
@@ -41,11 +46,5 @@ class User extends Authenticatable
         }
     }
 
-    public $rules = [
-        'name' => 'required|max:255',
-        'email' => 'required|email|unique:users,email, {{$id}}',
-        // 'password' => 'required|min:6|confirmed',
-        'is_admin' => 'required|in:0,1',
-    ];
-
+    
 }

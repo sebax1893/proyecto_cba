@@ -3,14 +3,23 @@
 namespace CBA\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use CBA\Http\Requests;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use CBA\User;
+// use Illuminate\Routing\Route;
 
 class UsuarioController extends Controller
 {
+    // public function __construct(){
+    //     $this->middelware('find',['only' => ['edit', 'update', 'destroy']]);
+    // }
+
+    public function find(User $user){
+        $this->user = User::find($route->getParameter('usuario'));
+        return $this->user;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +28,7 @@ class UsuarioController extends Controller
     public function index()
     {
         $users = User::All();
+        // $users = User::onlyTrashed()->get();
         return view('usuario.index', compact('users'));
     }
 
@@ -47,13 +57,14 @@ class UsuarioController extends Controller
             'is_admin' => 'required|in:0,1',
         ]);
 
+        User::create($request->all());
         
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password'],
-            'is_admin' => $request['is_admin'],
-        ]);
+        // User::create([
+        //     'name' => $request['name'],
+        //     'email' => $request['email'],
+        //     'password' => $request['password'],
+        //     'is_admin' => $request['is_admin'],
+        // ]);
 
         return redirect('/usuario')->with('message','Usuario registrado correctamente');
     }
@@ -91,17 +102,12 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
 
-        // $this->validate($request, [
-        //     'name' => 'required|max:255',
-        //     // 'email' => 'required|email|unique:users,email,'.$id,
-        //     'email'=>'required|email|unique:users,email,'->where('id_users', $id),
-        //     // 'password' => 'required|min:6|confirmed',
-        //     'is_admin' => 'required|in:0,1',
-        // ]);
-
-        $rules = User::$rules;
-$rules['email'] = $rules['email'] . ',id_users,' . $id;
-$validationCertificate  = Validator::make($input, $rules);
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'min:6|confirmed',
+            'is_admin' => 'required|in:0,1',
+        ]);
 
         $user = User::findOrFail($id);
         $user->fill($request->all());
@@ -110,13 +116,6 @@ $validationCertificate  = Validator::make($input, $rules);
         Session::flash('message', 'Usuario modificado correctamente');
         return Redirect::to('/usuario');
 
-        // Session::flash('message');
-
-        // return redirect('/usuario')->with('message','store2');
-        // return Redirect::route('user.index')
-        //         ->with('message', 'User updated.');
-
-        // return view('usuario.index');
     }
 
     /**
@@ -127,7 +126,9 @@ $validationCertificate  = Validator::make($input, $rules);
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        // User::findOrFail($id)->delete();
+        $user = User::find($id);
+        $user->delete();
         Session::flash('message', 'Usuario eliminado correctamente');
         return Redirect::to('/usuario');
     }

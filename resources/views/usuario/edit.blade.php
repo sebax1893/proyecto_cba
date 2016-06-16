@@ -9,7 +9,7 @@
 	                	Modificar Usuario
 	                </div>
 	                <div class="panel-body">
-	                	{!!Form::model($user,['route'=> ['usuario.update', $user->id_users],'method'=>'PATCH'])!!}
+	                	{!!Form::model($user,['route'=> ['usuario.update', $user->id],'method'=>'PATCH'])!!}
 
 	                		<div class="form-group">
 								{!!Form::label('name', 'Nombre', ['class' => 'required'])!!}
