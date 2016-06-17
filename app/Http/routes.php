@@ -13,7 +13,11 @@
 
 Route::get('/','FrontController@index');
 Route::get('home','FrontController@home');
+Route::get('login','FrontController@login');
+
 
 Route::resource('estudiantes','EstudianteController');
 Route::resource('usuario','UsuarioController');
 Route::resource('log','LogController');
+Route::get('logout','LogController@logout');
+

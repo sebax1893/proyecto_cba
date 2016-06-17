@@ -12,8 +12,8 @@
 	                	{!!Form::model($user,['route'=> ['usuario.update', $user->id],'method'=>'PATCH'])!!}
 
 	                		<div class="form-group">
-								{!!Form::label('name', 'Nombre', ['class' => 'required'])!!}
-								{!!Form::text('name',null,['class'=>'form-control', 'placeholder'=>'Ingresar el nombre de usuario'])!!}
+								{!!Form::label('name', 'Nombre')!!}
+								{!!Form::text('name',null,['class'=>'form-control', 'placeholder'=>'Ingresar nuevo nombre de usuario'])!!}
 								@if ($errors->has('name'))
 									<div class="list-group-item list-group-item-warning">		
 								        <strong>{{ $errors->first('name') }}</strong>	    
@@ -22,8 +22,8 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('email', 'Correo electrónico')!!} *
-								{!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingresar el correo electrónico'])!!}
+								{!!Form::label('email', 'Correo electrónico')!!} 
+								{!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingresar nuevo correo electrónico'])!!}
 								@if ($errors->has('email'))
 									<div class="list-group-item list-group-item-warning">		
 								        <strong>{{ $errors->first('email') }}</strong>	    
@@ -32,8 +32,8 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('password', 'Contraseña')!!}	*
-								{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresar la contraseña'])!!}
+								{!!Form::label('password', 'Contraseña')!!}	
+								{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresar nueva contraseña si lo desea'])!!}
 								@if ($errors->has('password'))
 									<div class="list-group-item list-group-item-warning">		
 								        <strong>{{ $errors->first('password') }}</strong>	    
@@ -42,8 +42,8 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('password_confirmation', 'Confirmar contraseña')!!} *
-								{!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirmar la contraseña'])!!}
+								{!!Form::label('password_confirmation', 'Confirmar nueva contraseña')!!} 
+								{!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirmar la nueva contraseña'])!!}
 								@if ($errors->has('password_confirmation'))
 									<div class="list-group-item list-group-item-warning">		
 								        <strong>{{ $errors->first('password_confirmation') }}</strong>	    
@@ -52,7 +52,7 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('Es Administrador')!!} *	
+								{!!Form::label('is_admin', 'Es Administrador')!!} *	
 								<br>
 								Sí {!!Form::radio('is_admin', 1)!!} <br>
 								No {!!Form::radio('is_admin', 0)!!}

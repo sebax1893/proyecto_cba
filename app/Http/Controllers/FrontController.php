@@ -8,6 +8,11 @@ use CBA\Http\Requests;
 
 class FrontController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth', ['only' => 'admin']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,16 +25,19 @@ class FrontController extends Controller
 
     public function home()
     {
-        return view('home');
+        return view('admin/home');
     }
 
+    public function login()
+    {
+        return view('auth/login');
+    }
     
     public function estudiantes()
     {
         return view('estudiantes');
     }
 
-    
     public function instituciones()
     {
         return view('instituciones');       

@@ -11,14 +11,18 @@ use CBA\User;
 
 class UsuarioController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     // public function __construct(){
     //     $this->middelware('find',['only' => ['edit', 'update', 'destroy']]);
     // }
 
-    public function find(User $user){
-        $this->user = User::find($route->getParameter('usuario'));
-        return $this->user;
-    }
+    // public function find(User $user){
+    //     $this->user = User::find($route->getParameter('usuario'));
+    //     return $this->user;
+    // }
 
     /**
      * Display a listing of the resource.
