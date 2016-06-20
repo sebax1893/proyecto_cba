@@ -12,12 +12,12 @@
 
 	<div class="row">
 		<div class="">
-			{!!link_to_route('usuario.create', $title = 'Registrar Usuario', null, $attributes = ['class'=>'btn btn-primary'])!!}		
+			{!!link_to_route('usuario.create', $title = 'Registrar Usuario', null, $attributes = ['class'=>'btn btn-primary'])!!}
 		</div>
 	</div>
 	&nbsp;
 	<div class="row">
-				
+		
 		<div class="">
 			<table class="table table-striped table-bordered" id="dataTable">
 				<thead>

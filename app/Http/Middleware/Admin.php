@@ -4,9 +4,17 @@ namespace CBA\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Guard;+
+use Closure;
+use Session;
 
 class Admin
 {
+    protected $auth;
+
+    public function __construct(Guard $auth) {
+        $this->auth = $auth;
+    }
     /**
      * Handle an incoming request.
      *
@@ -16,16 +24,17 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
-        // if ( Auth::check() && Auth::user()->isAdmin() )
-        // {
+        if ( Auth::check() && Auth::user()->isAdmin() )
+        {
 
-        //     return $next($request);
+            return $next($request);
 
-        // }else{
+        }else{
 
-        //     return redirect ('/');
+            return redirect ('/');
 
-        // }
+        }
+        // return $next($request);
+        
     }
 }

@@ -27,7 +27,7 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('email', 'Correo electrónico')!!} *
+								{!!Form::label('email', 'Correo electrónico', ['class' => 'required'])!!} 
 								{!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingresar el correo electrónico'])!!}
 								@if ($errors->has('email'))
 									<div class="list-group-item list-group-item-warning">		
@@ -37,7 +37,7 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('password', 'Contraseña')!!}	*
+								{!!Form::label('password', 'Contraseña', ['class' => 'required'])!!}	
 								{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresar la contraseña'])!!}
 								@if ($errors->has('password'))
 									<div class="list-group-item list-group-item-warning">		
@@ -47,7 +47,7 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('password_confirmation', 'Confirmar contraseña')!!} *
+								{!!Form::label('password_confirmation', 'Confirmar contraseña', ['class' => 'required'])!!} 
 								{!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirmar la contraseña'])!!}
 								@if ($errors->has('password_confirmation'))
 									<div class="list-group-item list-group-item-warning">		
@@ -57,7 +57,7 @@
 							</div>
 
 							<div class="form-group">
-								{!!Form::label('Es Administrador')!!} *	
+								{!!Form::label('is_admin', 'Es Administrador', ['class' => 'required'])!!} 
 								<br>
 								Sí {!!Form::radio('is_admin', 1)!!} <br>
 								No {!!Form::radio('is_admin', 0)!!}
