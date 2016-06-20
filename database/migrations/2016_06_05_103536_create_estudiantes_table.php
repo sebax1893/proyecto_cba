@@ -21,15 +21,22 @@ class CreateEstudiantesTable extends Migration
 
             //Foreign Key eps
             $t->integer('id_eps')->unsigned();
-            $t->foreign('id_eps')->references('id_eps')->on('eps');        
+            $t->foreign('id_eps')->references('id_eps')->on('eps');
+
+            //Foreign Key municipios
+            $t->integer('id_municipios')->unsigned();
+            $t->foreign('id_municipios')->references('id_municipios')->on('municipios');
+
+            //Foreign Key bandas
+            $t->integer('id_bandas')->unsigned();
+            $t->foreign('id_bandas')->references('id_bandas')->on('bandas');        
 
             $t->integer('numeroIdentificacion');
             $t->string('nombres');
             $t->string('apellidos');
             $t->integer('edad');
             $t->date('fechaNacimiento');
-            $t->string('direccion');
-            $t->string('municipio');
+            $t->string('direccion');            
             $t->string('barrio');
             $t->string('telefono');
             $t->string('celular')->nullable();

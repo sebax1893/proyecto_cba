@@ -11,7 +11,7 @@ class Estudiante extends Model
 
     protected $table = 'estudiantes';
     protected $primaryKey = 'id_estudiantes';
-    protected $fillable = ['id_tipo_documentos','id_eps','numeroIdentificacion','nombres','apellidos','edad','fechaNacimiento','direccion','municipio','barrio','telefono','celular','correo','observaciones','foto','activo'];
+    protected $fillable = ['id_tipo_documentos','id_eps', 'id_municipios', 'id_bandas', 'numeroIdentificacion','nombres','apellidos','edad','fechaNacimiento','direccion','barrio','telefono','celular','correo','observaciones','foto','activo'];
     protected $dates = ['deleted_at'];
     
     /**
@@ -19,6 +19,6 @@ class Estudiante extends Model
      */
     public function parientes()
     {
-        return $this->belongsToMany('App\Pariente', 'estudiante_pariente', 'id_estudiantes', 'id_parientes');
+        return $this->belongsToMany('CBA\Pariente', 'estudiante_pariente', 'id_estudiantes', 'id_parientes');
     }
 }

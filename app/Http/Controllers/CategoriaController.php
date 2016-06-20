@@ -5,10 +5,11 @@ namespace CBA\Http\Controllers;
 use Illuminate\Http\Request;
 
 use CBA\Http\Requests;
-use CBA\Estudiante;
-// use CBA\TipoDocumento
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use CBA\Categoria;
 
-class EstudianteController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +18,8 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-        $estudiantes = Estudiante::All();
-        
-        // $users = User::onlyTrashed()->get();
-        return view('estudiante.index', compact('estudiantes'));
+        $categoria = Categoria::All();        
+        return view('categoria.index', compact('categoria'));
     }
 
     /**
@@ -30,11 +29,7 @@ class EstudianteController extends Controller
      */
     public function create()
     {
-        $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
-        $eps = \DB::table('eps')->lists('nombre', 'id_eps');
-        $municipio = \DB::table('municipios')->lists('id_municipios', 'nombre', 'id_municipios');        
-
-        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio'));
+        return view('categoria.create');
     }
 
     /**
@@ -45,7 +40,13 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|max:255',            
+        ]);
+
+        Categoria::create($request->all());
+
+        return redirect('/categoria')->with('message','Categoria registrada correctamente');
     }
 
     /**
@@ -67,7 +68,8 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.edit', ['categoria'=>$categoria]);
     }
 
     /**
@@ -79,7 +81,16 @@ class EstudianteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|max:255',            
+        ]);
+
+        $categoria = Categoria::findOrFail($id);
+        $categoria->fill($request->all());
+        $categoria->save();
+
+        Session::flash('message', 'Categoria modificada correctamente');
+        return Redirect::to('/categoria');
     }
 
     /**
@@ -90,6 +101,9 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete();
+        Session::flash('message', 'Categoria eliminada correctamente');
+        return Redirect::to('/categoria');
     }
 }

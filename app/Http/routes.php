@@ -16,8 +16,13 @@ Route::get('home','FrontController@home');
 Route::get('login','FrontController@login');
 
 
-Route::resource('estudiantes','EstudianteController');
+Route::resource('estudiante','EstudianteController');
 Route::resource('usuario','UsuarioController');
+Route::resource('tipoDocumento','TipoDocumentoController');
+Route::resource('eps','EpsController');
+Route::resource('tipoBanda','TipoBandaController');
+Route::resource('categoria','CategoriaController');
+
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
 

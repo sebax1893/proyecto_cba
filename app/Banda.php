@@ -15,4 +15,12 @@ class Banda extends Model
 
     protected $dates = ['deleted_at'];
     
+    /**
+     * Bandas que pertenecen a instituciones
+     */
+    public function institucions()
+    {
+        return $this->belongsToMany('CBA\Institucion', 'banda_institucion', 'id_bandas', 'id_institucions');
+    }
+
 }
