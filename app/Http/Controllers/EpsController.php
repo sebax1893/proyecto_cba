@@ -5,10 +5,11 @@ namespace CBA\Http\Controllers;
 use Illuminate\Http\Request;
 
 use CBA\Http\Requests;
-use CBA\Estudiante;
-// use CBA\TipoDocumento
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use CBA\Eps;
 
-class EstudianteController extends Controller
+class EpsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +18,8 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-        $estudiantes = Estudiante::All();
-        
-        // $users = User::onlyTrashed()->get();
-        return view('estudiante.index', compact('estudiantes'));
+        $eps = Eps::All();        
+        return view('eps.index', compact('eps'));
     }
 
     /**
@@ -30,11 +29,7 @@ class EstudianteController extends Controller
      */
     public function create()
     {
-        $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
-        $eps = \DB::table('eps')->lists('nombre', 'id_eps');
-        $municipio = \DB::table('municipios')->lists('id_municipios', 'nombre', 'id_municipios');        
-
-        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio'));
+        return view('eps.create');
     }
 
     /**
@@ -45,7 +40,13 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|max:255',            
+        ]);
+
+        Eps::create($request->all());
+
+        return redirect('/eps')->with('message','EPS registrada correctamente');
     }
 
     /**
@@ -67,7 +68,8 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $eps = Eps::findOrFail($id);
+        return view('eps.edit', ['eps'=>$eps]);
     }
 
     /**
@@ -79,7 +81,16 @@ class EstudianteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|max:255',            
+        ]);
+
+        $eps = Eps::findOrFail($id);
+        $eps->fill($request->all());
+        $eps->save();
+
+        Session::flash('message', 'EPS modificada correctamente');
+        return Redirect::to('/eps');
     }
 
     /**
@@ -90,6 +101,9 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $eps = Eps::find($id);
+        $eps->delete();
+        Session::flash('message', 'EPS eliminada correctamente');
+        return Redirect::to('/eps');
     }
 }

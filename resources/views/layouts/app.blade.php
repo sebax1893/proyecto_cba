@@ -24,7 +24,10 @@
     {!!Html::style('assets/css/style.css')!!}   
 
     <!-- DataTables Style -->
-    {!!Html::style('https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css')!!}    
+    {!!Html::style('https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css')!!}
+
+    <!-- Datepicker Style -->
+    {!!Html::style('assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css')!!}    
 
     @yield('styles')
 
@@ -52,35 +55,17 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">                    
-                    @if (Auth::user())
-                        <li><a href="{{ url('/home') }}">Home</a></li>
-                        <li><a href="{{ url('/estudiantes/index') }}">Estudiantes</a></li>
-                        <li><a href="{{ url('/estudiantes/create') }}">Bandas</a></li>
-                        <!-- <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Administración <span class="caret"></span>
-                            </a>
+                <ul class="nav navbar-nav"> 
+                    <li><a href="{{ url('/home') }}">Home</a></li>  
+                    
+                    @if (true)                    
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Instituciones</a></li>
-                            </ul>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>EPS</a></li>
-                            </ul>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Tipos de documentos</a></li>
-                            </ul>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Tipos de bandas</a></li>
-                            </ul>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Categorías</a></li>
-                            </ul>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cuentas</a></li>
-                            </ul>
-                        </li> -->
+                        <li>{!!link_to_route('estudiante.index', $title = 'Gestionar estudiantes', null)!!}</li>
+                        <li>{!!link_to_route('usuario.index', $title = 'Gestionar usuario', null)!!}</li>
+                        <li>{!!link_to_route('tipoDocumento.index', $title = 'Gestionar tipos de documento', null)!!}</li>
+                        <li>{!!link_to_route('eps.index', $title = 'Gestionar EPS', null)!!}</li>
+                        <li>{!!link_to_route('tipoBanda.index', $title = 'Gestionar Tipos de banda', null)!!}</li>
+                        <li>{!!link_to_route('categoria.index', $title = 'Gestionar Categorías', null)!!}</li>     
                     @endif
                 </ul>
 
@@ -108,14 +93,20 @@
     @yield('content')
 
     {!!Html::script('assets/jQuery/jquery-2.2.3.min.js')!!} 
-    
+
     {!!Html::script('assets/bootstrap/js/bootstrap.min.js')!!} 
 
     <!-- DataTables JavaScript -->
     {!!Html::script('https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js')!!} 
 
     <!-- Sweet Alert JavaScript -->
-    {!!Html::script('assets/sweetalert-master/dist/sweetalert.min.js')!!}    
+    {!!Html::script('assets/sweetalert-master/dist/sweetalert.min.js')!!} 
+
+    <!-- Bootstrap Datepicker JavaScript-->
+    {!!Html::script('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')!!} 
+    <!-- Bootstrap Datepicker Spanish JavaScript -->
+    {!!Html::script('assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js')!!} 
+
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
     @yield('scripts')

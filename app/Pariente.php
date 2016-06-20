@@ -17,6 +17,6 @@ class Pariente extends Model
      */
     public function estudiantes()
     {
-        return $this->belongsToMany('App\Estudiante');
+        return $this->belongsToMany('CBA\Estudiante');
     }
 }

@@ -1,18 +1,11 @@
 @extends('layouts.app')
-@section('title', 'Gestionar usuarios')
-
-<!-- @if(Session::has('message'))
-	<div class="alert">
-		{{Session::get('message')}}
-	</div>
-@endif -->
-
+@section('title', 'Gestionar estudiantes')
 @section('content')
 <div class="container">
 
 	<div class="row">
 		<div class="">
-			{!!link_to_route('usuario.create', $title = 'Registrar usuario', null, $attributes = ['class'=>'btn btn-primary'])!!}
+			{!!link_to_route('estudiante.create', $title = 'Registrar estudiante', null, $attributes = ['class'=>'btn btn-primary'])!!}
 		</div>
 	</div>
 	&nbsp;
@@ -24,31 +17,10 @@
 					<th>Nombre</th>
 					<th>Correo</th>
 					<th>Es administrador</th>
-					<th>Opciones</th>
+					<th>Operación</th>
 				</thead>
 				<tbody>
-					@foreach($users as $user)
-					<tr>
-						<td>{{$user->name}}</td>
-						<td>{{$user->email}}</td>
-																					
-						@if($user->is_admin == 1)
-							<td>Sí</td>
-						@else
-							<td>No</td>
-						@endif
-						<td>
-							
-							<!-- {!!Form::open(['method' => 'delete', 'route' => ['usuario.destroy', $user->id_users], 'id'=>'form'.$user->id_users])!!}					 -->
-							{!!Form::open(['method' => 'delete', 'route' => ['usuario.destroy', $user->id]])!!}					
-								{!!link_to_route('usuario.edit', $title = 'Modificar', $parameters = $user->id, $attributes = ['class'=>'btn btn-success'])!!}
-					            <!-- {{Form::button('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('type' => '', 'class' => 'btn btn-danger', 'data-id' => $user->id_users))}} -->
-					            {{Form::button('Eliminar', ['class' => 'btn btn-danger'])}}
-					            <!-- <input type="button" value="" class="btn btn-danger" data-id="asd" /> -->
-							{!!Form::close()!!}
-						</td>								
-					</tr>
-					@endforeach
+					
 				</tbody>
 			</table>
 		</div>	

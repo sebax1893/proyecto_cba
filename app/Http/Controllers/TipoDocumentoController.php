@@ -3,12 +3,12 @@
 namespace CBA\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use CBA\Http\Requests;
-use CBA\Estudiante;
-// use CBA\TipoDocumento
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use CBA\TipoDocumento;
 
-class EstudianteController extends Controller
+class TipoDocumentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,8 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-        $estudiantes = Estudiante::All();
-        
-        // $users = User::onlyTrashed()->get();
-        return view('estudiante.index', compact('estudiantes'));
+        $tipoDocumento = TipoDocumento::All();        
+        return view('tipoDocumento.index', compact('tipoDocumento'));
     }
 
     /**
@@ -30,11 +28,7 @@ class EstudianteController extends Controller
      */
     public function create()
     {
-        $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
-        $eps = \DB::table('eps')->lists('nombre', 'id_eps');
-        $municipio = \DB::table('municipios')->lists('id_municipios', 'nombre', 'id_municipios');        
-
-        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio'));
+        return view('tipoDocumento.create');
     }
 
     /**
@@ -45,7 +39,13 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|max:255',            
+        ]);
+
+        TipoDocumento::create($request->all());
+
+        return redirect('/tipoDocumento')->with('message','Tipo de documento registrado correctamente');
     }
 
     /**
@@ -67,7 +67,8 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tipoDocumento = TipoDocumento::findOrFail($id);
+        return view('tipoDocumento.edit', ['tipoDocumento'=>$tipoDocumento]);
     }
 
     /**
@@ -79,7 +80,16 @@ class EstudianteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|max:255',            
+        ]);
+
+        $tipoDocumento = TipoDocumento::findOrFail($id);
+        $tipoDocumento->fill($request->all());
+        $tipoDocumento->save();
+
+        Session::flash('message', 'Tipo de documento modificado correctamente');
+        return Redirect::to('/tipoDocumento');
     }
 
     /**
@@ -90,6 +100,9 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tipoDocumento = TipoDocumento::find($id);
+        $tipoDocumento->delete();
+        Session::flash('message', 'Tipo de documento eliminado correctamente');
+        return Redirect::to('/tipoDocumento');
     }
 }

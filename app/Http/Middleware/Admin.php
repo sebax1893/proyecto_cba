@@ -4,8 +4,7 @@ namespace CBA\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Auth\Guard;+
-use Closure;
+use Illuminate\Contracts\Auth\Guard;
 use Session;
 
 class Admin
@@ -24,16 +23,36 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ( Auth::check() && Auth::user()->isAdmin() )
+        if ( Auth::check() && Auth::user()->is_admin == 1 )
         {
 
             return $next($request);
 
         }else{
 
-            return redirect ('/');
+            Session::flash('message', 'No es admin');
+            return redirect()->to('home');
 
         }
+
+        // if ( Auth::check() && Auth::user()->isAdmin() )
+        // {
+
+        //     return $next($request);
+
+        // }else{
+
+        //     return redirect ('/');
+
+        // }
+
+        // if ($this->auth->user()->is_admin != 1) {
+        //     Session::flash('message', 'No es admin');
+        //     return redirect()->to('home');
+        // } else {
+        //     return $next($request);
+        // }
+
         // return $next($request);
         
     }

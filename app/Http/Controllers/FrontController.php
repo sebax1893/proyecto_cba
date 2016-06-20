@@ -10,7 +10,7 @@ class FrontController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth', ['only' => 'admin']);
+        // $this->middleware('auth', ['only' => 'home']);
     }
 
     /**
@@ -25,7 +25,7 @@ class FrontController extends Controller
 
     public function home()
     {
-        return view('admin/home');
+        return view('home');
     }
 
     public function login()
