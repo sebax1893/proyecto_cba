@@ -10,11 +10,16 @@ class Institucion extends Model
 	use SoftDeletes;
 
     protected $table = 'institucions';
-    protected $primaryKey = 'id_instotucions';
-	protected $fillable = ['nombre','resenha'];
+    protected $primaryKey = 'id_institucions';
+	protected $fillable = ['id_municipios', 'nombre','resenha'];
 
     protected $dates = ['deleted_at'];
     
+    public function municipios()
+    {
+        return $this->belongsTo('CBA\Municipio', 'id_municipios');
+    }
+
     /**
      * Las instituciones que pertenecen a bandas.
      */

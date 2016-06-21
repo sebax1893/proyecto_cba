@@ -32,8 +32,8 @@ class EstudianteController extends Controller
     {
         $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
         $eps = \DB::table('eps')->lists('nombre', 'id_eps');
-        $municipio = \DB::table('municipios')->lists('id_municipios', 'nombre', 'id_municipios');        
-
+        $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
+        
         return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio'));
     }
 

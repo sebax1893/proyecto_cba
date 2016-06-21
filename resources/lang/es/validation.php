@@ -103,12 +103,12 @@ return [
     |
     */
     'attributes'           => [
-        'name'                  => '"nombre"',
+        'name'                  => 'nombre',
         'username'              => 'usuario',
-        'email'                 => '"correo electrónico"',
+        'email'                 => 'correo electrónico',
         'first_name'            => 'nombre',
         'last_name'             => 'apellidos',
-        'password'              => '"contraseña"',
+        'password'              => 'contraseña',
         'password_confirmation' => 'confirmación de la contraseña',
         'city'                  => 'ciudad',
         'country'               => 'país',
@@ -132,7 +132,9 @@ return [
         'time'                  => 'hora',
         'subject'               => 'asunto',
         'message'               => 'mensaje',
-        'is_admin'               => '"es administrador"',
+        'is_admin'              => 'es administrador', //campo de Users
+        'resenha'               => 'reseña',        //campo de Institucion
+        'id_municipios'         => 'municipio',     //campo de Institucion
 
     ],
 ];

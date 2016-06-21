@@ -65,7 +65,8 @@
                         <li>{!!link_to_route('tipoDocumento.index', $title = 'Gestionar tipos de documento', null)!!}</li>
                         <li>{!!link_to_route('eps.index', $title = 'Gestionar EPS', null)!!}</li>
                         <li>{!!link_to_route('tipoBanda.index', $title = 'Gestionar Tipos de banda', null)!!}</li>
-                        <li>{!!link_to_route('categoria.index', $title = 'Gestionar Categorías', null)!!}</li>     
+                        <li>{!!link_to_route('categoria.index', $title = 'Gestionar Categorías', null)!!}</li> 
+                        <li>{!!link_to_route('institucion.index', $title = 'Gestionar Instituciones', null)!!}</li>     
                     @endif
                 </ul>
 
