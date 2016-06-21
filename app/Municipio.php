@@ -11,5 +11,14 @@ class Municipio extends Model
     protected $fillable = ['nombre'];
 
     public $timestamps = false;
-    
+	
+    public function institucions()
+  	{
+    	return $this->hasMany('CBA\Institucion', 'id_institucions', 'id_municipios');
+  	}
+
+	// public function institucions()
+ //    {
+ //        return $this->belongsTo('CBA\Institucion', 'id_institucions', 'id_municipios');
+ //    }    
 }

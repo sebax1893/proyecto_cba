@@ -22,6 +22,7 @@ Route::resource('tipoDocumento','TipoDocumentoController');
 Route::resource('eps','EpsController');
 Route::resource('tipoBanda','TipoBandaController');
 Route::resource('categoria','CategoriaController');
+Route::resource('institucion','InstitucionController');
 
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');

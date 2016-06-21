@@ -15,23 +15,13 @@
 
                         <div class="form-group">
                             {!!Form::label('tipo_documento', 'Tipo de documento', ['class' => 'required'])!!}
-                            {!!Form::select('tipo_documento', (['0' => 'Seleccionar'] + $tipoDocumento), null, ['class' => 'form-control'])!!}
+                            {!!Form::select('tipo_documento', (['' => 'Seleccionar'] + $tipoDocumento), null, ['class' => 'form-control'])!!}
                             @if ($errors->has('tipo_documento'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('tipo_documento') }}</strong>       
                                 </div>      
                             @endif
-                        </div>
-
-                        <div class="form-group">
-                            {!!Form::label('eps', 'EPS', ['class' => 'required'])!!}
-                            {!!Form::select('eps', (['0' => 'Seleccionar'] + $eps), null, ['class' => 'form-control'])!!}
-                            @if ($errors->has('eps'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('eps') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>
+                        </div>                        
 
                         <div class="form-group">
                             {!!Form::label('numeroIdentificacion', 'Número de idenfiticación', ['class' => 'required'])!!}
@@ -91,17 +81,82 @@
                                     <strong>{{ $errors->first('direccion') }}</strong>      
                                 </div>      
                             @endif
-                        </div>  
+                        </div>
 
                         <div class="form-group">
                             {!!Form::label('municipio', 'Municipio', ['class' => 'required'])!!}
-                            {!!Form::select('municipio', (['0' => 'Seleccionar'] + $tipoDocumento), null, ['class' => 'form-control'])!!}
+                            {!!Form::select('municipio', (['' => 'Seleccionar'] + $municipio), null, ['class' => 'form-control'])!!}
                             @if ($errors->has('municipio'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('municipio') }}</strong>       
                                 </div>      
                             @endif
-                        </div>         
+                        </div>  
+
+                        <div class="form-group">
+                            {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
+                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
+                        </div> 
+
+                        <div class="form-group">
+                            {!!Form::label('barrio', 'Barrio', ['class' => 'required'])!!} 
+                            {!!Form::text('barrio',null,['class'=>'form-control', 'placeholder'=>'Barrio del estudiante'])!!}
+                            @if ($errors->has('barrio'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('barrio') }}</strong>      
+                                </div>      
+                            @endif
+                        </div>   
+
+                        <div class="form-group">
+                            {!!Form::label('telefono', 'Número de teléfono', ['class' => 'required'])!!}    
+                            {!!Form::number('telefono', null, ['class'=>'form-control', 'placeholder'=>'Número de teléfono del estudiante'])!!}
+                            @if ($errors->has('telefono'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('telefono') }}</strong>       
+                                </div>      
+                            @endif
+                        </div>  
+
+                        <div class="form-group">
+                            {!!Form::label('celular', 'Número de celular', ['class' => ''])!!}    
+                            {!!Form::number('celular', null, ['class'=>'form-control', 'placeholder'=>'Número de celular del estudiante'])!!}
+                            @if ($errors->has('celular'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('celular') }}</strong>       
+                                </div>      
+                            @endif
+                        </div> 
+
+                        <div class="form-group">
+                            {!!Form::label('correo', 'Correo electrónico', ['class' => 'required'])!!} 
+                            {!!Form::email('correo',null,['class'=>'form-control', 'placeholder'=>'Correo electrónico del estudiante'])!!}
+                            @if ($errors->has('correo'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('correo') }}</strong>      
+                                </div>      
+                            @endif
+                        </div> 
+
+                        <div class="form-group">
+                            {!!Form::label('eps', 'EPS', ['class' => 'required'])!!}
+                            {!!Form::select('eps', (['' => 'Seleccionar'] + $eps), null, ['class' => 'form-control'])!!}
+                            @if ($errors->has('eps'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('eps') }}</strong>       
+                                </div>      
+                            @endif
+                        </div>
+                        
+                        <div class="form-group">
+                            {!!Form::label('nombrePadre', 'Nombre del padre', ['class' => 'required'])!!} 
+                            {!!Form::text('nombrePadre',null,['class'=>'form-control', 'placeholder'=>'Nombre del padre del estudiante'])!!}
+                            @if ($errors->has('nombrePadre'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('nombrePadre') }}</strong>      
+                                </div>      
+                            @endif
+                        </div>   
 
                         <div class="form-group">
                             {!!Form::label('foto', 'Imagen de perfíl', ['class' => ''])!!}
