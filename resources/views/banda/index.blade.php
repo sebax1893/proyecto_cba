@@ -54,9 +54,9 @@
 
 		$(function() {
 			$('#dataTable').dataTable({
-				// No permitir ordenar la columna de Opciones
+				// No permitir ordenar la columna de Operación
 				"aoColumnDefs": [
-					{ 'bSortable': false, 'aTargets': [ 2 ] }
+					{ 'bSortable': false, 'aTargets': [ 1 ] }
 				],
 				// Usar el lenguaje español
 				"oLanguage": {

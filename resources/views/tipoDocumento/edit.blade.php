@@ -12,7 +12,7 @@
 	                	{!!Form::model($tipoDocumento, ['route'=> ['tipoDocumento.update', $tipoDocumento->id_tipo_documentos], 'method'=>'PATCH'])!!}
 
 	                		<div class="form-group">
-								{!!Form::label('nombre', 'Nombre')!!}
+								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('nombre',null,['class'=>'form-control', 'placeholder'=>'Ingresar nuevo nombre de tipo de documento'])!!}
 								@if ($errors->has('nombre'))
 									<div class="list-group-item list-group-item-warning">		

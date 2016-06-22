@@ -5,57 +5,9 @@ namespace CBA\Http\Controllers;
 use Illuminate\Http\Request;
 
 use CBA\Http\Requests;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
-use CBA\Institucion;
-use CBA\Municipio;
-use CBA\Subregion;
 
-class InstitucionController extends Controller
+class BandaController extends Controller
 {
-
-    // public function prueba(Request $request)
-    // {
-    //     // echo "asd " + $request->all();
-    //     $muni = Municipio::where('id_municipios', $request->all())                            
-    //            ->get();
-
-    //     $muni = Municipio::where('id_municipios', $request->all())                            
-    //            ->get();
-
-    //     // echo "asd " + $muni;
-    //     if ($request->ajax()) {            
-    //         return response()->json([
-    //             $muni
-    //         ]);
-    //     }
-
-    //     // return ['success' => true, 'data' => $data];
-    // }
-    
-    public function prueba(Request $request)
-    {
-        // $id_municipio = $request['id_municipio']; 
-        $id = $request->input('id_municipio');        
-
-        $subregions = Subregion::join('municipios', function ($join) use ($id) {
-            $join->on('subregions.id_subregions', '=', 'municipios.id_subregions')
-                 ->where('municipios.id_municipios', '=', $id);
-        })
-        ->select('subregions.nombre')
-        ->get();
-
-        // $muni = Municipio::where('id_municipios', $id)                            
-        //        ->get();
-
-        if ($request->ajax()) {            
-            return response()->json([
-                $subregions
-            ]);
-        }
-
-    }
-
     /**
      * Display a listing of the resource.
      *

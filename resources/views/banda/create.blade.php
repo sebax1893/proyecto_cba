@@ -16,7 +16,6 @@
 	                <div class="panel-body">
 
 	                	{!!Form::open(['route'=>'institucion.store', 'method'=>'POST'])!!}
-	                		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
 	                		<div class="form-group">
 								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('nombre',null,['class'=>'form-control', 'placeholder'=>'Ingresar el nombre de la institución'])!!}
@@ -37,11 +36,6 @@
 	                                </div>      
 	                            @endif
 	                        </div> 
-
-	                        <div class="form-group">
-	                            {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
-	                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
-	                        </div>
 
 							<div class="form-group">
 								{!!Form::label('resenha', 'Reseña histórica', ['class' => 'required'])!!}
@@ -67,30 +61,4 @@
     	</div>
 	</div>    
 
-@endsection
-@section('scripts')
-	<script type="text/javascript">
-		$(function () {
-            
-            $('#id_municipios').change(function () {
-
-                var municipioDropDownValue = $('#id_municipios').val();
-                var subregionDropDown = $('#subregion');
-                var token = $("#token").val();
-
-                $.ajax({
-                	headers: {'X-CSRF-TOKEN': token},
-                    type: 'POST',
-                    url: "prueba",
-                    data: {id_municipio: municipioDropDownValue},
-                    dataType: 'json',
-                    success: function(response) {
-				        // console.log("array: " + response + " nombre ? : " + response.response.nombre);
-				        console.log(response);
-				        // subregionDropDown.val(response.nombre);
-				    }
-                })
-            });
-        });
-	</script>
 @endsection

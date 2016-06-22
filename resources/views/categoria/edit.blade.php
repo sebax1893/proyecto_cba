@@ -12,7 +12,7 @@
 	                	{!!Form::model($categoria, ['route'=> ['categoria.update', $categoria->id_categorias], 'method'=>'PATCH'])!!}
 
 	                		<div class="form-group">
-								{!!Form::label('nombre', 'Nombre')!!}
+								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('nombre',null,['class'=>'form-control', 'placeholder'=>'Ingresar nuevo nombre de la categoría'])!!}
 								@if ($errors->has('nombre'))
 									<div class="list-group-item list-group-item-warning">		

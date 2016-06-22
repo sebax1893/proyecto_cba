@@ -25,11 +25,7 @@ class CreateEstudiantesTable extends Migration
 
             //Foreign Key municipios
             $t->integer('id_municipios')->unsigned();
-            $t->foreign('id_municipios')->references('id_municipios')->on('municipios');
-
-            //Foreign Key bandas
-            $t->integer('id_bandas')->unsigned();
-            $t->foreign('id_bandas')->references('id_bandas')->on('bandas');        
+            $t->foreign('id_municipios')->references('id_municipios')->on('municipios');        
 
             $t->integer('numeroIdentificacion');
             $t->string('nombres');

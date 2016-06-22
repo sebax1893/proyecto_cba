@@ -12,11 +12,11 @@ class Pariente extends Model
     public $timestamps = false;
     protected $fillable = ['nombre', 'telefono'];    
 
-    /**
-     * Los parientes que pertenecen a estudiantes.
-     */
-    public function estudiantes()
-    {
-        return $this->belongsToMany('CBA\Estudiante');
-    }
+    // /**
+    //  * Los parientes que pertenecen a estudiantes.
+    //  */
+    // public function estudiantes()
+    // {
+    //     return $this->belongsToMany('CBA\Estudiante');
+    // }
 }

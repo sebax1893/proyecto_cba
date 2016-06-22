@@ -11,7 +11,7 @@ class Banda extends Model
 
     protected $table = 'bandas';
     protected $primaryKey = 'id_bandas';
-    protected $fillable = ['nombre','representante','contacto_representante','correo_representante','director','contacto_director','correo_director'];
+    protected $fillable = ['id_institucions','nombre','representante','contacto_representante','correo_representante','director','contacto_director','correo_director'];
 
     protected $dates = ['deleted_at'];
     
@@ -20,7 +20,7 @@ class Banda extends Model
      */
     public function institucions()
     {
-        return $this->belongsToMany('CBA\Institucion', 'banda_institucion', 'id_bandas', 'id_institucions');
+        return $this->belongsToMany('CBA\Institucion', 'banda_institucion', 'id_institucions', 'id_bandas');
     }
 
 }
