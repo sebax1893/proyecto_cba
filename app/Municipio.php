@@ -12,6 +12,9 @@ class Municipio extends Model
 
     public $timestamps = false;
 	
+    /**
+    * Relación One-To-Many institución tiene muchos municipios
+    */
     public function institucions()
   	{
     	return $this->hasMany('CBA\Institucion', 'id_institucions', 'id_municipios');

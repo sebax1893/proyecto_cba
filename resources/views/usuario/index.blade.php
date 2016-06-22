@@ -65,7 +65,7 @@
 
 		$(function() {
 			$('#dataTable').dataTable({
-				// No permitir ordenar la columna de Operación
+				// No permitir ordenar la columna de Opciones
 				"aoColumnDefs": [
 					{ 'bSortable': false, 'aTargets': [ 3 ] }
 				],

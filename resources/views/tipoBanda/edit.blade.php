@@ -12,7 +12,7 @@
 	                	{!!Form::model($tipoBanda, ['route'=> ['tipoBanda.update', $tipoBanda->id_tipo_bandas], 'method'=>'PATCH'])!!}
 
 	                		<div class="form-group">
-								{!!Form::label('nombre', 'Nombre')!!}
+								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('nombre',null,['class'=>'form-control', 'placeholder'=>'Ingresar nuevo nombre del tipo de banda'])!!}
 								@if ($errors->has('nombre'))
 									<div class="list-group-item list-group-item-warning">		

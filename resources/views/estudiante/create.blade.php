@@ -15,7 +15,7 @@
 
                         <div class="form-group">
                             {!!Form::label('tipo_documento', 'Tipo de documento', ['class' => 'required'])!!}
-                            {!!Form::select('tipo_documento', (['' => 'Seleccionar'] + $tipoDocumento), null, ['class' => 'form-control'])!!}
+                            {!!Form::select('tipo_documento', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
                             @if ($errors->has('tipo_documento'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('tipo_documento') }}</strong>       
@@ -84,11 +84,11 @@
                         </div>
 
                         <div class="form-group">
-                            {!!Form::label('municipio', 'Municipio', ['class' => 'required'])!!}
-                            {!!Form::select('municipio', (['' => 'Seleccionar'] + $municipio), null, ['class' => 'form-control'])!!}
-                            @if ($errors->has('municipio'))
+                            {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
+                            {!!Form::select('id_municipios', $municipio, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                            @if ($errors->has('id_municipios'))
                                 <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('municipio') }}</strong>       
+                                    <strong>{{ $errors->first('id_municipios') }}</strong>       
                                 </div>      
                             @endif
                         </div>  
@@ -140,7 +140,7 @@
 
                         <div class="form-group">
                             {!!Form::label('eps', 'EPS', ['class' => 'required'])!!}
-                            {!!Form::select('eps', (['' => 'Seleccionar'] + $eps), null, ['class' => 'form-control'])!!}
+                            {!!Form::select('eps', $eps, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
                             @if ($errors->has('eps'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('eps') }}</strong>       
@@ -185,6 +185,8 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
+
+        
 
         $('#datepicker').datepicker({
             format: "dd/mm/yyyy",

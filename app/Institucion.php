@@ -15,16 +15,19 @@ class Institucion extends Model
 
     protected $dates = ['deleted_at'];
     
+    /**
+    * Relación One-To-Many institución tiene muchos municipios
+    */
     public function municipios()
     {
         return $this->belongsTo('CBA\Municipio', 'id_municipios');
     }
 
-    /**
-     * Las instituciones que pertenecen a bandas.
-     */
-    public function estudiantes()
-    {
-        return $this->belongsToMany('CBA\Banda');
-    }
+    // /**
+    //  * Las instituciones que pertenecen a bandas.
+    //  */
+    // public function estudiantes()
+    // {
+    //     return $this->belongsToMany('CBA\Banda');
+    // }
 }
