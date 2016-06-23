@@ -2,12 +2,13 @@
 @section('title', 'Gestionar estudiantes')
 @section('content')
 <div class="container">
-
+	@if (Auth::user()->is_admin == 1)
 	<div class="row">
 		<div class="">
 			{!!link_to_route('estudiante.create', $title = 'Registrar estudiante', null, $attributes = ['class'=>'btn btn-primary'])!!}
 		</div>
 	</div>
+	@endif
 	&nbsp;
 	<div class="row">
 		

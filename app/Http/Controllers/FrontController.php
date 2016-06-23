@@ -10,7 +10,7 @@ class FrontController extends Controller
 {
 
     public function __construct() {
-        // $this->middleware('auth', ['only' => 'home']);
+        $this->middleware('auth', ['only' => 'home']);
     }
 
     /**
@@ -32,14 +32,10 @@ class FrontController extends Controller
     {
         return view('auth/login');
     }
-    
-    public function estudiantes()
-    {
-        return view('estudiantes');
-    }
 
-    public function instituciones()
+    public function reset()
     {
-        return view('instituciones');       
+        return view('passwords/reset');
     }
+      
 }

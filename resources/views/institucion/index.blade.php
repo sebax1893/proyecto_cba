@@ -23,6 +23,8 @@
 				<thead>
 					<th>Nombre</th>
 					<th>Municipio</th>					
+					<th>Subregión</th>					
+					<th>Reseña histórica</th>					
 					<th>Opciones</th>
 				</thead>
 				<tbody>
@@ -30,6 +32,8 @@
 					<tr>
 						<td>{{$institucions->nombre}}</td>
 						<td>{{$institucions->municipios->nombre}}</td>			
+						<td>{{$institucions->municipios->subregions->nombre}}</td>			
+						<td>{{$institucions->resenha}}</td>			
 						<td>											
 							{!!Form::open(['method' => 'delete', 'route' => ['institucion.destroy', $institucions->id_institucions]])!!}
 								{!!link_to_route('institucion.edit', $title = 'Modificar', $parameters = $institucions->id_institucions, $attributes = ['class'=>'btn btn-success'])!!}								
@@ -56,7 +60,7 @@
 			$('#dataTable').dataTable({
 				// No permitir ordenar la columna de Opciones
 				"aoColumnDefs": [
-					{ 'bSortable': false, 'aTargets': [ 2 ] }
+					{ 'bSortable': false, 'aTargets': [ 4 ] }
 				],
 				// Usar el lenguaje español
 				"oLanguage": {

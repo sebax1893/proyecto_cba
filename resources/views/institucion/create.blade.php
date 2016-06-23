@@ -38,7 +38,7 @@
 	                            @endif
 	                        </div> 
 
-	                        <div class="form-group">
+	                        <div class="form-group" id="subregionDiv">
 	                            {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
 	                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
 	                        </div>
@@ -70,25 +70,32 @@
 @endsection
 @section('scripts')
 	<script type="text/javascript">
+
 		$(function () {
+
+			var subregionInput = $('#subregion');
+			var subregionDiv = $('#subregionDiv')
+			subregionDiv.css('display', 'none');
             
             $('#id_municipios').change(function () {
 
                 var municipioDropDownValue = $('#id_municipios').val();
-                var subregionDropDown = $('#subregion');
+                
                 var token = $("#token").val();
 
                 $.ajax({
                 	headers: {'X-CSRF-TOKEN': token},
                     type: 'POST',
-                    url: "prueba",
+                    url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
                     data: {id_municipio: municipioDropDownValue},
                     dataType: 'json',
-                    success: function(response) {
-				        // console.log("array: " + response + " nombre ? : " + response.response.nombre);
-				        console.log(response);
-				        // subregionDropDown.val(response.nombre);
-				    }
+                    success: function(data){
+
+                    	var subregion = data[0].nombre;
+
+                    	subregionDiv.show();
+	               		subregionInput.val(subregion);           
+		            }
                 })
             });
         });

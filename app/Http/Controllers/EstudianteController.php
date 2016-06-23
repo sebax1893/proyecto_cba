@@ -10,6 +10,12 @@ use CBA\Estudiante;
 
 class EstudianteController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('admin', ['only' => ['create', 'edit', 'update', 'destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

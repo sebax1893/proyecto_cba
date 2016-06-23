@@ -35,16 +35,16 @@ class Admin
 
         }
 
-        // if ( Auth::check() && Auth::user()->isAdmin() )
-        // {
+        if ( Auth::check() && Auth::user()->is_admin == 1 )
+        {
 
-        //     return $next($request);
+            return $next($request);
 
-        // }else{
+        } else {
 
-        //     return redirect ('/');
-
-        // }
+            Session::flash('message', 'No es admin');
+            return redirect()->to('welcome');
+        }
 
         // if ($this->auth->user()->is_admin != 1) {
         //     Session::flash('message', 'No es admin');
