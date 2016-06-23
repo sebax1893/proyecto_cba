@@ -55,21 +55,23 @@
                     <li><a href="{{ url('/home') }}">Home</a></li>                   
                     @if (Auth::check())
                         <li>{!!link_to_route('estudiante.index', $title = 'Estudiantes', null)!!}</li>
-                        <li>{!!link_to_route('banda.index', $title = 'Bandas', null)!!}</li>
-                        <li>{!!link_to_route('institucion.index', $title = 'Instituciones', null)!!}</li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Administración <span class="caret"></span>
-                            </a>
+                        @if (Auth::user()->is_admin == 1)                        
+                            <li>{!!link_to_route('banda.index', $title = 'Bandas', null)!!}</li>
+                            <li>{!!link_to_route('institucion.index', $title = 'Instituciones', null)!!}</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Administración <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li>{!!link_to_route('usuario.index', $title = 'Gestionar usuarios', null)!!}</li>
-                                <li>{!!link_to_route('categoria.index', $title = 'Gestionar categorías de bandas', null)!!}</li>
-                                <li>{!!link_to_route('tipoBanda.index', $title = 'Gestionar tipos de bandas', null)!!}</li>
-                                <li>{!!link_to_route('eps.index', $title = 'Gestionar EPS', null)!!}</li>
-                                <li>{!!link_to_route('tipoDocumento.index', $title = 'Gestionar tipos de documentos', null)!!}</li>                                
-                            </ul>
-                        </li>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>{!!link_to_route('usuario.index', $title = 'Gestionar usuarios', null)!!}</li>
+                                    <li>{!!link_to_route('categoria.index', $title = 'Gestionar categorías de bandas', null)!!}</li>
+                                    <li>{!!link_to_route('tipoBanda.index', $title = 'Gestionar tipos de bandas', null)!!}</li>
+                                    <li>{!!link_to_route('eps.index', $title = 'Gestionar EPS', null)!!}</li>
+                                    <li>{!!link_to_route('tipoDocumento.index', $title = 'Gestionar tipos de documentos', null)!!}</li>                                
+                                </ul>
+                            </li>
+                        @endif
                     @endif                               
                 </ul>
 
@@ -77,17 +79,21 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Ingresar</a></li>                        
-                    @else
-                        <li class="dropdown">
+                        <li>{!!link_to('login', $title = 'Ingresar', null, null)!!}</li>                        
+                    @else                        
+                        <li class="dropdown">                            
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                @if (Auth::user()->is_admin == 1)
+                                    <span class="label label-danger">Administrador</span>
+                                @else
+                                    <span class="label label-info">Usuario</span>
+                                @endif
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar sesión</a></li>
                             </ul>
-                        </li>                        
+                        </li>                                             
                     @endif
                 </ul>
             </div>
@@ -111,9 +117,9 @@
     {!!Html::script('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')!!} 
     <!-- Bootstrap Datepicker Spanish JavaScript -->
     {!!Html::script('assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js')!!} 
-
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-
+    
+    <!-- Script messages -->
+    <!-- {!!Html::script('assets/js/script_messages.js')!!}         -->
     @yield('scripts')
 </body>
 </html>

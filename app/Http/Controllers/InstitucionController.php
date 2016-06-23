@@ -13,45 +13,20 @@ use CBA\Subregion;
 
 class InstitucionController extends Controller
 {
-
-    // public function prueba(Request $request)
-    // {
-    //     // echo "asd " + $request->all();
-    //     $muni = Municipio::where('id_municipios', $request->all())                            
-    //            ->get();
-
-    //     $muni = Municipio::where('id_municipios', $request->all())                            
-    //            ->get();
-
-    //     // echo "asd " + $muni;
-    //     if ($request->ajax()) {            
-    //         return response()->json([
-    //             $muni
-    //         ]);
-    //     }
-
-    //     // return ['success' => true, 'data' => $data];
-    // }
     
-    public function prueba(Request $request)
+    public function obtenerSubregion(Request $request)
     {
-        // $id_municipio = $request['id_municipio']; 
         $id = $request->input('id_municipio');        
 
-        $subregions = Subregion::join('municipios', function ($join) use ($id) {
+        $subregion = Subregion::join('municipios', function ($join) use ($id) {
             $join->on('subregions.id_subregions', '=', 'municipios.id_subregions')
                  ->where('municipios.id_municipios', '=', $id);
-        })
-        ->select('subregions.nombre')
-        ->get();
-
-        // $muni = Municipio::where('id_municipios', $id)                            
-        //        ->get();
+            })
+            ->select('subregions.nombre')
+            ->get();
 
         if ($request->ajax()) {            
-            return response()->json([
-                $subregions
-            ]);
+            return response()->json($subregion);
         }
 
     }
@@ -64,8 +39,9 @@ class InstitucionController extends Controller
     public function index()
     {
         $institucion = Institucion::with('municipios')->get(); //with() para traer el modelo Municipios
+        $municipios = Municipio::with('subregions')->get();
         
-        return view('institucion.index', compact('institucion'));
+        return view('institucion.index', compact('institucion', 'municipios'));
     }
 
     /**
@@ -107,8 +83,7 @@ class InstitucionController extends Controller
      */
     public function show($id)
     {
-  //       $institucion = Institucion::find($id);    
-  // return view('institucion.show')->with('institucion', $institucion);
+  
     }
 
     /**

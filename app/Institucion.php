@@ -16,7 +16,7 @@ class Institucion extends Model
     protected $dates = ['deleted_at'];
     
     /**
-    * Relación One-To-Many institución tiene muchos municipios
+    * Relación One-To-Many: hay muchas instituciones en un municipio
     */
     public function municipios()
     {
