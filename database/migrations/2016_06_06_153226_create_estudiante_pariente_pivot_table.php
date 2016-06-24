@@ -18,6 +18,7 @@ class CreateEstudianteParientePivotTable extends Migration
             $t->integer('id_parientes')->unsigned()->index();
             $t->foreign('id_parientes')->references('id_parientes')->on('parientes')->onDelete('cascade');
             $t->primary(['id_estudiantes', 'id_parientes']);
+            $t->boolean('es_representante')->default(0);
         });
     }
 

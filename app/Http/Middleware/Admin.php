@@ -23,17 +23,6 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ( Auth::check() && Auth::user()->is_admin == 1 )
-        {
-
-            return $next($request);
-
-        }else{
-
-            Session::flash('message', 'No es admin');
-            return redirect()->to('home');
-
-        }
 
         if ( Auth::check() && Auth::user()->is_admin == 1 )
         {
@@ -42,7 +31,7 @@ class Admin
 
         } else {
 
-            Session::flash('message', 'No es admin');
+            Session::flash('message', 'No tiene permisos');
             return redirect()->to('welcome');
         }
 
