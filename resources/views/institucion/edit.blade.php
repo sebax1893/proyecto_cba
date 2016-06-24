@@ -67,8 +67,12 @@
 
 			var subregionInput = $('#subregion');
 			var subregionDiv = $('#subregionDiv')
-			subregionDiv.css('display', 'none');
-            $('#id_municipios').change(function () {
+			// subregionDiv.css('display', 'none');
+
+			// $(document).on('change','#multiid',function(){
+			//     alert('Change Happened');
+			// });
+            var displaySubregion = function (e) {
 
                 var municipioDropDownValue = $('#id_municipios').val();
                 
@@ -77,19 +81,23 @@
                 $.ajax({
                 	headers: {'X-CSRF-TOKEN': token},
                     type: 'POST',
-                    url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
-                    // url: "obtenerSubregion",
+                    // url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
+                    url: "/proyecto_cba/public/institucion/obtenerSubregion",
                     data: {id_municipio: municipioDropDownValue},
                     dataType: 'json',
                     success: function(data){
 
                     	var subregion = data[0].nombre;
 
-                    	subregionDiv.show();
+                    	// subregionDiv.show();
 	               		subregionInput.val(subregion);           
 		            }
-                })
-            });
+                });
+            };
+
+            $('#id_municipios')
+            	.change(displaySubregion)
+            	.ready(displaySubregion)
         });
 	</script>
 @endsection

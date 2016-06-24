@@ -86,7 +86,8 @@
                 $.ajax({
                 	headers: {'X-CSRF-TOKEN': token},
                     type: 'POST',
-                    url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
+                    // url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
+                    url: "./obtenerSubregion",
                     data: {id_municipio: municipioDropDownValue},
                     dataType: 'json',
                     success: function(data){

@@ -30,6 +30,7 @@ class CreateBandasTable extends Migration
             $t->string('director');
             $t->string('contacto_director');
             $t->string('correo_director');
+            $t->text('resenha');            
 
             $t->timestamps();
             $t->softDeletes();

@@ -11,7 +11,7 @@ class Banda extends Model
 
     protected $table = 'bandas';
     protected $primaryKey = 'id_bandas';
-    protected $fillable = ['id_institucions','nombre','representante','contacto_representante','correo_representante','director','contacto_director','correo_director'];
+    protected $fillable = ['id_institucions','nombre','representante','contacto_representante','correo_representante','director','contacto_director','correo_director', 'resenha'];
 
     protected $dates = ['deleted_at'];
     
