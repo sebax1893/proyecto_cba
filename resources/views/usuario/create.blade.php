@@ -20,7 +20,7 @@
 								{!!Form::label('name', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('name',null,['class'=>'form-control', 'placeholder'=>'Ingresar el nombre de usuario'])!!}
 								@if ($errors->has('name'))
-									<div class="list-group-item list-group-item-warning">		
+									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('name') }}</strong>	    
 									</div>	    
 								@endif
@@ -30,7 +30,7 @@
 								{!!Form::label('email', 'Correo electrónico', ['class' => 'required'])!!} 
 								{!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingresar el correo electrónico'])!!}
 								@if ($errors->has('email'))
-									<div class="list-group-item list-group-item-warning">		
+									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('email') }}</strong>	    
 									</div>	    
 								@endif
@@ -40,7 +40,7 @@
 								{!!Form::label('password', 'Contraseña', ['class' => 'required'])!!}	
 								{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresar la contraseña'])!!}
 								@if ($errors->has('password'))
-									<div class="list-group-item list-group-item-warning">		
+									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('password') }}</strong>	    
 									</div>	    
 								@endif
@@ -50,7 +50,7 @@
 								{!!Form::label('password_confirmation', 'Confirmar contraseña', ['class' => 'required'])!!} 
 								{!!Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirmar la contraseña'])!!}
 								@if ($errors->has('password_confirmation'))
-									<div class="list-group-item list-group-item-warning">		
+									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('password_confirmation') }}</strong>	    
 									</div>	    
 								@endif
@@ -62,7 +62,7 @@
 								Sí {!!Form::radio('is_admin', 1)!!} <br>
 								No {!!Form::radio('is_admin', 0)!!}
 								@if ($errors->has('is_admin'))
-									<div class="list-group-item list-group-item-warning">		
+									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('is_admin') }}</strong>	    
 									</div>	    
 								@endif

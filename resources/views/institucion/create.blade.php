@@ -43,7 +43,7 @@
 	                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
 	                        </div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 								{!!Form::label('resenha', 'Reseña histórica', ['class' => 'required'])!!}
 								{!!Form::textarea('resenha',null,['class'=>'form-control', 'placeholder'=>'Reseña histórica de la institución'])!!}
 								@if ($errors->has('resenha'))
@@ -51,7 +51,7 @@
 								        <strong>{{ $errors->first('resenha') }}</strong>	    
 									</div>	    
 								@endif
-							</div>
+							</div> -->
 							
 		                	{!!Form::submit('Registrar', ['class'=>'btn btn-primary'])!!}
 

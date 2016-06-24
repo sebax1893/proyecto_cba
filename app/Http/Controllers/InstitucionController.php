@@ -66,8 +66,7 @@ class InstitucionController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required|max:255',
-            'id_municipios' => 'required',           
-            'resenha' => 'required|max:255',                                
+            'id_municipios' => 'required',                                               
         ]);
 
         Institucion::create($request->all());
@@ -94,12 +93,10 @@ class InstitucionController extends Controller
      */
     public function edit($id)
     {
-        $institucion = Institucion::findOrFail($id);
-        // $municipios = Municipio::lists('nombre','id_municipios');
+        $institucion = Institucion::findOrFail($id);        
         $municipio = Municipio::lists('nombre', 'id_municipios');
         
-        return view('institucion.edit', compact('institucion', 'municipio'));
-        // return view('institucion.edit', ['institucion'=>$institucion], ['municipio'=>$municipio]);
+        return view('institucion.edit', compact('institucion', 'municipio'));        
     }
 
     /**
@@ -113,8 +110,7 @@ class InstitucionController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required|max:255',
-            'id_municipios' => 'required',
-            'resenha' => 'required|max:255',           
+            'id_municipios' => 'required',                
         ]);
 
         $institucion = Institucion::findOrFail($id);

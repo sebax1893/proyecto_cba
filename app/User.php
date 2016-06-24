@@ -3,14 +3,10 @@
 namespace CBA;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
-
-    // protected $primaryKey = 'id_users';
 
     /**
      * The attributes that are mass assignable.
@@ -33,8 +29,6 @@ class User extends Authenticatable
     protected $casts = [
         'is_admin' => 'boolean',
     ];
-
-    protected $dates = ['deleted_at'];
     
     // public function isAdmin()
     // {

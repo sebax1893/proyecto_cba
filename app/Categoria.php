@@ -16,4 +16,11 @@ class Categoria extends Model
 
 	protected $dates = ['deleted_at'];
 
+	/**
+    * Relación One-To-Many: categoria tiene muchas bandas
+    */
+    public function bandas()
+  	{
+    	return $this->hasMany('CBA\Banda', 'id_bandas', 'id_categorias');
+  	}
 }

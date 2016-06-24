@@ -3,8 +3,11 @@
 namespace CBA\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use CBA\Http\Requests;
+use CBA\Banda;
+use CBA\
 
 class BandaController extends Controller
 {
@@ -15,9 +18,10 @@ class BandaController extends Controller
      */
     public function index()
     {
-        $institucion = Institucion::with('municipios')->get(); //with() para traer el modelo Municipios
+        $banda = Banda::with('municipios')->get(); //with() para traer el modelo Municipios
+        $municipios = Municipio::with('subregions')->get();
         
-        return view('institucion.index', compact('institucion'));
+        return view('banda.index', compact('banda', 'municipios'));
     }
 
     /**
@@ -29,7 +33,7 @@ class BandaController extends Controller
     {        
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
         
-        return view('institucion.create', compact('municipio'));
+        return view('banda.create', compact('municipio'));
     }
 
     /**
@@ -42,13 +46,12 @@ class BandaController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required|max:255',
-            'id_municipios' => 'required',           
-            'resenha' => 'required|max:255',                                
+            'id_municipios' => 'required',                                               
         ]);
 
-        Institucion::create($request->all());
+        Banda::create($request->all());
 
-        return redirect('/institucion')->with('message','Institucion registrada correctamente');
+        return redirect('/banda')->with('message','banda registrada correctamente');
     }
 
     /**
@@ -59,8 +62,7 @@ class BandaController extends Controller
      */
     public function show($id)
     {
-  //       $institucion = Institucion::find($id);    
-  // return view('institucion.show')->with('institucion', $institucion);
+  
     }
 
     /**
@@ -71,12 +73,10 @@ class BandaController extends Controller
      */
     public function edit($id)
     {
-        $institucion = Institucion::findOrFail($id);
-        // $municipios = Municipio::lists('nombre','id_municipios');
+        $banda = Banda::findOrFail($id);        
         $municipio = Municipio::lists('nombre', 'id_municipios');
         
-        return view('institucion.edit', compact('institucion', 'municipio'));
-        // return view('institucion.edit', ['institucion'=>$institucion], ['municipio'=>$municipio]);
+        return view('banda.edit', compact('banda', 'municipio'));        
     }
 
     /**
@@ -90,16 +90,15 @@ class BandaController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required|max:255',
-            'id_municipios' => 'required',
-            'resenha' => 'required|max:255',           
+            'id_municipios' => 'required',                
         ]);
 
-        $institucion = Institucion::findOrFail($id);
-        $institucion->fill($request->all());
-        $institucion->save();
+        $banda = Banda::findOrFail($id);
+        $banda->fill($request->all());
+        $banda->save();
 
-        Session::flash('message', 'Institucion modificada correctamente');
-        return Redirect::to('/institucion');
+        Session::flash('message', 'banda modificada correctamente');
+        return Redirect::to('/banda');
     }
 
     /**
@@ -110,9 +109,9 @@ class BandaController extends Controller
      */
     public function destroy($id)
     {
-        $institucion = Institucion::find($id);
-        $institucion->delete();
-        Session::flash('message', 'Institucion eliminada correctamente');
-        return Redirect::to('/institucion');
+        $banda = Banda::find($id);
+        $banda->delete();
+        Session::flash('message', 'banda eliminada correctamente');
+        return Redirect::to('/banda');
     }
 }
