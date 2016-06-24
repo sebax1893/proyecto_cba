@@ -13,7 +13,7 @@ class Municipio extends Model
     public $timestamps = false;
 	
     /**
-    * Relación One-To-Many: hay muchas instituciones en un municipio
+    * Relación One-To-Many: municipio tiene muchas instituciones
     */
     public function institucions()
   	{

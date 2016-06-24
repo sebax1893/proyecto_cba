@@ -11,7 +11,7 @@ class Institucion extends Model
 
     protected $table = 'institucions';
     protected $primaryKey = 'id_institucions';
-	protected $fillable = ['id_municipios', 'nombre', 'resenha'];
+	protected $fillable = ['id_municipios', 'nombre'];
 
     protected $dates = ['deleted_at'];
     
@@ -23,11 +23,11 @@ class Institucion extends Model
         return $this->belongsTo('CBA\Municipio', 'id_municipios');
     }
 
-    // /**
-    //  * Las instituciones que pertenecen a bandas.
-    //  */
-    // public function estudiantes()
-    // {
-    //     return $this->belongsToMany('CBA\Banda');
-    // }
+    /**
+    * Relación One-To-Many: intitucion tiene muchas bandas
+    */
+    public function institucions()
+    {
+        return $this->hasMany('CBA\Banda', 'id_bandas', 'id_institucions');
+    }
 }

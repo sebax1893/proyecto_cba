@@ -12,10 +12,10 @@ class Subregion extends Model
     public $timestamps = false;
     
     /**
-    * Relación One-To-Many hay muchos municipios en una subregión
+    * Relación One-To-Many subregión tiene muchos municipios
     */
-    public function institucions()
+    public function municipios()
   	{
-    	return $this->hasMany('CBA\Municipio', 'id_municipios', 'id_institucions');
+    	return $this->hasMany('CBA\Municipio', 'id_municipios', 'id_subregions');
   	}
 }

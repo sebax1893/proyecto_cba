@@ -63,13 +63,6 @@ class UsuarioController extends Controller
         ]);
 
         User::create($request->all());
-        
-        // User::create([
-        //     'name' => $request['name'],
-        //     'email' => $request['email'],
-        //     'password' => $request['password'],
-        //     'is_admin' => $request['is_admin'],
-        // ]);
 
         return redirect('/usuario')->with('message','Usuario registrado correctamente');
     }

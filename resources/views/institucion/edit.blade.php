@@ -9,7 +9,7 @@
 	                	Modificar institución
 	                </div>
 	                <div class="panel-body">
-	                	{!!Form::model($institucion, ['route'=> ['institucion.update', $institucion->municipios->id_municipios, $institucion->id_institucions], 'method'=>'PATCH'])!!}
+	                	{!!Form::model($institucion, ['route'=> ['institucion.update', $institucion->id_institucions], 'method'=>'PATCH'])!!}
 	                		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
 	                		<div class="form-group">
 								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
@@ -34,17 +34,7 @@
 	                        <div class="form-group" id="subregionDiv">
 	                            {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
 	                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
-	                        </div>				
-							
-							<div class="form-group">
-								{!!Form::label('resenha', 'Reseña histórica', ['class' => 'required'])!!}
-								{!!Form::textarea('resenha',null,['class'=>'form-control', 'placeholder'=>'Reseña histórica de la institución'])!!}
-								@if ($errors->has('resenha'))
-									<div class="list-group-item list-group-item-warning">		
-								        <strong>{{ $errors->first('resenha') }}</strong>	    
-									</div>	    
-								@endif
-							</div>						
+	                        </div>																	
 							
 		                	{!!Form::submit('Modificar', ['class'=>'btn btn-primary'])!!}
 
