@@ -22,6 +22,8 @@
 			<table class="table table-striped table-bordered" id="dataTable">
 				<thead>
 					<th>Nombre</th>
+					<th>Dirección</th>
+					<th>Teléfono</th>
 					<th>Municipio</th>					
 					<th>Subregión</th>					
 					<th>Opciones</th>
@@ -30,6 +32,8 @@
 					@foreach($institucion as $institucions)
 					<tr>
 						<td>{{$institucions->nombre}}</td>
+						<td>{{$institucions->direccion}}</td>
+						<td>{{$institucions->telefono}}</td>
 						<td>{{$institucions->municipios->nombre}}</td>			
 						<td>{{$institucions->municipios->subregions->nombre}}</td>			
 						<td>											

@@ -56,7 +56,7 @@ return [
         'array'   => ':attribute debe tener al menos :min elementos.',
     ],
     'not_in'               => ':attribute es inválido.',
-    'numeric'              => ':attribute debe ser numérico.',
+    'numeric'              => 'El campo :attribute debe ser numérico.',
     'present'              => 'El campo :attribute debe estar presente.',
     'regex'                => 'El formato de :attribute es inválido.',
     'required'             => 'El campo :attribute es obligatorio.',
@@ -135,6 +135,11 @@ return [
         'is_admin'              => 'es administrador', //campo de Users
         'resenha'               => 'reseña',        //campo de Institucion
         'id_municipios'         => 'municipio',     //campo de Institucion
+        'direccion'             => 'dirección',     
+        'telefono'              => 'teléfono',     
+        'id_institucions'       => 'institución',     //campo de Banda
+        'id_categorias'         => 'categoría',     //campo de Banda
+        'id_tipo_bandas'        => 'tipo de banda',     //campo de Banda       
 
     ],
 ];

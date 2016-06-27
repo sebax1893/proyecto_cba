@@ -10,7 +10,9 @@
 	                </div>
 	                <div class="panel-body">
 	                	{!!Form::model($institucion, ['route'=> ['institucion.update', $institucion->id_institucions], 'method'=>'PATCH'])!!}
+
 	                		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+
 	                		<div class="form-group">
 								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('nombre',null,['class'=>'form-control', 'placeholder'=>'Ingresar nuevo nombre de la institución'])!!}
@@ -20,6 +22,26 @@
 									</div>	    
 								@endif
 							</div>	
+
+							<div class="form-group">
+								{!!Form::label('direccion', 'Dirección', ['class' => 'required'])!!}
+								{!!Form::text('direccion',null,['class'=>'form-control', 'placeholder'=>'Ingresar la dirección de la institución'])!!}
+								@if ($errors->has('direccion'))
+									<div class="list-group-item list-group-item-warning">		
+								        <strong>{{ $errors->first('direccion') }}</strong>	    
+									</div>	    
+								@endif
+							</div>
+
+							<div class="form-group">
+								{!!Form::label('telefono', 'Teléfono', ['class' => 'required'])!!}
+								{!!Form::text('telefono',null,['class'=>'form-control', 'placeholder'=>'Ingresar el teléfono de la institución'])!!}
+								@if ($errors->has('telefono'))
+									<div class="list-group-item list-group-item-warning">		
+								        <strong>{{ $errors->first('telefono') }}</strong>	    
+									</div>	    
+								@endif
+							</div>
 
 							<div class="form-group">
 	                            {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
@@ -77,10 +99,10 @@
                     dataType: 'json',
                     success: function(data){
 
-                    	var subregion = data[0].nombre;
-
-                    	// subregionDiv.show();
-	               		subregionInput.val(subregion);           
+                    	if ($.trim(data)) {
+	                    	var subregion = data[0].nombre;	                    	
+		               		subregionInput.val(subregion);           
+	               		}
 		            }
                 });
             };

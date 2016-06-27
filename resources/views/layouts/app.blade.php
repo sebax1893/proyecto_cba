@@ -22,7 +22,7 @@
     {!!Html::style('assets/css/style.css')!!}   
 
     <!-- DataTables Style -->
-    {!!Html::style('https://cdn.datatables.net/u/bs/dt-1.10.12/datatables.min.css')!!}
+    {!!Html::style('https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.css')!!}
    
     <!-- Datepicker Style -->
     {!!Html::style('assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css')!!}    
@@ -108,7 +108,7 @@
     {!!Html::script('assets/bootstrap/js/bootstrap.min.js')!!} 
 
     <!-- DataTables JavaScript -->
-    {!!Html::script('https://cdn.datatables.net/u/bs/dt-1.10.12/datatables.min.js')!!}     
+    {!!Html::script('https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.js')!!}     
 
     <!-- Sweet Alert JavaScript -->
     {!!Html::script('assets/sweetalert-master/dist/sweetalert.min.js')!!} 

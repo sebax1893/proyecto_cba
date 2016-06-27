@@ -20,6 +20,8 @@ class CreateInstitucionsTable extends Migration
             $t->foreign('id_municipios')->references('id_municipios')->on('municipios');
 
             $t->string('nombre');
+            $t->string('direccion');
+            $t->string('telefono');
             $t->timestamps();
             $t->softDeletes();
         });

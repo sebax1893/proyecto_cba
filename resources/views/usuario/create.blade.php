@@ -16,6 +16,7 @@
 	                <div class="panel-body">
 
 	                	{!!Form::open(['route'=>'usuario.store', 'method'=>'POST'])!!}
+	                	
 	                		<div class="form-group">
 								{!!Form::label('name', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('name',null,['class'=>'form-control', 'placeholder'=>'Ingresar el nombre de usuario'])!!}
@@ -38,7 +39,7 @@
 
 							<div class="form-group">
 								{!!Form::label('password', 'Contraseña', ['class' => 'required'])!!}	
-								{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresar la contraseña'])!!}
+								{!!Form::password('password',['class'=>'form-control', 'placeholder'=>'Ingresar la contraseña - Mínimo 6 caracteres'])!!}
 								@if ($errors->has('password'))
 									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('password') }}</strong>	    
@@ -65,9 +66,9 @@
 									<div class="list-group-item list-group-item-danger">		
 								        <strong>{{ $errors->first('is_admin') }}</strong>	    
 									</div>	    
-								@endif
-							            
+								@endif							            
 							</div>
+
 		                	{!!Form::submit('Registrar', ['class'=>'btn btn-primary'])!!}
 
 	                	{!!Form::close()!!}
