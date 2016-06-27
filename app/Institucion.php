@@ -11,7 +11,7 @@ class Institucion extends Model
 
     protected $table = 'institucions';
     protected $primaryKey = 'id_institucions';
-	protected $fillable = ['id_municipios', 'nombre'];
+	protected $fillable = ['id_municipios', 'nombre', 'direccion', 'telefono'];
 
     protected $dates = ['deleted_at'];
     

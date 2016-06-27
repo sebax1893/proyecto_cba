@@ -19,7 +19,8 @@ class Estudiante extends Model
      */
     public function parientes()
     {
-        return $this->belongsToMany('CBA\Pariente', 'estudiante_pariente', 'id_parientes', 'id_estudiantes');
+        return $this->belongsToMany('CBA\Pariente', 'estudiante_pariente', 'id_parientes', 'id_estudiantes')
+        ->withPivot('es_representante');;
     }
 
     /**
@@ -27,8 +28,7 @@ class Estudiante extends Model
      */
     public function bandas()
     {
-        return $this->belongsToMany('App\Bandas')
-        ->withPivot('asiste')
-        ->withTimestamps();
+        return $this->belongsToMany('App\Banda', 'banda_estidiante', 'id_parientes', 'id_estudiantes')
+        ->withPivot('asiste');        
     }
 }

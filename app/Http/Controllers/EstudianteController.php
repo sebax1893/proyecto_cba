@@ -11,9 +11,13 @@ use CBA\Estudiante;
 class EstudianteController extends Controller
 {
 
-    public function __construct() {
+    public function __construct(Estudiante $estudiante, Banda_estudiante $banda_estudiante) {
+
         $this->middleware('auth');
         $this->middleware('admin', ['only' => ['create', 'edit', 'update', 'destroy']]);
+
+        $this->estudiante = $estudiante;
+        $this->banda_estudiante = $banda_estudiante;
     }
 
     /**
@@ -23,10 +27,10 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-        $estudiantes = Estudiante::All();
+        $estudiante = Estudiante::All();
         
         // $users = User::onlyTrashed()->get();
-        return view('estudiante.index', compact('estudiantes'));
+        return view('estudiante.index', compact('estudiante'));
     }
 
     /**

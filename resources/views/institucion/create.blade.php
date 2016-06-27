@@ -16,13 +16,35 @@
 	                <div class="panel-body">
 
 	                	{!!Form::open(['route'=>'institucion.store', 'method'=>'POST'])!!}
+
 	                		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+
 	                		<div class="form-group">
 								{!!Form::label('nombre', 'Nombre', ['class' => 'required'])!!}
 								{!!Form::text('nombre',null,['class'=>'form-control', 'placeholder'=>'Ingresar el nombre de la institución'])!!}
 								@if ($errors->has('nombre'))
 									<div class="list-group-item list-group-item-warning">		
 								        <strong>{{ $errors->first('nombre') }}</strong>	    
+									</div>	    
+								@endif
+							</div>
+
+							<div class="form-group">
+								{!!Form::label('direccion', 'Dirección', ['class' => 'required'])!!}
+								{!!Form::text('direccion',null,['class'=>'form-control', 'placeholder'=>'Ingresar la dirección de la institución'])!!}
+								@if ($errors->has('direccion'))
+									<div class="list-group-item list-group-item-warning">		
+								        <strong>{{ $errors->first('direccion') }}</strong>	    
+									</div>	    
+								@endif
+							</div>
+
+							<div class="form-group">
+								{!!Form::label('telefono', 'Teléfono', ['class' => 'required'])!!}
+								{!!Form::text('telefono',null,['class'=>'form-control', 'placeholder'=>'Ingresar el teléfono de la institución'])!!}
+								@if ($errors->has('telefono'))
+									<div class="list-group-item list-group-item-warning">		
+								        <strong>{{ $errors->first('telefono') }}</strong>	    
 									</div>	    
 								@endif
 							</div>
@@ -41,17 +63,7 @@
 	                        <div class="form-group" id="subregionDiv">
 	                            {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
 	                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
-	                        </div>
-
-							<!-- <div class="form-group">
-								{!!Form::label('resenha', 'Reseña histórica', ['class' => 'required'])!!}
-								{!!Form::textarea('resenha',null,['class'=>'form-control', 'placeholder'=>'Reseña histórica de la institución'])!!}
-								@if ($errors->has('resenha'))
-									<div class="list-group-item list-group-item-warning">		
-								        <strong>{{ $errors->first('resenha') }}</strong>	    
-									</div>	    
-								@endif
-							</div> -->
+	                        </div>							
 							
 		                	{!!Form::submit('Registrar', ['class'=>'btn btn-primary'])!!}
 

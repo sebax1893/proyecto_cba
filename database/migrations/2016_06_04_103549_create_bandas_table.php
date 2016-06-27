@@ -15,6 +15,10 @@ class CreateBandasTable extends Migration
         Schema::create('bandas', function (Blueprint $t) {
             $t->increments('id_bandas');
 
+            //Foreign Key Institución
+            $t->integer('id_institucions')->unsigned();
+            $t->foreign('id_institucions')->references('id_institucions')->on('institucions');
+
             //Foreign Key Categorias
             $t->integer('id_categorias')->unsigned();
             $t->foreign('id_categorias')->references('id_categorias')->on('categorias');   

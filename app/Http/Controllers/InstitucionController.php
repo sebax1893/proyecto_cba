@@ -38,8 +38,8 @@ class InstitucionController extends Controller
      */
     public function index()
     {
-        $institucion = Institucion::with('municipios')->get(); //with() para traer el modelo Municipios
-        $municipios = Municipio::with('subregions')->get();
+        $institucion = Institucion::All(); //with() para traer el modelo Municipios
+        // $municipios = Municipio::with('subregions')->get();
         
         return view('institucion.index', compact('institucion', 'municipios'));
     }
@@ -66,6 +66,8 @@ class InstitucionController extends Controller
     {
         $this->validate($request, [
             'nombre' => 'required|max:255',
+            'direccion' => 'required|max:255',
+            'telefono' => 'required|numeric',
             'id_municipios' => 'required',                                               
         ]);
 
