@@ -32,17 +32,8 @@ class Admin
         } else {
 
             Session::flash('message', 'No tiene permisos');
-            return redirect()->to('welcome');
+            return redirect()->to('home');
         }
-
-        // if ($this->auth->user()->is_admin != 1) {
-        //     Session::flash('message', 'No es admin');
-        //     return redirect()->to('home');
-        // } else {
-        //     return $next($request);
-        // }
-
-        // return $next($request);
         
     }
 }

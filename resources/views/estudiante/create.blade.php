@@ -14,11 +14,11 @@
                     {!!Form::open(['route'=>'estudiante.store', 'method'=>'POST', 'files'=>true])!!}
 
                         <div class="form-group">
-                            {!!Form::label('tipo_documento', 'Tipo de documento', ['class' => 'required'])!!}
-                            {!!Form::select('tipo_documento', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                            @if ($errors->has('tipo_documento'))
+                            {!!Form::label('id_tipo_documentos', 'Tipo de documento', ['class' => 'required'])!!}
+                            {!!Form::select('id_tipo_documentos', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                            @if ($errors->has('id_tipo_documentos'))
                                 <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('tipo_documento') }}</strong>       
+                                    <strong>{{ $errors->first('id_tipo_documentos') }}</strong>       
                                 </div>      
                             @endif
                         </div>                        
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
+                            {!!Form::label('id_municipios', 'Municipio de Antioquia', ['class' => 'required'])!!}
                             {!!Form::select('id_municipios', $municipio, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
                             @if ($errors->has('id_municipios'))
                                 <div class="list-group-item list-group-item-warning">       
@@ -139,28 +139,102 @@
                         </div> 
 
                         <div class="form-group">
-                            {!!Form::label('eps', 'EPS', ['class' => 'required'])!!}
-                            {!!Form::select('eps', $eps, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                            @if ($errors->has('eps'))
+                            {!!Form::label('id_eps', 'EPS', ['class' => 'required'])!!}
+                            {!!Form::select('id_eps', $eps, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                            @if ($errors->has('id_eps'))
                                 <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('eps') }}</strong>       
+                                    <strong>{{ $errors->first('id_eps') }}</strong>       
                                 </div>      
                             @endif
                         </div>
-                        
-                        <div class="form-group">
-                            {!!Form::label('nombrePadre', 'Nombre del padre', ['class' => 'required'])!!} 
-                            {!!Form::text('nombrePadre',null,['class'=>'form-control', 'placeholder'=>'Nombre del padre del estudiante'])!!}
-                            @if ($errors->has('nombrePadre'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('nombrePadre') }}</strong>      
-                                </div>      
-                            @endif
-                        </div>   
 
+                        <div class="row">
+                            <div class="col-lg-6">                                
+
+                                <div class="form-group">
+                                    <div>
+                                        {!!Form::label('nombre', 'Nombre del pariente', ['class' => ''])!!}    
+                                    </div>                          
+                                    <div class="input-group">                                    
+                                        {!!Form::text('nombre[]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!} 
+                                        <span class="input-group-addon">
+                                            {!!Form::radio('es_representante', 1, null, ['data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Marcar si este pariente es el representante legal'])!!}
+                                        </span>
+                                        @if ($errors->has('nombre'))
+                                            <div class="list-group-item list-group-item-warning">       
+                                                <strong>{{ $errors->first('nombre') }}</strong>      
+                                            </div>      
+                                        @endif
+                                    </div>                                      
+                                </div> 
+
+                                <div class="form-group">
+                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
+                                    {!!Form::select('id_parentescos[]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                    @if ($errors->has('id_parentescos'))
+                                        <div class="list-group-item list-group-item-warning">       
+                                            <strong>{{ $errors->first('id_parentescos') }}</strong>       
+                                        </div>      
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
+                                    {!!Form::label('telefono', 'Celular o fijo del pariente', ['class' => ''])!!} 
+                                    {!!Form::number('telefono[]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
+                                    @if ($errors->has('telefono'))
+                                        <div class="list-group-item list-group-item-warning">       
+                                            <strong>{{ $errors->first('telefono') }}</strong>      
+                                        </div>      
+                                    @endif
+                                </div>
+                            </div>
+                        </div>  
+
+                        <div class="row">
+                            <div class="col-lg-6">                                
+
+                                <div class="form-group">
+                                    <div>
+                                        {!!Form::label('nombre', 'Nombre del pariente', ['class' => ''])!!}    
+                                    </div>                          
+                                    <div class="input-group">                                    
+                                        {!!Form::text('nombre[]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!} 
+                                        <span class="input-group-addon">
+                                            {!!Form::radio('es_representante', 1, null, ['data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Marcar si este pariente es el representante legal'])!!}
+                                        </span>
+                                        @if ($errors->has('nombre'))
+                                            <div class="list-group-item list-group-item-warning">       
+                                                <strong>{{ $errors->first('nombre') }}</strong>      
+                                            </div>      
+                                        @endif
+                                    </div>                                      
+                                </div> 
+
+                                <div class="form-group">
+                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
+                                    {!!Form::select('id_parentescos[]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                    @if ($errors->has('id_parentescos'))
+                                        <div class="list-group-item list-group-item-warning">       
+                                            <strong>{{ $errors->first('id_parentescos') }}</strong>       
+                                        </div>      
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
+                                    {!!Form::label('telefono', 'Celular o fijo del pariente', ['class' => ''])!!} 
+                                    {!!Form::number('telefono[]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
+                                    @if ($errors->has('telefono'))
+                                        <div class="list-group-item list-group-item-warning">       
+                                            <strong>{{ $errors->first('telefono') }}</strong>      
+                                        </div>      
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    
                         <div class="form-group">
                             {!!Form::label('foto', 'Imagen de perfíl', ['class' => ''])!!}
-                            {!! Form::file('foto') !!}                                
+                            {!!Form::file('foto')!!}                                
                             @if ($errors->has('foto'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('foto') }}</strong>       
@@ -186,11 +260,67 @@
 @section('scripts')
     <script type="text/javascript">
 
-        
-
+        /* Inicializar el datepicker (calendario) de Bootstrap con formato de fecha normal y en idioma español */
         $('#datepicker').datepicker({
             format: "dd/mm/yyyy",
             language: "es"
         });
+
+        /* Darle el estilo de Bootstrap a los tooltips (Mensajes que salen cuando se pasa el mouse por encima
+        de una etiqueta HTML) */
+        $("input[name='es_representante']").tooltip();
+
+
+        // $( "#radioPadre" ).children().change(function() {
+        //     // var id = $("input[name='es_representante']").attr("name");
+        //     var idSpan = this.closest("span").attr("id");
+        //     console.log(idSpan);
+         
+        // });
+
+        // $("input[name='es_representante']").change(function() {
+
+        //     var idRadio = $(this).attr("id");                
+
+        //     if (idRadio == 'radioMadre') {
+        //         if (!$("#divLabelMadre").find('.label-danger').length) {                
+        //             $("#divLabelMadre").append("<span id='spanMadre' class='label label-danger'>Representante legal</span>");
+        //             $("#spanPadre").remove();                                
+        //         }
+        //     }  
+
+        //     if (idRadio == 'radioPadre') {
+        //         if (!$("#divLabelPadre").find('.label-danger').length) {                
+        //             $("#divLabelPadre").append("<span id='spanPadre' class='label label-danger'>Representante legal</span>");
+        //             $("#spanMadre").remove();                                                    
+        //         }
+        //     }      
+                        
+        // });
+
+        // $('.btn-warning').click(function() {
+        //     $("#spanPadre").remove(); 
+        //     $("#spanMadre").remove(); 
+        //     $("#divRepresentante").toggle(800);
+        // });
+
+        // $("#radioMadre").change(function() {
+
+        //     $(this).closest("span").attr("id");            
+            
+        //     if (!$("#divLabelMadre").find('.label-danger').length) {                
+        //         $( "#divLabelMadre" ).append( "<span class='label label-danger'>Representante legal</span>" );
+        //     }
+        // });
+
+        // $("#radioPadre").change(function() {
+
+        //     $(this).closest("span").attr("id");            
+            
+        //     if (!$("#divLabelPadre").find('.label-danger').length) {                
+        //         $( "#divLabelPadre" ).append( "<span class='label label-danger'>Representante legal</span>" );
+        //     }
+        // });
+
     </script>
 @endsection

@@ -69,6 +69,7 @@
                                     <li>{!!link_to_route('tipoBanda.index', $title = 'Gestionar tipos de bandas', null)!!}</li>
                                     <li>{!!link_to_route('eps.index', $title = 'Gestionar EPS', null)!!}</li>
                                     <li>{!!link_to_route('tipoDocumento.index', $title = 'Gestionar tipos de documentos', null)!!}</li>                                
+                                    <li>{!!link_to_route('parentesco.index', $title = 'Gestionar parentescos', null)!!}</li>   
                                 </ul>
                             </li>
                         @endif

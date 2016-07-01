@@ -26,7 +26,7 @@ class Institucion extends Model
     /**
     * Relación One-To-Many: intitucion tiene muchas bandas
     */
-    public function institucions()
+    public function bandas()
     {
         return $this->hasMany('CBA\Banda', 'id_bandas', 'id_institucions');
     }

@@ -41,7 +41,7 @@ class InstitucionController extends Controller
         $institucion = Institucion::All(); //with() para traer el modelo Municipios
         // $municipios = Municipio::with('subregions')->get();
         
-        return view('institucion.index', compact('institucion', 'municipios'));
+        return view('institucion.index', compact('institucion'));
     }
 
     /**
@@ -51,9 +51,9 @@ class InstitucionController extends Controller
      */
     public function create()
     {        
-        $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
+        $munimuni = \DB::table('municipios')->lists('nombre', 'id_municipios');
         
-        return view('institucion.create', compact('municipio'));
+        return view('institucion.create', compact('munimuni'));
     }
 
     /**

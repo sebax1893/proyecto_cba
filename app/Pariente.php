@@ -10,7 +10,7 @@ class Pariente extends Model
     protected $table = 'parientes';
     protected $primaryKey = 'id_parientes';
     public $timestamps = false;
-    protected $fillable = ['nombre', 'telefono'];    
+    protected $fillable = ['id_parentescos', 'nombre', 'telefono'];    
 
     // /**
     //  * Los parientes que pertenecen a estudiantes.

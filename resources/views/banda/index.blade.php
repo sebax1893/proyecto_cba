@@ -22,7 +22,6 @@
 			<table class="table table-striped table-bordered display responsive" id="dataTable" cellspacing="0" width="100%">
 				<thead>		
 					<th>Expandir</th>
-					<th>Opciones</th>					
 					<th>Nombre</th>																			
 					<th>Categoría</th>															
 					<th>Tipo de banda</th>
@@ -35,17 +34,12 @@
 					<th>Correo director</th>
 					<th>Municipio</th>
 					<th>Subregión</th>
+					<th>Opciones</th>										
 				</thead>
 				<tbody>
 					@foreach($banda as $bandas)
 					<tr>			
-						<td></td>
-						<td>											
-							{!!Form::open(['method' => 'delete', 'route' => ['banda.destroy', $bandas->id_bandas]])!!}
-								{!!link_to_route('banda.edit', $title = 'Modificar', $parameters = $bandas->id_bandas, $attributes = ['class'=>'btn btn-success'])!!}								
-					            {{Form::button('Eliminar', ['class' => 'btn btn-danger'])}}					            
-							{!!Form::close()!!}
-						</td>
+						<td></td>						
 						<td>{{$bandas->nombre}}</td>				
 						<td>{{$bandas->categorias->nombre}}</td>										
 						<td>{{$bandas->tipo_bandas->nombre}}</td>				
@@ -57,7 +51,13 @@
 						<td>{{$bandas->contacto_director}}</td>										
 						<td>{{$bandas->correo_director}}</td>										
 						<td>{{$bandas->institucions->municipios->nombre}}</td>									
-						<td>{{$bandas->institucions->municipios->subregions->nombre}}</td>								
+						<td>{{$bandas->institucions->municipios->subregions->nombre}}</td>	
+						<td>											
+							{!!Form::open(['method' => 'delete', 'route' => ['banda.destroy', $bandas->id_bandas]])!!}
+								{!!link_to_route('banda.edit', $title = 'Modificar', $parameters = $bandas->id_bandas, $attributes = ['class'=>'btn btn-success'])!!}								
+					            {{Form::button('Eliminar', ['class' => 'btn btn-danger'])}}					            
+							{!!Form::close()!!}
+						</td>							
 					</tr>
 					@endforeach
 				</tbody>

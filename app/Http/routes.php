@@ -25,6 +25,7 @@ Route::resource('tipoBanda','TipoBandaController');
 Route::resource('categoria','CategoriaController');
 Route::resource('institucion','InstitucionController');
 Route::resource('banda','BandaController');
+Route::resource('parentesco','ParentescoController');
 
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');

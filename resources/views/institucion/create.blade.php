@@ -52,7 +52,7 @@
 							<div class="form-group">
 	                            {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
 	                            
-	                            {!!Form::select('id_municipios', $municipio, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+	                            {!!Form::select('id_municipios', $munimuni, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
 	                            @if ($errors->has('id_municipios'))
 	                                <div class="list-group-item list-group-item-warning">       
 	                                    <strong>{{ $errors->first('id_municipios') }}</strong>       
