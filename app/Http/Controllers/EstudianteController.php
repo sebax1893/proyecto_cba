@@ -8,7 +8,6 @@ use CBA\Http\Requests;
 use CBA\Estudiante;
 use CBA\Banda_estudiante;
 use CBA\Pariente;
-use Input;
 // use CBA\TipoDocumento
 
 class EstudianteController extends Controller
@@ -60,6 +59,21 @@ class EstudianteController extends Controller
      */
     public function store(Request $request, Pariente $pariente)
     {        
+        // $this->validate($request->all(), [
+        //     'nombres' => 'required|string',
+        //     // 'parientes.*.nombre' => 'required|string',
+        //     'parientes.*.telefono' => 'required',
+        // ]);
+
+        $this->validate($request, [
+            'id_tipo_documentos' => 'required',
+            'id_eps' => 'required',
+            'id_municipios' => 'required',            
+            'nombres' => 'required|string',
+            // 'parientes.*.nombre' => 'required|string',
+            'parientes.*.nombre' => 'required',            
+            'parientes.*.telefono' => 'required',
+        ]);
         // $id_parentescos = $request->input('id_parentescos'); 
         // $nombre = $request->input('nombre'); 
         // $telefono = $request->input('telefono'); 
@@ -79,7 +93,27 @@ class EstudianteController extends Controller
         // Estudiante::create($request->all());
 
         // $pariente->save($pariente);
-        $pariente = Pariente::create($request->all());
+
+        // $pariente = Pariente::create($request->all());
+
+        // $this->pariente->nombre = $request->input('nombre');
+        // $this->pariente->telefono = $request->input('contacto');
+        // $this->pariente->save();
+        $nombreArray = $request->input('nombre');
+        $nombre = implode(",", $nombreArray);
+        $telefonoArray = $request->input('contacto');
+        $telefono = implode(",", $telefonoArray);
+        $this->pariente->nombre = $nombre;
+        $this->pariente->telefono = $telefono;
+        $this->pariente->id_parentescos = $request->input('id_parentescos');        
+        $this->pariente->save();
+
+    //     $pariente = $this->pariente->create([
+    //     'nombre' => $request->get('nombre'),
+    //     'telefono' => $request->get('telefono'),
+    //     'id_parentescos' => $request->get('id_parentescos')
+    // ]);
+
         // Pariente::create($request->all());
 
         // Banda_estudiante::create($request->all());

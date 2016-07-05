@@ -156,7 +156,7 @@
                                         {!!Form::label('nombre', 'Nombre del pariente', ['class' => ''])!!}    
                                     </div>                          
                                     <div class="input-group">                                    
-                                        {!!Form::text('nombre[]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!} 
+                                        {!!Form::text('nombre[][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!} 
                                         <span class="input-group-addon">
                                             {!!Form::radio('es_representante', 1, null, ['data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Marcar si este pariente es el representante legal'])!!}
                                         </span>
@@ -167,10 +167,9 @@
                                         @endif
                                     </div>                                      
                                 </div> 
-
                                 <div class="form-group">
                                     {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
-                                    {!!Form::select('id_parentescos[]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                    {!!Form::select('id_parentescos[][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
                                     @if ($errors->has('id_parentescos'))
                                         <div class="list-group-item list-group-item-warning">       
                                             <strong>{{ $errors->first('id_parentescos') }}</strong>       
@@ -179,11 +178,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    {!!Form::label('telefono', 'Celular o fijo del pariente', ['class' => ''])!!} 
-                                    {!!Form::number('telefono[]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
-                                    @if ($errors->has('telefono'))
+                                    {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
+                                    {!!Form::number('contacto[][contacto]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
+                                    @if ($errors->has('contacto'))
                                         <div class="list-group-item list-group-item-warning">       
-                                            <strong>{{ $errors->first('telefono') }}</strong>      
+                                            <strong>{{ $errors->first('contacto') }}</strong>      
                                         </div>      
                                     @endif
                                 </div>
@@ -198,7 +197,7 @@
                                         {!!Form::label('nombre', 'Nombre del pariente', ['class' => ''])!!}    
                                     </div>                          
                                     <div class="input-group">                                    
-                                        {!!Form::text('nombre[]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!} 
+                                        {!!Form::text('nombre[][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!} 
                                         <span class="input-group-addon">
                                             {!!Form::radio('es_representante', 1, null, ['data-toggle' => 'tooltip', 'data-placement' => 'right', 'title' => 'Marcar si este pariente es el representante legal'])!!}
                                         </span>
@@ -212,7 +211,7 @@
 
                                 <div class="form-group">
                                     {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
-                                    {!!Form::select('id_parentescos[]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                    {!!Form::select('id_parentescos[][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
                                     @if ($errors->has('id_parentescos'))
                                         <div class="list-group-item list-group-item-warning">       
                                             <strong>{{ $errors->first('id_parentescos') }}</strong>       
@@ -221,11 +220,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    {!!Form::label('telefono', 'Celular o fijo del pariente', ['class' => ''])!!} 
-                                    {!!Form::number('telefono[]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
-                                    @if ($errors->has('telefono'))
+                                    {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
+                                    {!!Form::number('contacto[][contacto]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
+                                    @if ($errors->has('contacto'))
                                         <div class="list-group-item list-group-item-warning">       
-                                            <strong>{{ $errors->first('telefono') }}</strong>      
+                                            <strong>{{ $errors->first('contacto') }}</strong>      
                                         </div>      
                                     @endif
                                 </div>
