@@ -12,11 +12,19 @@ class Pariente extends Model
     public $timestamps = false;
     protected $fillable = ['id_parentescos', 'nombre', 'telefono'];    
 
-    // /**
-    //  * Los parientes que pertenecen a estudiantes.
-    //  */
-    // public function estudiantes()
-    // {
-    //     return $this->belongsToMany('CBA\Estudiante');
-    // }
+    /**
+     * Los parientes que pertenecen a estudiantes.
+     */
+    public function estudiantes()
+    {
+        return $this->belongsToMany('CBA\Estudiante');
+    }
+
+    /**
+    * Relación One-To-Many: hay muchos parientes en un parentesco
+    */
+    public function parentescos()
+    {
+        return $this->belongsTo('CBA\Parentesco', 'id_parentescos');
+    }
 }

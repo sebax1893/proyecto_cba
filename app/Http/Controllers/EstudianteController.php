@@ -3,7 +3,8 @@
 namespace CBA\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use CBA\Http\Requests;
 use CBA\Estudiante;
 use CBA\Banda_estudiante;
@@ -58,29 +59,24 @@ class EstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Pariente $pariente)
-    {        
-        // $this->validate($request->all(), [
-        //     'nombres' => 'required|string',
-        //     // 'parientes.*.nombre' => 'required|string',
-        //     'parientes.*.telefono' => 'required',
-        // ]);
+    {       
 
         $this->validate($request, [
             'id_tipo_documentos' => 'required',
             'id_eps' => 'required',
             'id_municipios' => 'required',            
             'nombres' => 'required|string',
-            // 'parientes.*.nombre' => 'required|string',
-            'parientes.*.nombre' => 'required',            
-            'parientes.*.telefono' => 'required',
         ]);
+
         // $id_parentescos = $request->input('id_parentescos'); 
         // $nombre = $request->input('nombre'); 
         // $telefono = $request->input('telefono'); 
 
         // $data = array(
-        //     array('id_parentescos'=>$id_parentescos, 'nombre'=>$nombre, 'telefono'=>$telefono)    
+        //     array('id_parentescos'=>$request->input('id_parentescos'), 'nombre'=>$request->input('nombre'), 'telefono'=>$request->input('telefono'))    
         // );
+
+        $posts = $request->all();
 
         // Pariente::insert($data); // Eloquent
 
@@ -89,24 +85,70 @@ class EstudianteController extends Controller
         //     'nombre' => \Input::get('nombreMadre'),
         //     'telefono' => \Input::get('telefonoMadre')
         // ]); 
+
+        // Convert your objects to arrays. You can use array_walk instead,
+        // if you prefer to just modify the original $data
+        // $arrayData = array_map(function($value) {
+        //     return (array) $value;
+        // }, $data);
+
+        // $this->pariente->id_parentescos = $request->input('id_parentescos');
+        // $this->pariente->nombre = $request->input('nombre');
+        // $this->pariente->telefono = $request->input('contacto');
+        // $this->pariente->save();
+        // $this->pariente->id_parentescos = implode(',', $posts['id_parentescos']);
+        // $this->pariente->nombre = implode(',', $posts['nombre']);
+        // $this->pariente->telefono = implode(',', $posts['contacto']);
+        // $this->pariente->save();
+        // $data = array(
+        //     'id_parentescos' => $posts['id_parentescos'],
+        //     'nombre' => $posts['nombre'],
+        //     'telefono' => $posts['contacto'],
+        // );
+
+        $ids = $request->input('parientes.*.id_parentescos');
+        $nombres = $request->input('parientes.*.nombre');
+        $telefono = $request->input('parientes.*.contacto');
+
+        $data = array(
+            'id_parentescos' => $ids,
+            'nombre' => $nombre,
+            'telefono' => $telefono,
+        );
+
+        var_dump($data);
+        // var_dump(serialize($data));
+        // $this->pariente->id_parentescos = $posts['id_parentescos'];
+        // $this->pariente->nombre = $posts['nombre'];
+        // $this->pariente->telefono = $posts['contacto'];
+        $this->pariente->save($data);
+
+        // $pariente = Pariente::saveMany($request->all());
+
+        // do the insert
+        // $success = Pariente::insert($data);
         $estudiante = Estudiante::create($request->all());
+
+        // view last query run (to confirm one bulk insert statement)
+        $log = DB::getQueryLog();
+        print_r(end($log));
+
         // Estudiante::create($request->all());
 
-        // $pariente->save($pariente);
 
         // $pariente = Pariente::create($request->all());
 
         // $this->pariente->nombre = $request->input('nombre');
         // $this->pariente->telefono = $request->input('contacto');
         // $this->pariente->save();
-        $nombreArray = $request->input('nombre');
-        $nombre = implode(",", $nombreArray);
-        $telefonoArray = $request->input('contacto');
-        $telefono = implode(",", $telefonoArray);
-        $this->pariente->nombre = $nombre;
-        $this->pariente->telefono = $telefono;
-        $this->pariente->id_parentescos = $request->input('id_parentescos');        
-        $this->pariente->save();
+        // $nombreArray = $request->input('nombre');
+        // $nombre = implode(",", $nombreArray);
+        // $telefonoArray = $request->input('contacto');
+        // $telefono = implode(",", $telefonoArray);
+        // $this->pariente->nombre = $nombre;
+        // $this->pariente->telefono = $telefono;
+        // $this->pariente->id_parentescos = $request->input('id_parentescos');        
+        // $this->pariente->save();
 
     //     $pariente = $this->pariente->create([
     //     'nombre' => $request->get('nombre'),

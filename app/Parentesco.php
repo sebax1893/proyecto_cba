@@ -14,9 +14,9 @@ class Parentesco extends Model
     /**
      * The products that belong to the shop.
      */
-    public function estudiantes()
+    public function parientes()
     {
-        return $this->belongsToMany('App\Estudiante');
+        return $this->hasMany('CBA\Parientes', 'id_parientes', 'id_parentescos');
     }
 
 }

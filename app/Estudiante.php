@@ -28,7 +28,7 @@ class Estudiante extends Model
      */
     public function bandas()
     {
-        return $this->belongsToMany('App\Banda', 'banda_estidiante', 'id_parientes', 'id_estudiantes')
+        return $this->belongsToMany('CBA\Banda', 'banda_estidiante', 'id_parientes', 'id_estudiantes')
         ->withPivot('asiste');        
     }
 }
