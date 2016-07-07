@@ -121,6 +121,13 @@
     
     <!-- Script messages -->
     <!-- {!!Html::script('assets/js/script_messages.js')!!}         -->
+    <script type="text/javascript">
+        var message = "{{ Session::get('message') }}";
+        var messageError = "{{ Session::get('messageError') }}";    
+        var hasMessage = "{{ Session::has('message') }}";
+        var hasMessageError = "{{ Session::has('messageError') }}";
+    </script>
+    {{ HTML::script('assets/js/script_messages.js') }}
     @yield('scripts')
 </body>
 </html>

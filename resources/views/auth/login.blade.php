@@ -56,16 +56,3 @@
     </div>
 </div>
 @endsection
-@section('scripts')
-    <script type="text/javascript">
-        var message = "{{ Session::get('message') }}"       
-
-        if ("{{ Session::has('message') }}") {
-            swal(
-                message, 
-                "", 
-                "error"
-                )
-        }
-    </script>
-@endsection

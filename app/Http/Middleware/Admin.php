@@ -31,7 +31,7 @@ class Admin
 
         } else {
 
-            Session::flash('message', 'No tiene permisos');
+            Session::flash('messageError', 'No tiene permisos');
             return redirect()->to('home');
         }
         

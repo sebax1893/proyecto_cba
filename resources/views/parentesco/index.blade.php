@@ -57,36 +57,6 @@
 			});
 		});		
 
-		$('.btn-danger').click(function() {			
-
-			var frm = $(this).closest("form"); // our form	
-
-			swal({   
-				title: "¿Esta seguro?",   
-				text: "No va a poder recuperar otra vez este registro",   
-				type: "warning",   showCancelButton: true,   
-				confirmButtonColor: "#DD6B55",   
-				confirmButtonText: "Sí, borrar",   
-				cancelButtonText: "No, cancelar"
-				// closeOnConfirm: false //
-				}, 
-				function(isConfirm){   
-					if (isConfirm) {  
-						frm.submit();						
-					}
-				});
-		});    	
-		
-		var message = "{{ Session::get('message') }}"		
-
-		if ("{{ Session::has('message') }}") {
-			swal(
-				message, 
-				"", 
-				"success"
-				)
-		}
-
 	</script>
 
 @endsection
