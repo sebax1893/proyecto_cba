@@ -5,11 +5,15 @@ namespace CBA\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use CBA\Http\Requests;
 use CBA\Estudiante;
 use CBA\Banda_estudiante;
 use CBA\Pariente;
+use CBA\Banda;
+use CBA\Parentesco;
 use CBA\Estudiante_pariente;
+
 // use CBA\TipoDocumento
 
 class EstudianteController extends Controller
@@ -49,9 +53,11 @@ class EstudianteController extends Controller
         $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
         $eps = \DB::table('eps')->lists('nombre', 'id_eps');
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
-        $parentesco = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
+        // $parentescos = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
+        $parentesco = Parentesco::all(['id_parentescos', 'nombre']);
+        $banda = Banda::all(['id_bandas', 'nombre']);
         
-        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio', 'parentesco'));
+        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda'));
     }
 
     /**
@@ -60,7 +66,7 @@ class EstudianteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Pariente $pariente)
+    public function store(Request $request)
     {       
 
         $this->validate($request, [
@@ -68,9 +74,17 @@ class EstudianteController extends Controller
             'id_eps' => 'required',
             'id_municipios' => 'required',            
             'nombres' => 'required|string',
+            'parientes.*.id_parentescos' => 'required',
+            'parientes.*.nombre' => 'required',
         ]);
 
-        $input = $request->input('parientes');
+//         $validator = Validator::make($request->all(), [
+//             'nombres' => 'required|string',
+//     'parientes.0.id_parentescos' => 'required',
+    
+// ]);
+
+        $input = $request->input('parientes');        
 
         $ids = [];
 
@@ -81,9 +95,7 @@ class EstudianteController extends Controller
 
         $estudiante = Estudiante::create($request->all()); 
 
-        $idEstudiante = $estudiante->id_estudiantes;        
-
-        // var_dump("the student id i nenedd:" . $idEstudiante);
+        $idEstudiante = $estudiante->id_estudiantes;                
 
         /* Registrar en la tabla de detalle estudiante_pariente */
         $dataEstudiantePariente = [];
@@ -108,9 +120,8 @@ class EstudianteController extends Controller
 
         }
 
-        // var_dump($dataEstudiantePariente);        
-
         return redirect('/estudiante')->with('message','Estudiante registrado correctamente');
+
     }
 
     /**

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Registrar estudiante')
 @section('content') 
-
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -148,35 +147,77 @@
                             @endif
                         </div>
 
+                        <div class="form-group">
+                            {!!Form::label('foto', 'Imagen de perfíl', ['class' => ''])!!}
+                            {!!Form::file('foto')!!}                                
+                            @if ($errors->has('foto'))
+                                <div class="list-group-item list-group-item-warning">       
+                                    <strong>{{ $errors->first('foto') }}</strong>       
+                                </div>      
+                            @endif                                
+                        </div>
+
                         <div class="panel panel-info">
                             <div class="panel-heading">Parientes</div>
+                            <div id="divBandas" class="panel-body">
+
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">Banda a la que pertenece actualmente</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">      
+
+                                                <div class="form-group">
+                                                    {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
+                                                    {!!Form::select('parientes[0][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                    
+                                                    @if ($errors->has('id_bandas'))
+                                                        <div class="list-group-item list-group-item-warning">       
+                                                            <strong>{{ $errors->first('id_bandas') }}</strong>       
+                                                        </div>      
+                                                    @endif
+                                                </div>                         
+
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>   
+
+                                <div class="form-group">
+                                    {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
+                                </div>                                                                                
+
+                            </div>
+                        </div>  
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Bandas</div>
                             <div id="divParientes" class="panel-body">
 
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">Representante legal</div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-lg-6">                                
-
-                                                <div class="form-group">                                        
-                                                    {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
-                                                    {!!Form::text('parientes[0][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!}                     
-                                                    @if ($errors->has('nombre'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('nombre') }}</strong>      
-                                                        </div>      
-                                                    @endif                                      
-                                                </div>
+                                            <div class="col-lg-6">      
 
                                                 <div class="form-group">
                                                     {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
-                                                    {!!Form::select('parientes[0][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                                    {!!Form::select('parientes[0][id_parentescos]', $parentescos, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                    
                                                     @if ($errors->has('id_parentescos'))
                                                         <div class="list-group-item list-group-item-warning">       
                                                             <strong>{{ $errors->first('id_parentescos') }}</strong>       
                                                         </div>      
                                                     @endif
-                                                </div>
+                                                </div>                          
+
+                                                <div class="form-group">                                        
+                                                    {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
+                                                    {!!Form::text('parientes[0][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
+                                                    @if ($errors->has('nombre'))
+                                                        <div class="list-group-item list-group-item-warning">       
+                                                            <strong>{{ $errors->first('nombre') }}</strong>      
+                                                        </div>      
+                                                    @endif                                      
+                                                </div>                                                
 
                                                 <div class="form-group">
                                                     {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
@@ -191,101 +232,24 @@
                                             </div>
                                         </div>
                                     </div>                                    
-                                </div> 
+                                </div>   
 
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">Pariente 1</div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">                                
+                                <div class="form-group">
+                                    {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
+                                </div>                                                                                
 
-                                                <div class="form-group">                                        
-                                                    {!!Form::label('nombre', 'Nombre del pariente', ['class' => ''])!!}    
-                                                    {!!Form::text('parientes[1][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del pariente del estudiante'])!!}                     
-                                                    @if ($errors->has('nombre'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('nombre') }}</strong>      
-                                                        </div>      
-                                                    @endif                                      
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
-                                                    {!!Form::select('parientes[1][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                                                    @if ($errors->has('id_parentescos'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('id_parentescos') }}</strong>       
-                                                        </div>      
-                                                    @endif
-                                                </div>
-
-                                                <div class="form-group">
-                                                    {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
-                                                    {!!Form::number('parientes[1][telefono]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
-                                                    @if ($errors->has('contacto'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('contacto') }}</strong>      
-                                                        </div>      
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                               
-
-                                
-
-                                <div class="row">
-                                    <div class="col-lg-6">                                
-
-                                        <div class="form-group">                                        
-                                            {!!Form::label('nombre', 'Nombre del representante legal', ['class' => ''])!!}    
-                                            {!!Form::text('parientes[2][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre de la madre del estudiante'])!!}                     
-                                            @if ($errors->has('nombre'))
-                                                <div class="list-group-item list-group-item-warning">       
-                                                    <strong>{{ $errors->first('nombre') }}</strong>      
-                                                </div>      
-                                            @endif                                      
-                                        </div>
-
-                                        <div class="form-group">
-                                            {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
-                                            {!!Form::select('parientes[2][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                                            @if ($errors->has('id_parentescos'))
-                                                <div class="list-group-item list-group-item-warning">       
-                                                    <strong>{{ $errors->first('id_parentescos') }}</strong>       
-                                                </div>      
-                                            @endif
-                                        </div>
-
-                                        <div class="form-group">
-                                            {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
-                                            {!!Form::number('parientes[2][telefono]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
-                                            @if ($errors->has('contacto'))
-                                                <div class="list-group-item list-group-item-warning">       
-                                                    <strong>{{ $errors->first('contacto') }}</strong>      
-                                                </div>      
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
-                        </div>
-                        &nbsp;
-                        
-                        <div class="form-group">
-                            {!!Form::label('foto', 'Imagen de perfíl', ['class' => ''])!!}
-                            {!!Form::file('foto')!!}                                
-                            @if ($errors->has('foto'))
+                            {!!Form::label('observaciones', 'Observaciones', ['class' => 'required'])!!}
+                            {!!Form::textarea('observaciones',null,['class'=>'form-control', 'placeholder'=>'Observaciones del estudiante'])!!}
+                            @if ($errors->has('observaciones'))
                                 <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('foto') }}</strong>       
+                                    <strong>{{ $errors->first('observaciones') }}</strong>        
                                 </div>      
-                            @endif                                
-                        </div>
+                            @endif
+                        </div>                                                                      
 
                         {!!Form::submit('Registrar', ['class'=>'btn btn-primary'])!!}
 
@@ -300,7 +264,7 @@
         {!!link_to_route('estudiante.index', $title = 'Regresar', null, $attributes = ['class'=>'btn btn-success'])!!}
     </div>
 </div>    
-
+{{-- */$i=0;/* --}}
 @endsection
 @section('scripts')
     <script type="text/javascript">
@@ -311,14 +275,70 @@
             language: "es"
         });
 
-        $('#btnPariente').click(function() {
-            var divParientes = $('#divParientes');
-            divParientes.append('');
-        });
-
         /* Darle el estilo de Bootstrap a los tooltips (Mensajes que salen cuando se pasa el mouse por encima
         de una etiqueta HTML) */
         $("input[name='es_representante']").tooltip();
+
+        $(document).ready(function() {
+            var wrapper = $("#divParientes"); //Fields wrapper
+            var add_button = $("#btnPariente"); //Add button ID            
+            '{{ $variable = 1 }}'
+                console.log('ready {{$variable}}');
+                console.log('ready iiii {{$i}}');
+
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                console.log('onclick {{$variable}}');                    
+
+                // console.log(increment);
+                //Add new inputs
+                $(wrapper).append(
+                    '<div id=pariente' + x +', class="panel panel-success">' +
+                        '<div class="panel-heading">Pariente ' + x + '</div>' +
+                        '<div class="panel-body">' + 
+                            '<div class="row">' + 
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("id_parentescos", "Parentesco", ["class" => "required"])!!}' + 
+                                        '<select class="form-control" name="parientes[' + x + '][id_parentescos]">' + 
+                                        '<option selected="selected" value="">Seleccionar</option>' +
+                                            '@foreach($parentesco as $item)' +
+                                                '<option value="{{$item->id_parentescos}}">{{$item->nombre}}</option>' +
+                                            '@endforeach' +
+                                        '</select>' +
+                                    '</div>' +
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("nombre", "Nombre del pariente", ["class" => ""])!!}' + 
+                                        '<input class="form-control" placeholder="Nombre del pariente del estudiante" name="parientes[' + x + '][nombre]" type="text">' + 
+                                    '</div>' +                                    
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("contacto", "Celular o fijo del pariente", ["class" => ""])!!}' + 
+                                        '<input class="form-control" placeholder="Contacto del pariente del estudiante" name="parientes[' + x + '][telefono]" type="number">' +
+                                    '</div>' +
+                                '</div>' + 
+                            '</div>' + 
+                        '</div>' +
+                        '<div class="panel-footer">' + 
+                            '<button type="button" class="btn btn-default" aria-label="Left Align">' + 
+                                '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar' + 
+                            '</button>' + 
+                        '</div>' + 
+                    '</div>'
+                ); 
+                x++; //text box increment                
+
+            });
+                '{{ $variable++ }}'                
+                console.log('abajosadasd click {{$variable}}');
+            
+            $(wrapper).on("click",".btn-default", function(e){ //user click on remove text
+                e.preventDefault(); 
+                $(this).parent('div').parent('div').remove();
+            })
+        });
+
+        
 
 
         // $( "#radioPadre" ).children().change(function() {
