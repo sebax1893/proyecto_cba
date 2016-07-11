@@ -21,7 +21,7 @@ class BandaController extends Controller
      */
     public function index()
     {
-        $banda = Banda::All(); //->with() para traer otros modelos... no necesario acá, tambien sirve ->All() 
+        $banda = Banda::with('institucions', 'categorias', 'tipo_bandas')->get(); //->with() para traer otros modelos... no necesario acá, tambien sirve ->All() 
         return view('banda.index', compact('banda'));
     }
 

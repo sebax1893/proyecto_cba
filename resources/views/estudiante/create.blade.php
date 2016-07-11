@@ -12,6 +12,8 @@
 
                     {!!Form::open(['route'=>'estudiante.store', 'method'=>'POST', 'files'=>true])!!}
 
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+
                         <div class="form-group">
                             {!!Form::label('id_tipo_documentos', 'Tipo de documento', ['class' => 'required'])!!}
                             {!!Form::select('id_tipo_documentos', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
@@ -83,16 +85,17 @@
                         </div>
 
                         <div class="form-group">
-                            {!!Form::label('id_municipios', 'Municipio de Antioquia', ['class' => 'required'])!!}
+                            {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
+                            
                             {!!Form::select('id_municipios', $municipio, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
                             @if ($errors->has('id_municipios'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('id_municipios') }}</strong>       
                                 </div>      
                             @endif
-                        </div>  
+                        </div> 
 
-                        <div class="form-group">
+                        <div class="form-group" id="subregionDiv">
                             {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
                             {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
                         </div> 
@@ -177,18 +180,17 @@
                                                     </select>                                                   
                                                     @if ($errors->has('parientes.0.id_parentescos'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('parientes.0.id_parentescos') }}</strong>       
+                                                            <strong>{{ $errors->first('parientes.0.id_parentescos') }}</strong>
                                                         </div>      
                                                     @endif                                                
-
                                                 </div>                          
 
                                                 <div class="form-group">                                        
                                                     {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
                                                     {!!Form::text('parientes[0][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
-                                                    @if ($errors->has('nombre'))
+                                                    @if ($errors->has('parientes.0.nombre'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('nombre') }}</strong>      
+                                                            <strong>{{ $errors->first('parientes.0.nombre') }}</strong>      
                                                         </div>      
                                                     @endif                                      
                                                 </div>                                                
@@ -233,9 +235,9 @@
                                                                 <option value="{{$item->id_bandas}}">{{$item->nombre}}</option> 
                                                             @endforeach 
                                                     </select>                                                   
-                                                    @if ($errors->has('id_bandas'))
+                                                    @if ($errors->has('bandas.0.id_bandas'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('id_bandas') }}</strong>       
+                                                            <strong>{{ $errors->first('bandas.0.id_bandas') }}</strong>       
                                                         </div>      
                                                     @endif
                                                 </div>
@@ -252,7 +254,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!!Form::label('observaciones', 'Observaciones', ['class' => 'required'])!!}
+                            {!!Form::label('observaciones', 'Observaciones', ['class' => ''])!!}
                             {!!Form::textarea('observaciones',null,['class'=>'form-control', 'placeholder'=>'Observaciones del estudiante'])!!}
                             @if ($errors->has('observaciones'))
                                 <div class="list-group-item list-group-item-warning">       
@@ -305,8 +307,8 @@
 
                 //Add new inputs
                 $(wrapper).append(
-                    '<div id=pariente' + auxParientes +', class="panel panel-success">' +
-                        '<div class="panel-heading">Pariente ' + auxParientes + '</div>' +
+                    '<div class="panel panel-success">' +
+                        '<div class="panel-heading">Nuevo pariente</div>' +
                         '<div class="panel-body">' + 
                             '<div class="row">' + 
                                 '<div class="col-lg-6">'+
@@ -348,7 +350,7 @@
                 //Add new inputs
                 $(wrapperBandas).append(
                     '<div class="panel panel-success">' +
-                        '<div class="panel-heading">Banda a la que ha pertenecido ' + auxBandas + '</div>' +
+                        '<div class="panel-heading">Nueva banda a la que ha pertenecido</div>' +
                         '<div class="panel-body">' + 
                             '<div class="row">' + 
                                 '<div class="col-lg-6">'+
@@ -386,6 +388,37 @@
                 e.preventDefault(); 
                 $(this).parent('div').parent('div').remove();
             })
+
+            /* Municipios y Subregiones */
+            $(function () {
+
+            var subregionInput = $('#subregion');
+            var subregionDiv = $('#subregionDiv')
+            subregionDiv.css('display', 'none');
+            
+            $('#id_municipios').change(function () {
+
+                var municipioDropDownValue = $('#id_municipios').val();
+                
+                var token = $("#token").val();
+
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': token},
+                    type: 'POST',
+                    // url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
+                    url: "./obtenerSubregion",
+                    data: {id_municipio: municipioDropDownValue},
+                    dataType: 'json',
+                    success: function(data){
+
+                        var subregion = data[0].nombre;
+
+                        subregionDiv.show();
+                        subregionInput.val(subregion);           
+                    }
+                })
+            });
+        });
 
         });
 

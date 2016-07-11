@@ -8,4 +8,5 @@ class Estudiante_pariente extends Model
 {
     protected $table = 'estudiante_pariente';
     protected $fillable = ['es_representante'];
+
 }

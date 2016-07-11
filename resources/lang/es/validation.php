@@ -140,9 +140,10 @@ return [
         'id_institucions'       => 'institución',     //campo de Banda
         'id_categorias'         => 'categoría',     //campo de Banda
         'id_tipo_bandas'        => 'tipo de banda',     //campo de Banda       
-        'id_tipo_documentos'    => 'tipo de documento',     //campo de Banda       
-        'id_eps'                => 'eps',     //campo de Banda       
-        'numeroIdentificacion'  => 'número de identificaición',     //campo de Banda       
+        'id_tipo_documentos'    => 'tipo de documento',     //campo de Estudiante       
+        'id_eps'                => 'eps',     //campo de Estudiante       
+        'numeroIdentificacion'  => 'número de identificaición',     //campo de Estudiante       
+        'fechaNacimiento'  => 'fecha de nacimiento',     //campo de Estudiante       
 
     ],
 ];

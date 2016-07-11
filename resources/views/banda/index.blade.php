@@ -34,6 +34,7 @@
 					<th>Correo director</th>
 					<th>Municipio</th>
 					<th>Subregión</th>
+					<th>Reseña histórica</th>
 					<th>Opciones</th>										
 				</thead>
 				<tbody>
@@ -50,8 +51,8 @@
 						<td>{{$bandas->director}}</td>										
 						<td>{{$bandas->contacto_director}}</td>										
 						<td>{{$bandas->correo_director}}</td>										
-						<td>{{$bandas->institucions->municipios->nombre}}</td>									
-						<td>{{$bandas->institucions->municipios->subregions->nombre}}</td>	
+						
+						<td>{{$bandas->resena}}</td>	
 						<td>											
 							{!!Form::open(['method' => 'delete', 'route' => ['banda.destroy', $bandas->id_bandas]])!!}
 								{!!link_to_route('banda.edit', $title = 'Modificar', $parameters = $bandas->id_bandas, $attributes = ['class'=>'btn btn-success'])!!}								

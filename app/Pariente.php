@@ -17,7 +17,8 @@ class Pariente extends Model
      */
     public function estudiantes()
     {
-        return $this->belongsToMany('CBA\Estudiante');
+        return $this->belongsToMany('CBA\Estudiante', 'estudiante_pariente', 'id_parientes', 'id_estudiantes')
+        ->withPivot('es_representante');
     }
 
     /**

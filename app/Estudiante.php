@@ -30,8 +30,8 @@ class Estudiante extends Model
      */
     public function parientes()
     {
-        return $this->belongsToMany('CBA\Pariente', 'estudiante_pariente', 'id_parientes', 'id_estudiantes')
-        ->withPivot('es_representante');;
+        return $this->belongsToMany('CBA\Pariente', 'estudiante_pariente', 'id_estudiantes', 'id_parientes')
+        ->withPivot('es_representante');
     }
 
     /**
@@ -39,7 +39,31 @@ class Estudiante extends Model
      */
     public function bandas()
     {
-        return $this->belongsToMany('CBA\Banda', 'banda_estidiante', 'id_parientes', 'id_estudiantes')
+        return $this->belongsToMany('CBA\Banda', 'banda_estudiante', 'id_estudiantes', 'id_bandas')
         ->withPivot('asiste');        
+    }
+
+    /**
+    * Relación One-To-Many hay muchos estudiantes en una eps
+    */
+    public function eps()
+    {
+        return $this->belongsTo('CBA\Eps', 'id_eps');
+    }
+
+    /**
+    * Relación One-To-Many hay muchos estudiantes en un municipio
+    */
+    public function municipios()
+    {
+        return $this->belongsTo('CBA\Municipio', 'id_municipios');
+    }
+
+    /**
+    * Relación One-To-Many hay muchos estudiantes en un tipo de documento
+    */
+    public function tipo_documentos()
+    {
+        return $this->belongsTo('CBA\TipoDocumento', 'id_tipo_documentos');
     }
 }

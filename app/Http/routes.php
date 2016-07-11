@@ -16,6 +16,7 @@ Route::get('home','FrontController@home');
 Route::get('login','FrontController@login');
 Route::get('reset','FrontController@reset');
 Route::post('institucion/obtenerSubregion', 'InstitucionController@obtenerSubregion');
+Route::post('estudiante/obtenerSubregion', 'EstudianteController@obtenerSubregion');
 
 Route::resource('estudiante','EstudianteController');
 Route::resource('usuario','UsuarioController');

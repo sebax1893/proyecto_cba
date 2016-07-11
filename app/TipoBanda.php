@@ -15,6 +15,6 @@ class TipoBanda extends Model
     */
     public function bandas()
   	{
-    	return $this->hasMany('CBA\TipoBanda', 'id_bandas', 'id_tipo_bandas');
+    	return $this->hasMany('CBA\Banda', 'id_bandas', 'id_tipo_bandas');
   	}
 }

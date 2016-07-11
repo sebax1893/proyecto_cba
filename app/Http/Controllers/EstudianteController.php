@@ -13,6 +13,7 @@ use CBA\Pariente;
 use CBA\Banda;
 use CBA\Parentesco;
 use CBA\Estudiante_pariente;
+use CBA\Subregion;
 
 // use CBA\TipoDocumento
 
@@ -31,6 +32,23 @@ class EstudianteController extends Controller
         $this->banda_estudiante = $banda_estudiante;
     }
 
+    public function obtenerSubregion(Request $request)
+    {
+        $id = $request->input('id_municipio');        
+
+        $subregion = Subregion::join('municipios', function ($join) use ($id) {
+            $join->on('subregions.id_subregions', '=', 'municipios.id_subregions')
+                 ->where('municipios.id_municipios', '=', $id);
+            })
+            ->select('subregions.nombre')
+            ->get();
+
+        if ($request->ajax()) {            
+            return response()->json($subregion);
+        }
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,9 +57,10 @@ class EstudianteController extends Controller
     public function index()
     {
         $estudiante = Estudiante::All();
+        $pp = Pariente::All();
+        $bb = Banda::All();
         
-        // $users = User::onlyTrashed()->get();
-        return view('estudiante.index', compact('estudiante'));
+        return view('estudiante.index', compact('estudiante', 'pp', 'bb'));
     }
 
     /**
@@ -60,7 +79,7 @@ class EstudianteController extends Controller
         
         return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda'));
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -73,17 +92,20 @@ class EstudianteController extends Controller
         $this->validate($request, [
             'id_tipo_documentos' => 'required',
             'id_eps' => 'required',
-            'id_municipios' => 'required',            
+            'id_municipios' => 'required',
+            'numeroIdentificacion' => 'required|numeric',            
             'nombres' => 'required|string',
+            'apellidos' => 'required|string',
+            'edad' => 'required|numeric',
+            'fechaNacimiento' => 'required|date',            
+            'direccion' => 'required|string',
+            'barrio' => 'required|string',
+            'telefono' => 'required',
+            'correo' => 'required|email',
             'parientes.*.id_parentescos' => 'required',
             'parientes.*.nombre' => 'required',
+            'bandas.*.id_bandas' => 'required',
         ]);
-
-//         $validator = Validator::make($request->all(), [
-//             'nombres' => 'required|string',
-//     'parientes.0.id_parentescos' => 'required',
-    
-// ]);
 
         $inputParientes = $request->input('parientes');        
 
@@ -121,19 +143,11 @@ class EstudianteController extends Controller
         }
 
         /* Registrar en la tabla de banda_estudiante */
-        $inputBandas = $request->input('bandas');
-        var_dump($inputBandas);
-        var_dump($inputBandas[0]['id_bandas']);
-        $idsBandas = [];
-
-        for ($i=0; $i < count($inputBandas); $i++) { 
-            $idsBandas = $inputBandas[$i]['id_bandas'];
-        }
-        var_dump($idsBandas);
+        $inputBandas = $request->input('bandas');       
 
         $asiste = false;
 
-        for ($i=0; $i < count($idsBandas); $i++) { 
+        for ($i=0; $i < count($inputBandas); $i++) { 
 
             if ($i == 0) {
                 $asiste = true;
@@ -142,7 +156,7 @@ class EstudianteController extends Controller
             }
 
             $dataEstudiantePariente = [
-                "id_bandas" => $idsBandas[$i],
+                "id_bandas" => $inputBandas[$i]['id_bandas'],
                 "id_estudiantes" => $idEstudiante,
                 "asiste" => $asiste,
             ];
