@@ -19,7 +19,7 @@ use CBA\Estudiante_pariente;
 class EstudianteController extends Controller
 {
 
-    public function __construct(Estudiante $estudiante, Pariente $pariente, Estudiante_pariente $estudiante_pariente) {
+    public function __construct(Estudiante $estudiante, Pariente $pariente, Estudiante_pariente $estudiante_pariente, Banda_estudiante $banda_estudiante) {
 
         $this->middleware('auth');
         // $this->middleware('admin', ['only' => ['create', 'edit', 'update', 'destroy']]);
@@ -28,6 +28,7 @@ class EstudianteController extends Controller
         $this->estudiante = $estudiante;
         $this->pariente = $pariente;
         $this->estudiante_pariente = $estudiante_pariente;
+        $this->banda_estudiante = $banda_estudiante;
     }
 
     /**
@@ -84,13 +85,13 @@ class EstudianteController extends Controller
     
 // ]);
 
-        $input = $request->input('parientes');        
+        $inputParientes = $request->input('parientes');        
 
-        $ids = [];
+        $idsParientes = [];
 
-        foreach($input as $data)
+        foreach($inputParientes as $data)
         {
-             $ids[] = $this->pariente->insertGetId($data);
+             $idsParientes[] = $this->pariente->insertGetId($data);
         }
 
         $estudiante = Estudiante::create($request->all()); 
@@ -102,7 +103,7 @@ class EstudianteController extends Controller
 
         $es_representante = false;
 
-        for ($i=0; $i < count($ids); $i++) { 
+        for ($i=0; $i < count($idsParientes); $i++) { 
 
             if ($i == 0) {
                 $es_representante = true;
@@ -112,12 +113,41 @@ class EstudianteController extends Controller
 
             $dataEstudiantePariente = [
                 "id_estudiantes" => $idEstudiante,
-                "id_parientes" => $ids[$i],
+                "id_parientes" => $idsParientes[$i],
                 "es_representante" => $es_representante,
             ];
 
             $this->estudiante_pariente->insert($dataEstudiantePariente);
+        }
 
+        /* Registrar en la tabla de banda_estudiante */
+        $inputBandas = $request->input('bandas');
+        var_dump($inputBandas);
+        var_dump($inputBandas[0]['id_bandas']);
+        $idsBandas = [];
+
+        for ($i=0; $i < count($inputBandas); $i++) { 
+            $idsBandas = $inputBandas[$i]['id_bandas'];
+        }
+        var_dump($idsBandas);
+
+        $asiste = false;
+
+        for ($i=0; $i < count($idsBandas); $i++) { 
+
+            if ($i == 0) {
+                $asiste = true;
+            } else {
+                $asiste = false;
+            }
+
+            $dataEstudiantePariente = [
+                "id_bandas" => $idsBandas[$i],
+                "id_estudiantes" => $idEstudiante,
+                "asiste" => $asiste,
+            ];
+
+            $this->banda_estudiante->insert($dataEstudiantePariente);
         }
 
         return redirect('/estudiante')->with('message','Estudiante registrado correctamente');

@@ -157,40 +157,9 @@
                             @endif                                
                         </div>
 
+                        <!-- SECCIÓN PARIENTES -->
                         <div class="panel panel-info">
                             <div class="panel-heading">Parientes</div>
-                            <div id="divBandas" class="panel-body">
-
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">Banda a la que pertenece actualmente</div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">      
-
-                                                <div class="form-group">
-                                                    {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                    {!!Form::select('parientes[0][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                    
-                                                    @if ($errors->has('id_bandas'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('id_bandas') }}</strong>       
-                                                        </div>      
-                                                    @endif
-                                                </div>                         
-
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </div>   
-
-                                <div class="form-group">
-                                    {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
-                                </div>                                                                                
-
-                            </div>
-                        </div>  
-
-                        <div class="panel panel-info">
-                            <div class="panel-heading">Bandas</div>
                             <div id="divParientes" class="panel-body">
 
                                 <div class="panel panel-danger">
@@ -200,13 +169,18 @@
                                             <div class="col-lg-6">      
 
                                                 <div class="form-group">
-                                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}
-                                                    {!!Form::select('parientes[0][id_parentescos]', $parentescos, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                    
-                                                    @if ($errors->has('id_parentescos'))
+                                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
+                                                    <select class="form-control" name="parientes[0][id_parentescos]">   <option selected="selected" value="">Seleccionar</option> 
+                                                            @foreach($parentesco as $item) 
+                                                                <option value="{{$item->id_parentescos}}">{{$item->nombre}}</option> 
+                                                            @endforeach 
+                                                    </select>                                                   
+                                                    @if ($errors->has('parientes.0.id_parentescos'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('id_parentescos') }}</strong>       
+                                                            <strong>{{ $errors->first('parientes.0.id_parentescos') }}</strong>       
                                                         </div>      
-                                                    @endif
+                                                    @endif                                                
+
                                                 </div>                          
 
                                                 <div class="form-group">                                        
@@ -237,7 +211,43 @@
                                 <div class="form-group">
                                     {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
                                 </div>                                                                                
+                            </div>
+                        </div>
 
+                        <!-- SECCIÓN BANDAS -->
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Bandas</div>
+                            <div id="divBandas" class="panel-body">
+
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">Banda a la que pertenece actualmente</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">      
+
+                                                <div class="form-group">
+                                                    {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
+                                                    <select class="form-control" name="bandas[0][id_bandas]">   
+                                                    <option selected="selected" value="">Seleccionar</option> 
+                                                            @foreach($banda as $item) 
+                                                                <option value="{{$item->id_bandas}}">{{$item->nombre}}</option> 
+                                                            @endforeach 
+                                                    </select>                                                   
+                                                    @if ($errors->has('id_bandas'))
+                                                        <div class="list-group-item list-group-item-warning">       
+                                                            <strong>{{ $errors->first('id_bandas') }}</strong>       
+                                                        </div>      
+                                                    @endif
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>   
+
+                                <div class="form-group">
+                                    {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
+                                </div>                                                                                
                             </div>
                         </div>
 
@@ -282,26 +292,27 @@
         $(document).ready(function() {
             var wrapper = $("#divParientes"); //Fields wrapper
             var add_button = $("#btnPariente"); //Add button ID            
-            '{{ $variable = 1 }}'
-                console.log('ready {{$variable}}');
-                console.log('ready iiii {{$i}}');
+            
+            var wrapperBandas = $('#divBandas');
+            var add_button_bandas = $('#btnBanda');
 
-            var x = 1; //initlal text box count
+            var auxParientes = 1; //initlal text box count
+            var auxBandas = 1; //initlal text box count
+
+            /* AÑADIR PARIENTES */            
             $(add_button).click(function(e){ //on add input button click
                 e.preventDefault();
-                console.log('onclick {{$variable}}');                    
 
-                // console.log(increment);
                 //Add new inputs
                 $(wrapper).append(
-                    '<div id=pariente' + x +', class="panel panel-success">' +
-                        '<div class="panel-heading">Pariente ' + x + '</div>' +
+                    '<div id=pariente' + auxParientes +', class="panel panel-success">' +
+                        '<div class="panel-heading">Pariente ' + auxParientes + '</div>' +
                         '<div class="panel-body">' + 
                             '<div class="row">' + 
                                 '<div class="col-lg-6">'+
                                     '<div class="form-group">' + 
                                         '{!!Form::label("id_parentescos", "Parentesco", ["class" => "required"])!!}' + 
-                                        '<select class="form-control" name="parientes[' + x + '][id_parentescos]">' + 
+                                        '<select class="form-control" name="parientes[' + auxParientes + '][id_parentescos]">' + 
                                         '<option selected="selected" value="">Seleccionar</option>' +
                                             '@foreach($parentesco as $item)' +
                                                 '<option value="{{$item->id_parentescos}}">{{$item->nombre}}</option>' +
@@ -310,11 +321,11 @@
                                     '</div>' +
                                     '<div class="form-group">' + 
                                         '{!!Form::label("nombre", "Nombre del pariente", ["class" => ""])!!}' + 
-                                        '<input class="form-control" placeholder="Nombre del pariente del estudiante" name="parientes[' + x + '][nombre]" type="text">' + 
+                                        '<input class="form-control" placeholder="Nombre del pariente del estudiante" name="parientes[' + auxParientes + '][nombre]" type="text">' + 
                                     '</div>' +                                    
                                     '<div class="form-group">' + 
                                         '{!!Form::label("contacto", "Celular o fijo del pariente", ["class" => ""])!!}' + 
-                                        '<input class="form-control" placeholder="Contacto del pariente del estudiante" name="parientes[' + x + '][telefono]" type="number">' +
+                                        '<input class="form-control" placeholder="Contacto del pariente del estudiante" name="parientes[' + auxParientes + '][telefono]" type="number">' +
                                     '</div>' +
                                 '</div>' + 
                             '</div>' + 
@@ -326,71 +337,58 @@
                         '</div>' + 
                     '</div>'
                 ); 
-                x++; //text box increment                
+                auxParientes++; //text box increment                
 
             });
-                '{{ $variable++ }}'                
-                console.log('abajosadasd click {{$variable}}');
-            
+
+            /* AÑADIR BANDAS */
+            $(add_button_bandas).click(function(e){ //on add input button click
+                e.preventDefault();
+
+                //Add new inputs
+                $(wrapperBandas).append(
+                    '<div class="panel panel-success">' +
+                        '<div class="panel-heading">Banda a la que ha pertenecido ' + auxBandas + '</div>' +
+                        '<div class="panel-body">' + 
+                            '<div class="row">' + 
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("id_bandas", "Banda", ["class" => ""])!!}' + 
+                                        '<select class="form-control" name="bandas[' + auxBandas + '][id_bandas]">' +
+                                        '<option selected="selected" value="">Seleccionar</option>' +
+                                            '@foreach($banda as $item)' +
+                                                '<option value="{{$item->id_bandas}}">{{$item->nombre}}</option>' +
+                                            '@endforeach' +
+                                        '</select>' +
+                                    '</div>' +                                
+                                '</div>' + 
+                            '</div>' + 
+                        '</div>' +
+                        '<div class="panel-footer">' + 
+                            '<button type="button" class="btn btn-default" aria-label="Left Align">' + 
+                                '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar' + 
+                            '</button>' + 
+                        '</div>' + 
+                    '</div>'
+                ); 
+                auxBandas++; //text box increment                
+
+            });
+
+            /* ELIMINAR PARIENTE */
             $(wrapper).on("click",".btn-default", function(e){ //user click on remove text
                 e.preventDefault(); 
                 $(this).parent('div').parent('div').remove();
             })
+
+            /* ELIMINAR BANDAS */
+            $(wrapperBandas).on("click",".btn-default", function(e){ //user click on remove text
+                e.preventDefault(); 
+                $(this).parent('div').parent('div').remove();
+            })
+
         });
 
-        
-
-
-        // $( "#radioPadre" ).children().change(function() {
-        //     // var id = $("input[name='es_representante']").attr("name");
-        //     var idSpan = this.closest("span").attr("id");
-        //     console.log(idSpan);
-         
-        // });
-
-        // $("input[name='es_representante']").change(function() {
-
-        //     var idRadio = $(this).attr("id");                
-
-        //     if (idRadio == 'radioMadre') {
-        //         if (!$("#divLabelMadre").find('.label-danger').length) {                
-        //             $("#divLabelMadre").append("<span id='spanMadre' class='label label-danger'>Representante legal</span>");
-        //             $("#spanPadre").remove();                                
-        //         }
-        //     }  
-
-        //     if (idRadio == 'radioPadre') {
-        //         if (!$("#divLabelPadre").find('.label-danger').length) {                
-        //             $("#divLabelPadre").append("<span id='spanPadre' class='label label-danger'>Representante legal</span>");
-        //             $("#spanMadre").remove();                                                    
-        //         }
-        //     }      
-                        
-        // });
-
-        // $('.btn-warning').click(function() {
-        //     $("#spanPadre").remove(); 
-        //     $("#spanMadre").remove(); 
-        //     $("#divRepresentante").toggle(800);
-        // });
-
-        // $("#radioMadre").change(function() {
-
-        //     $(this).closest("span").attr("id");            
-            
-        //     if (!$("#divLabelMadre").find('.label-danger').length) {                
-        //         $( "#divLabelMadre" ).append( "<span class='label label-danger'>Representante legal</span>" );
-        //     }
-        // });
-
-        // $("#radioPadre").change(function() {
-
-        //     $(this).closest("span").attr("id");            
-            
-        //     if (!$("#divLabelPadre").find('.label-danger').length) {                
-        //         $( "#divLabelPadre" ).append( "<span class='label label-danger'>Representante legal</span>" );
-        //     }
-        // });
 
     </script>
 @endsection
