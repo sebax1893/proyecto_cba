@@ -17,7 +17,7 @@ class CreateMunicipiosTable extends Migration
 
             //Foreign Key subregions
             $t->integer('id_subregions')->unsigned();
-            $t->foreign('id_subregions')->references('id_subregions')->on('subregions');   
+            $t->foreign('id_subregions')->references('id_subregions')->on('subregions')->onDelete('cascade');   
 
             $t->string('nombre');
             

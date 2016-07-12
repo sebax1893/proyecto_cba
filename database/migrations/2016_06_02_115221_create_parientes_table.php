@@ -17,7 +17,7 @@ class CreateParientesTable extends Migration
 
             //Foreign Key parentescos
             $t->integer('id_parentescos')->unsigned();
-            $t->foreign('id_parentescos')->references('id_parentescos')->on('parentescos'); 
+            $t->foreign('id_parentescos')->references('id_parentescos')->on('parentescos')->onDelete('cascade'); 
 
             $t->string('nombre')->nullable();
             $t->string('telefono')->nullable();   

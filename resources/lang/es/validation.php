@@ -89,7 +89,7 @@ return [
     */
     'custom'               => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name' => 'custom-message',            
         ],
     ],
     /*
@@ -143,7 +143,8 @@ return [
         'id_tipo_documentos'    => 'tipo de documento',     //campo de Estudiante       
         'id_eps'                => 'eps',     //campo de Estudiante       
         'numeroIdentificacion'  => 'número de identificaición',     //campo de Estudiante       
-        'fechaNacimiento'  => 'fecha de nacimiento',     //campo de Estudiante       
+        'fechaNacimiento'       => 'fecha de nacimiento',     //campo de Estudiante       
+        'bandas.*.id_bandas'    => 'banda',    //campo de Estudiante       
 
     ],
 ];

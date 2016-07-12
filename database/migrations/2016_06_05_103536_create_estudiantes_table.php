@@ -17,15 +17,15 @@ class CreateEstudiantesTable extends Migration
 
             //Foreign Key tipo_documentos
             $t->integer('id_tipo_documentos')->unsigned();
-            $t->foreign('id_tipo_documentos')->references('id_tipo_documentos')->on('tipo_documentos');
+            $t->foreign('id_tipo_documentos')->references('id_tipo_documentos')->on('tipo_documentos')->onDelete('cascade');
 
             //Foreign Key eps
             $t->integer('id_eps')->unsigned();
-            $t->foreign('id_eps')->references('id_eps')->on('eps');
+            $t->foreign('id_eps')->references('id_eps')->on('eps')->onDelete('cascade');
 
             //Foreign Key municipios
             $t->integer('id_municipios')->unsigned();
-            $t->foreign('id_municipios')->references('id_municipios')->on('municipios');        
+            $t->foreign('id_municipios')->references('id_municipios')->on('municipios')->onDelete('cascade');        
 
             $t->integer('numeroIdentificacion');
             $t->string('nombres');
@@ -41,7 +41,7 @@ class CreateEstudiantesTable extends Migration
             $t->binary('foto')->nullable();           
             $t->boolean('activo')->default(1);
             $t->timestamps();
-            $t->softDeletes();
+            
         });
     }
 

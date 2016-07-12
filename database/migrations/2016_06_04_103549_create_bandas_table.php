@@ -17,15 +17,15 @@ class CreateBandasTable extends Migration
 
             //Foreign Key Institución
             $t->integer('id_institucions')->unsigned();
-            $t->foreign('id_institucions')->references('id_institucions')->on('institucions');
+            $t->foreign('id_institucions')->references('id_institucions')->on('institucions')->onDelete('cascade');
 
             //Foreign Key Categorias
             $t->integer('id_categorias')->unsigned();
-            $t->foreign('id_categorias')->references('id_categorias')->on('categorias');   
+            $t->foreign('id_categorias')->references('id_categorias')->on('categorias')->onDelete('cascade');   
 
             //Foreign Key tipo_bandas
             $t->integer('id_tipo_bandas')->unsigned();
-            $t->foreign('id_tipo_bandas')->references('id_tipo_bandas')->on('tipo_bandas');   
+            $t->foreign('id_tipo_bandas')->references('id_tipo_bandas')->on('tipo_bandas')->onDelete('cascade');   
 
             $t->string('nombre');
             $t->string('representante');
@@ -36,8 +36,7 @@ class CreateBandasTable extends Migration
             $t->string('correo_director');
             $t->text('resenha');            
 
-            $t->timestamps();
-            $t->softDeletes();
+            $t->timestamps();          
             
         });
     }

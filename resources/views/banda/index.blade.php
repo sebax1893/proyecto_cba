@@ -43,16 +43,17 @@
 						<td></td>						
 						<td>{{$bandas->nombre}}</td>				
 						<td>{{$bandas->categorias->nombre}}</td>										
-						<td>{{$bandas->tipo_bandas->nombre}}</td>				
-						<td>{{$bandas->institucions->nombre}}</td>										
+						<td>{{$bandas->tipo_bandas->nombre}}</td>
+						<td>{{$bandas->institucions->nombre}}</td>				
 						<td>{{$bandas->representante}}</td>										
 						<td>{{$bandas->contacto_representante}}</td>										
 						<td>{{$bandas->correo_representante}}</td>
 						<td>{{$bandas->director}}</td>										
 						<td>{{$bandas->contacto_director}}</td>										
 						<td>{{$bandas->correo_director}}</td>										
-						
-						<td>{{$bandas->resena}}</td>	
+						<td>{{$bandas->institucions->municipios->nombre}}</td>										
+						<td>{{$bandas->institucions->municipios->subregions->nombre}}</td>		
+						<td>{{$bandas->resenha}}</td>	
 						<td>											
 							{!!Form::open(['method' => 'delete', 'route' => ['banda.destroy', $bandas->id_bandas]])!!}
 								{!!link_to_route('banda.edit', $title = 'Modificar', $parameters = $bandas->id_bandas, $attributes = ['class'=>'btn btn-success'])!!}								

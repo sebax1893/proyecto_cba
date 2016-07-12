@@ -16,7 +16,7 @@ class CreateCategoriasTable extends Migration
             $t->increments('id_categorias');
             $t->string('nombre');
             $t->timestamps();
-            $t->softDeletes();
+     
             
         });
     }

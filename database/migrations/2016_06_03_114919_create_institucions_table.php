@@ -17,13 +17,12 @@ class CreateInstitucionsTable extends Migration
 
             //Foreign Key municipios
             $t->integer('id_municipios')->unsigned();
-            $t->foreign('id_municipios')->references('id_municipios')->on('municipios');
+            $t->foreign('id_municipios')->references('id_municipios')->on('municipios')->onDelete('cascade');
 
             $t->string('nombre');
             $t->string('direccion');
             $t->string('telefono');
-            $t->timestamps();
-            $t->softDeletes();
+            $t->timestamps();            
         });
     }
 

@@ -131,6 +131,7 @@ class InstitucionController extends Controller
      */
     public function destroy($id)
     {
+        
         $institucion = Institucion::find($id);
         $institucion->delete();
         Session::flash('message', 'Institucion eliminada correctamente');

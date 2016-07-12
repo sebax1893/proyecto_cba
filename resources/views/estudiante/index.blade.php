@@ -79,7 +79,7 @@
 					            </p>
 					        @endforeach 
 						</td>
-						<td><img src="{{ asset('img/' . $estudiantes->foto) }}" /></td>					
+						<td><img src="data:image/jpeg;base64,base64_encode({{$estudiantes->foto}})" /></td>
 						<td>															
 							{!!Form::open(['method' => 'delete', 'route' => ['banda.destroy', $estudiantes->id_estudiantes]])!!}
 								{!!link_to_route('banda.edit', $title = 'Modificar', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-success'])!!}	

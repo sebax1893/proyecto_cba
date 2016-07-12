@@ -3,18 +3,14 @@
 namespace CBA;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Institucion extends Model
 {
-	use SoftDeletes;
 
     protected $table = 'institucions';
     protected $primaryKey = 'id_institucions';
 	protected $fillable = ['id_municipios', 'nombre', 'direccion', 'telefono'];
 
-    protected $dates = ['deleted_at'];
-    
     /**
     * Relación One-To-Many: hay muchas instituciones en un municipio
     */
@@ -24,7 +20,7 @@ class Institucion extends Model
     }
 
     /**
-    * Relación One-To-Many: intitucion tiene muchas bandas
+    * Relación One-To-Many: categoria tiene muchas bandas
     */
     public function bandas()
     {

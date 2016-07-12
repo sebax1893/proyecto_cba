@@ -180,7 +180,7 @@
                                                     </select>                                                   
                                                     @if ($errors->has('parientes.0.id_parentescos'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('parientes.0.id_parentescos') }}</strong>
+                                                            <strong>El campo parentesco es obligatorio</strong>
                                                         </div>      
                                                     @endif                                                
                                                 </div>                          
@@ -190,7 +190,7 @@
                                                     {!!Form::text('parientes[0][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
                                                     @if ($errors->has('parientes.0.nombre'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('parientes.0.nombre') }}</strong>      
+                                                            <strong>El campo nombre del representante legal es obligatorio</strong>      
                                                         </div>      
                                                     @endif                                      
                                                 </div>                                                
@@ -237,9 +237,9 @@
                                                     </select>                                                   
                                                     @if ($errors->has('bandas.0.id_bandas'))
                                                         <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('bandas.0.id_bandas') }}</strong>       
+                                                            <strong>El campo banda es obligatorio</strong>       
                                                         </div>      
-                                                    @endif
+                                                    @endif                                   
                                                 </div>
 
                                             </div>
@@ -285,11 +285,7 @@
         $('#datepicker').datepicker({
             format: "yyyy/mm/dd",
             language: "es"
-        });
-
-        /* Darle el estilo de Bootstrap a los tooltips (Mensajes que salen cuando se pasa el mouse por encima
-        de una etiqueta HTML) */
-        $("input[name='es_representante']").tooltip();
+        });   
 
         $(document).ready(function() {
             var wrapper = $("#divParientes"); //Fields wrapper
@@ -362,6 +358,11 @@
                                                 '<option value="{{$item->id_bandas}}">{{$item->nombre}}</option>' +
                                             '@endforeach' +
                                         '</select>' +
+                                        '@if ($errors->has("bandas.' + auxBandas + '.id_bandas"))' +
+                                            '<div class="list-group-item list-group-item-warning">' +
+                                                '<strong>{{ $errors->first("observaciones") }}</strong>' +
+                                            '</div>' +
+                                        '@endif' +
                                     '</div>' +                                
                                 '</div>' + 
                             '</div>' + 
