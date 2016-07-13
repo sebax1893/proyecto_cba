@@ -7,12 +7,21 @@ use Carbon\Carbon;
 
 class Estudiante extends Model
 {
-	use SoftDeletes;
-
+    
     protected $table = 'estudiantes';
     protected $primaryKey = 'id_estudiantes';
     protected $fillable = ['id_tipo_documentos','id_eps', 'id_municipios', 'numeroIdentificacion','nombres','apellidos','edad','fechaNacimiento','direccion','barrio','telefono','celular','correo','observaciones','foto','activo'];
     
+    public function setFotoAttribute($foto)
+    {
+        if (!empty($foto)) {
+            $this->attributes['foto'] = Carbon::now()->second.$foto->getClientOriginalName();
+            $name = Carbon::now()->second.$foto->getClientOriginalName();
+            \Storage::disk('local')->put($name, \File::get($foto));
+        }
+        
+    } 
+
     /**
      * Estudiantes que pertenecen a parientes
      */

@@ -145,6 +145,7 @@ return [
         'numeroIdentificacion'  => 'número de identificaición',     //campo de Estudiante       
         'fechaNacimiento'       => 'fecha de nacimiento',     //campo de Estudiante       
         'bandas.*.id_bandas'    => 'banda',    //campo de Estudiante       
+        'foto'                  => 'imagen de perfil',    //campo de Estudiante       
 
     ],
 ];

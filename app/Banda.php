@@ -35,4 +35,10 @@ class Banda extends Model
         return $this->belongsTo('CBA\TipoBanda', 'id_tipo_bandas');
     }
 
+    public function estudiantes()
+    {
+        return $this->belongsToMany('CBA\Estudiante', 'banda_estudiante', 'id_bandas', 'id_estudiantes')
+        ->withPivot('asiste');
+    }
+
 }

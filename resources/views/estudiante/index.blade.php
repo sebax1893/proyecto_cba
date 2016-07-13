@@ -1,17 +1,17 @@
 @extends('layouts.app')
 @section('title', 'Gestionar estudiantes')
 @section('content')
+
 <div class="container">
+
 	@if (Auth::user()->is_admin == 1)
-	<div class="row">
-		<div class="">
-			{!!link_to_route('estudiante.create', $title = 'Registrar estudiante', null, $attributes = ['class'=>'btn btn-primary'])!!}
+		<div class="row">
+			<div class="">
+				{!!link_to_route('estudiante.create', $title = 'Registrar estudiante', null, $attributes = ['class'=>'btn btn-primary'])!!}
+			</div>
 		</div>
-	</div>
 	@endif
 
-
-	
 	&nbsp;
 	<div class="row">
 		
@@ -34,6 +34,7 @@
 					<th>EPS</th>					
 					<th>Parientes</th>				
 					<th>Bandas</th>				
+					<th>Observaciones</th>				
 					<th>Foto</th>				
 					<th>Opciones</th>
 				</thead>
@@ -57,7 +58,7 @@
 						<td>	
 							@foreach ($estudiantes->parientes as $pariente)
 					            <p>
-			            			@foreach($pp as $pari)
+			            			@foreach ($pp as $pari)
 										@foreach ($pari->estudiantes as $ids)										
 											@if ($pariente->id_parientes == $ids->pivot->id_parientes)
 												@if ($ids->pivot->es_representante == 1)
@@ -68,23 +69,37 @@
 									@endforeach	
 									<b>Nombre:</b> {{$pariente->nombre}}, 
 						            <b>Parentesco:</b> {{$pariente->parentescos->nombre}},									
-						            <b>Contacto:</b> {{$pariente->telefono}},
+						            <b>Contacto:</b> {{$pariente->telefono}}.
 					            </p>
 					        @endforeach 
 						</td>		
 						<td>	
 							@foreach ($estudiantes->bandas as $banda)
 					            <p>			            			
-									<b>Nombre:</b> {{$banda->nombre}}						            
+									@foreach ($bb as $bandis)
+										@foreach ($bandis->estudiantes as $ids)	
+											@if ($banda->id_bandas == $ids->pivot->id_bandas)	
+												@if($estudiantes->id_estudiantes == $ids->pivot->id_estudiantes)		
+													@if ($ids->pivot->asiste == 1)
+														<span class="label label-danger">Asiste actualmente</span>
+													@endif		
+												@endif
+											@endif												
+										@endforeach	
+									@endforeach		
+									<b>Nombre:</b> {{$banda->nombre}}.											           
 					            </p>
 					        @endforeach 
 						</td>
-						<td><img src="data:image/jpeg;base64,base64_encode({{$estudiantes->foto}})" /></td>
+						<td>{{$estudiantes->observaciones}}</td>						
+						<td>
+							<img src="../storage/images/{{$estudiantes->foto}}" style="width:100px;" />
+						</td>
 						<td>															
-							{!!Form::open(['method' => 'delete', 'route' => ['banda.destroy', $estudiantes->id_estudiantes]])!!}
-								{!!link_to_route('banda.edit', $title = 'Modificar', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-success'])!!}	
-								{!!link_to_route('banda.show', $title = 'Detalles', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-info'])!!}							
-					            {{Form::button('Eliminar', ['class' => 'btn btn-danger'])}}					            
+							{!!Form::open(['method' => 'delete', 'route' => ['estudiante.destroy', $estudiantes->id_estudiantes]])!!}
+								{!!link_to_route('estudiante.edit', $title = 'Modificar', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-success'])!!}	
+								{!!link_to_route('estudiante.show', $title = 'Detalles', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-info'])!!}							
+					            {{Form::button('Eliminar', ['id' => 'btnBorrar', 'class' => 'btn btn-danger'])}}					            
 							{!!Form::close()!!}
 						</td>							
 					</tr>
@@ -118,7 +133,17 @@
 				// primero las cuentas con rol administrador
 				"aaSorting": [[2,'desc']]	
 			});
-		});				
+		});			
+
+		// $('#btnBorrar').click(function() {	
+		// 	e.preventDefault();
+		// 	console.log('sdasdas');
+		// });	
+
+		// $('#dataTable').on('click', '#btnBorrar' , function (e) {
+  //       e.preventDefault();
+  //      	console.log('sdasdas');
+  //   });
 
 	</script>
 

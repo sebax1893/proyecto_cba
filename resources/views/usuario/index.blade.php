@@ -1,12 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Gestionar usuarios')
 
-<!-- @if(Session::has('message'))
-	<div class="alert">
-		{{Session::get('message')}}
-	</div>
-@endif -->
-
 @section('content')
 <div class="container">
 
@@ -43,7 +37,7 @@
 							{!!Form::open(['method' => 'delete', 'route' => ['usuario.destroy', $user->id]])!!}					
 								{!!link_to_route('usuario.edit', $title = 'Modificar', $parameters = $user->id, $attributes = ['class'=>'btn btn-success'])!!}
 					            <!-- {{Form::button('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('type' => '', 'class' => 'btn btn-danger', 'data-id' => $user->id_users))}} -->
-					            {{Form::button('Eliminar', ['class' => 'btn btn-danger'])}}
+					            {{Form::button('Eliminar', ['id' => 'btnBorrar', 'class' => 'btn btn-danger'])}}
 					            <!-- <input type="button" value="" class="btn btn-danger" data-id="asd" /> -->
 							{!!Form::close()!!}
 						</td>								

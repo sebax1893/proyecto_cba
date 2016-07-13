@@ -102,7 +102,7 @@ class UsuarioController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'min:6|confirmed',
             'is_admin' => 'required|in:0,1',
         ]);

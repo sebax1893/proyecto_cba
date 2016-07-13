@@ -1,10 +1,10 @@
 
-$('.btn-danger').click(function() {			
+$('#dataTable').on('click', '#btnBorrar' , function () {			
 
 	var frm = $(this).closest("form"); // our form	
 
 	swal({   
-		title: "¿Esta seguro?",   
+		title: "¿Esta seguro? Todos los registros que tienen este dato también serán eliminados",   
 		text: "No va a poder recuperar otra vez este registro",   
 		type: "warning",   showCancelButton: true,   
 		confirmButtonColor: "#DD6B55",   

@@ -73,7 +73,6 @@ class EstudianteController extends Controller
         $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
         $eps = \DB::table('eps')->lists('nombre', 'id_eps');
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
-        // $parentescos = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
         $parentesco = Parentesco::all(['id_parentescos', 'nombre']);
         $banda = Banda::all(['id_bandas', 'nombre']);
         
@@ -102,6 +101,7 @@ class EstudianteController extends Controller
             'barrio' => 'required|string',
             'telefono' => 'required',
             'correo' => 'required|email',
+            'foto' => 'image|mimes:jpg,jpeg,png',            
             'parientes.*.id_parentescos' => 'required',
             'parientes.*.nombre' => 'required',
             'bandas.*.id_bandas' => 'required',
@@ -187,7 +187,16 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $estudiante = Estudiante::findOrFail($id);        
+        $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
+        $eps = \DB::table('eps')->lists('nombre', 'id_eps');
+        // $bandis = \DB::table('bandas')->lists('nombre', 'id_bandas');
+        $estudiante->bandas()->lists('nombre','id_bandas');
+        $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
+        $parentesco = Parentesco::all(['id_parentescos', 'nombre']);
+        $banda = Banda::all(['id_bandas', 'nombre']);
+        
+        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'bandis')); 
     }
 
     /**
@@ -199,7 +208,31 @@ class EstudianteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            // 'id_tipo_documentos' => 'required',
+            // 'id_eps' => 'required',
+            // 'id_municipios' => 'required',
+            // 'numeroIdentificacion' => 'required|numeric',            
+            // 'nombres' => 'required|string',
+            // 'apellidos' => 'required|string',
+            // 'edad' => 'required|numeric',
+            // 'fechaNacimiento' => 'required|date',            
+            // 'direccion' => 'required|string',
+            // 'barrio' => 'required|string',
+            // 'telefono' => 'required',
+            // 'correo' => 'required|email',
+            // 'foto' => 'image|mimes:jpg,jpeg,png',                 
+            // 'parientes.*.id_parentescos' => 'required',
+            // 'parientes.*.nombre' => 'required',
+            // 'bandas.*.id_bandas' => 'required',                
+        ]);
+
+        $estudiante = Estudiante::findOrFail($id);
+        $estudiante->fill($request->all());
+        $estudiante->save();
+
+        Session::flash('message', 'Estudiante modificado correctamente');
+        return Redirect::to('/estudiante');
     }
 
     /**
@@ -210,6 +243,9 @@ class EstudianteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $estudiante = Estudiante::find($id);
+        $estudiante->delete();
+        Session::flash('message', 'Estudiante eliminado correctamente');
+        return Redirect::to('/estudiante');
     }
 }
