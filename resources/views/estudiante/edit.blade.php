@@ -272,7 +272,7 @@
 
                                                 <div class="form-group">
                                                     {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                    {!!Form::select('parientes[0][id_bandas]', $bandis, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                  
+                                                    {!!Form::select('parientes[0][id_bandas]', null, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                  
                                                     @if ($errors->has('bandas.0.id_bandas'))
                                                         <div class="list-group-item list-group-item-warning">       
                                                             <strong>El campo banda es obligatorio</strong>       

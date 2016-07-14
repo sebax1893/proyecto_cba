@@ -46,7 +46,7 @@
                                 {!!Form::submit('Ingresar', ['class'=>'btn btn-primary'])!!}                                
 
                                 <!-- <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Ha olvidado su contraseña?</a> -->
-                                {!!link_to('reset', $title = '¿Ha olvidado su contraseña?', null, $attributes = ['class'=>'btn btn-link'])!!}
+                                {!!link_to('password/email', $title = '¿Ha olvidado su contraseña?', null, $attributes = ['class'=>'btn btn-link'])!!}
                             </div>
                         </div>
                     {!!Form::close()!!}            
