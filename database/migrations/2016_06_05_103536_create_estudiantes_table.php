@@ -38,7 +38,7 @@ class CreateEstudiantesTable extends Migration
             $t->string('celular')->nullable();
             $t->string('correo');
             $t->text('observaciones');
-            $t->binary('foto')->nullable();           
+            $t->string('foto')->nullable();           
             $t->boolean('activo')->default(1);
             $t->timestamps();
             

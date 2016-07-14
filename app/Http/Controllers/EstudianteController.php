@@ -101,7 +101,7 @@ class EstudianteController extends Controller
             'barrio' => 'required|string',
             'telefono' => 'required',
             'correo' => 'required|email',
-            'foto' => 'image|mimes:jpg,jpeg,png',            
+            // 'foto' => 'image|mimes:jpg,jpeg,png',            
             'parientes.*.id_parentescos' => 'required',
             'parientes.*.nombre' => 'required',
             'bandas.*.id_bandas' => 'required',
