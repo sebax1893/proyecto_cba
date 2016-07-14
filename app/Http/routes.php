@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/','FrontController@index');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/','FrontController@index');
 Route::get('home','FrontController@home');
 Route::get('login','FrontController@login');
 Route::get('reset','FrontController@reset');
@@ -32,3 +33,10 @@ Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
 Route::get('password/reset','Auth\PasswordController@getEmail');
 Route::post('password/reset','Auth\PasswordController@postEmail');
+
+// Route::auth();
+
+Route::get('/home', 'HomeController@index');
+});
+
+
