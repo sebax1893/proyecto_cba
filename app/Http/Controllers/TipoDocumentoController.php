@@ -68,6 +68,7 @@ class TipoDocumentoController extends Controller
     public function edit($id)
     {
         $tipoDocumento = TipoDocumento::findOrFail($id);
+        $this->notFound($banda);
         return view('tipoDocumento.edit', ['tipoDocumento'=>$tipoDocumento]);
     }
 
@@ -85,6 +86,7 @@ class TipoDocumentoController extends Controller
         ]);
 
         $tipoDocumento = TipoDocumento::findOrFail($id);
+        $this->notFound($banda);
         $tipoDocumento->fill($request->all());
         $tipoDocumento->save();
 
@@ -101,6 +103,7 @@ class TipoDocumentoController extends Controller
     public function destroy($id)
     {
         $tipoDocumento = TipoDocumento::find($id);
+        $this->notFound($banda);
         $tipoDocumento->delete();
         Session::flash('message', 'Tipo de documento eliminado correctamente');
         return Redirect::to('/tipoDocumento');

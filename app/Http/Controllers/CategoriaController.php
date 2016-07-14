@@ -69,6 +69,7 @@ class CategoriaController extends Controller
     public function edit($id)
     {
         $categoria = Categoria::findOrFail($id);
+        $this->notFound($categoria);
         return view('categoria.edit', ['categoria'=>$categoria]);
     }
 
@@ -86,6 +87,7 @@ class CategoriaController extends Controller
         ]);
 
         $categoria = Categoria::findOrFail($id);
+        $this->notFound($categoria);
         $categoria->fill($request->all());
         $categoria->save();
 
@@ -102,6 +104,7 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         $categoria = Categoria::find($id);
+        $this->notFound($categoria);
         $categoria->delete();
         Session::flash('message', 'Categoria eliminada correctamente');
         return Redirect::to('/categoria');

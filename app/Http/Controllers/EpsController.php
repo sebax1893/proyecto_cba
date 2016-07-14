@@ -69,6 +69,7 @@ class EpsController extends Controller
     public function edit($id)
     {
         $eps = Eps::findOrFail($id);
+        $this->notFound($eps);
         return view('eps.edit', ['eps'=>$eps]);
     }
 
@@ -86,6 +87,7 @@ class EpsController extends Controller
         ]);
 
         $eps = Eps::findOrFail($id);
+        $this->notFound($eps);
         $eps->fill($request->all());
         $eps->save();
 
@@ -102,6 +104,7 @@ class EpsController extends Controller
     public function destroy($id)
     {
         $eps = Eps::find($id);
+        $this->notFound($eps);
         $eps->delete();
         Session::flash('message', 'EPS eliminada correctamente');
         return Redirect::to('/eps');

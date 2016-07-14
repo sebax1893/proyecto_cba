@@ -187,16 +187,17 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-        $estudiante = Estudiante::findOrFail($id);        
+        $estudiante = Estudiante::findOrFail($id); 
+        $this->notFound($banda);       
         $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
         $eps = \DB::table('eps')->lists('nombre', 'id_eps');
         // $bandis = \DB::table('bandas')->lists('nombre', 'id_bandas');
         $estudiante->bandas()->lists('nombre','id_bandas');
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
         $parentesco = Parentesco::all(['id_parentescos', 'nombre']);
-        $banda = Banda::all(['id_bandas', 'nombre']);
+        // $banda = Banda::all(['id_bandas', 'nombre']);
         
-        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'bandis')); 
+        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco')); 
     }
 
     /**
@@ -228,6 +229,7 @@ class EstudianteController extends Controller
         ]);
 
         $estudiante = Estudiante::findOrFail($id);
+        $this->notFound($banda);
         $estudiante->fill($request->all());
         $estudiante->save();
 
@@ -244,6 +246,7 @@ class EstudianteController extends Controller
     public function destroy($id)
     {
         $estudiante = Estudiante::find($id);
+        $this->notFound($banda);
         $estudiante->delete();
         Session::flash('message', 'Estudiante eliminado correctamente');
         return Redirect::to('/estudiante');

@@ -95,7 +95,8 @@ class InstitucionController extends Controller
      */
     public function edit($id)
     {
-        $institucion = Institucion::findOrFail($id);        
+        $institucion = Institucion::findOrFail($id);   
+        $this->notFound($banda);     
         $municipio = Municipio::lists('nombre', 'id_municipios');
         
         return view('institucion.edit', compact('institucion', 'municipio'));        
@@ -116,6 +117,7 @@ class InstitucionController extends Controller
         ]);
 
         $institucion = Institucion::findOrFail($id);
+        $this->notFound($banda);
         $institucion->fill($request->all());
         $institucion->save();
 
@@ -133,6 +135,7 @@ class InstitucionController extends Controller
     {
         
         $institucion = Institucion::find($id);
+        $this->notFound($banda);
         $institucion->delete();
         Session::flash('message', 'Institucion eliminada correctamente');
         return Redirect::to('/institucion');

@@ -87,7 +87,8 @@ class BandaController extends Controller
      */
     public function edit($id)
     {
-        $banda = Banda::findOrFail($id);        
+        $banda = Banda::findOrFail($id); 
+        $this->notFound($banda);
         $institucion = Institucion::lists('nombre', 'id_institucions');
         $categoria = Categoria::lists('nombre', 'id_categorias');
         $tipoBanda = TipoBanda::lists('nombre', 'id_tipo_bandas');
@@ -120,6 +121,7 @@ class BandaController extends Controller
         ]);
 
         $banda = Banda::findOrFail($id);
+        $this->notFound($banda);
         $banda->fill($request->all());
         $banda->save();
 
@@ -136,6 +138,7 @@ class BandaController extends Controller
     public function destroy($id)
     {
         $banda = Banda::find($id);
+        $this->notFound($banda);
         $banda->delete();
         Session::flash('message', 'Banda eliminada correctamente');
         return Redirect::to('/banda');

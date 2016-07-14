@@ -69,6 +69,7 @@ class TipoBandaController extends Controller
     public function edit($id)
     {
         $tipoBanda = TipoBanda::findOrFail($id);
+        $this->notFound($banda);
         return view('tipoBanda.edit', ['tipoBanda'=>$tipoBanda]);
     }
 
@@ -86,6 +87,7 @@ class TipoBandaController extends Controller
         ]);
 
         $tipoBanda = TipoBanda::findOrFail($id);
+        $this->notFound($banda);
         $tipoBanda->fill($request->all());
         $tipoBanda->save();
 
@@ -102,6 +104,7 @@ class TipoBandaController extends Controller
     public function destroy($id)
     {
         $tipoBanda = TipoBanda::find($id);
+        $this->notFound($banda);
         $tipoBanda->delete();
         Session::flash('message', 'Tipo de banda eliminada correctamente');
         return Redirect::to('/tipoBanda');
