@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'sortiz27@misena.edu.co', 'name' => 'Aplicación web CBA'],
+    'from' => ['address' => 'kirby1894@gmail.com', 'name' => 'Aplicación web CBA'],
 
     /*
     |--------------------------------------------------------------------------

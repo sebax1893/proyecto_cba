@@ -18,7 +18,7 @@
 		<div class="">
 			<table class="table table-striped table-bordered" id="dataTable">
 				<thead>
-					<th>Expandir</th>
+					<th>Det.</th>
 					<th>Tipo de documento</th>
 					<th>Número de identificación</th>
 					<th>Nombres</th>
@@ -123,7 +123,7 @@
 				responsive: true,								
 				// No permitir ordenar la columna de Operación
 				"aoColumnDefs": [
-					{ 'bSortable': false, 'aTargets': [ 3 ] }
+					{ 'bSortable': false, 'aTargets': [ 0, 3 ] }
 				],
 				// Usar el lenguaje español
 				"oLanguage": {

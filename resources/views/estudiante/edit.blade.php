@@ -12,7 +12,7 @@
 	                	{!!Form::model($estudiante, ['route'=> ['estudiante.update', $estudiante->id_estudiantes], 'method'=>'PATCH', 'files'=>true])!!}
 
 	                		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-
+{{$countParientes}}
                         <div class="form-group">
                             {!!Form::label('id_tipo_documentos', 'Tipo de documento', ['class' => 'required'])!!}
                             {!!Form::select('id_tipo_documentos', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
@@ -172,11 +172,7 @@
 
                                                 <div class="form-group">
                                                     {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
-                                                    <select class="form-control" name="parientes[0][id_parentescos]">   <option selected="selected" value="">Seleccionar</option> 
-                                                            @foreach($parentesco as $item) 
-                                                                <option value="{{$item->id_parentescos}}">{{$item->nombre}}</option> 
-                                                            @endforeach 
-                                                    </select>                                                   
+                                                    {!!Form::select('parientes[0][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                    
                                                     @if ($errors->has('parientes.0.id_parentescos'))
                                                         <div class="list-group-item list-group-item-warning">       
                                                             <strong>El campo parentesco es obligatorio</strong>
@@ -207,19 +203,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>  
 
-                                    <div class="panel-heading">Representante legal</div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">Pariente</div>
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-lg-6">      
 
                                                 <div class="form-group">
                                                     {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
-                                                    <select class="form-control" name="parientes[1][id_parentescos]">   <option selected="selected" value="">Seleccionar</option> 
-                                                            @foreach($parentesco as $item) 
-                                                                <option value="{{$item->id_parentescos}}">{{$item->nombre}}</option> 
-                                                            @endforeach 
-                                                    </select>                                                   
+                                                    {!!Form::select('parientes[1][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                   
                                                     @if ($errors->has('parientes.1.id_parentescos'))
                                                         <div class="list-group-item list-group-item-warning">       
                                                             <strong>El campo parentesco es obligatorio</strong>
@@ -250,8 +244,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>   
+                                </div> 
 
                                 <div class="form-group">
                                     {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
@@ -272,7 +265,7 @@
 
                                                 <div class="form-group">
                                                     {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                                                                   
+                                                    {!!Form::select('bandas[0][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}  
                                                     @if ($errors->has('bandas.0.id_bandas'))
                                                         <div class="list-group-item list-group-item-warning">       
                                                             <strong>El campo banda es obligatorio</strong>       

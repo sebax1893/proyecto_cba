@@ -176,7 +176,11 @@ class EstudianteController extends Controller
      */
     public function show($id)
     {
-        //
+        $estudiante = Estudiante::findOrFail($id); 
+        // $this->notFound($estudiante);   
+        $pp = Pariente::All();
+        $bb = Banda::All();
+        return view('estudiante.show', compact('estudiante', 'pp', 'bb'));
     }
 
     /**
@@ -188,16 +192,22 @@ class EstudianteController extends Controller
     public function edit($id)
     {
         $estudiante = Estudiante::findOrFail($id); 
-        $this->notFound($banda);       
+        // $this->notFound($estudiante);       
         $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
-        $eps = \DB::table('eps')->lists('nombre', 'id_eps');
-        // $bandis = \DB::table('bandas')->lists('nombre', 'id_bandas');
-        $estudiante->bandas()->lists('nombre','id_bandas');
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
-        $parentesco = Parentesco::all(['id_parentescos', 'nombre']);
+        $eps = \DB::table('eps')->lists('nombre', 'id_eps');
+        $banda = \DB::table('bandas')->lists('nombre', 'id_bandas');
+        $estudiantePariente = $estudiante->parientes->lists('nombre','id_parientes');
+        $countParientes = $estudiantePariente->count();
+        // $banda = Estudiante::find($id)->bandas()->lists('bandas.nombre', 'bandas.id_bandas');
+        $parentesco = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
         // $banda = Banda::all(['id_bandas', 'nombre']);
+
+
+        // // $bandis = \DB::table('bandas')->lists('nombre', 'id_bandas');
+        // $estudiante->bandas()->lists('nombre','id_bandas');
         
-        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco')); 
+        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'countParientes')); 
     }
 
     /**
@@ -229,7 +239,7 @@ class EstudianteController extends Controller
         ]);
 
         $estudiante = Estudiante::findOrFail($id);
-        $this->notFound($banda);
+        $this->notFound($estudiante);
         $estudiante->fill($request->all());
         $estudiante->save();
 
@@ -246,7 +256,7 @@ class EstudianteController extends Controller
     public function destroy($id)
     {
         $estudiante = Estudiante::find($id);
-        $this->notFound($banda);
+        $this->notFound($estudiante);
         $estudiante->delete();
         Session::flash('message', 'Estudiante eliminado correctamente');
         return Redirect::to('/estudiante');
