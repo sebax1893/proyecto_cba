@@ -1,283 +1,283 @@
 @extends('layouts.app')
 @section('title', 'Registrar estudiante')
 @section('content') 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Registrar estudiante
-                </div>
-                <div class="panel-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Registrar estudiante
+                    </div>
+                    <div class="panel-body">
 
-                    {!!Form::open(['route'=>'estudiante.store', 'method'=>'POST', 'files'=>true])!!}
+                        {!!Form::open(['route'=>'estudiante.store', 'method'=>'POST', 'files'=>true])!!}
 
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
 
-                        <div class="form-group">
-                            {!!Form::label('id_tipo_documentos', 'Tipo de documento', ['class' => 'required'])!!}
-                            {!!Form::select('id_tipo_documentos', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                            @if ($errors->has('id_tipo_documentos'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('id_tipo_documentos') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>                        
+                            <div class="form-group">
+                                {!!Form::label('id_tipo_documentos', 'Tipo de documento', ['class' => 'required'])!!}
+                                {!!Form::select('id_tipo_documentos', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                @if ($errors->has('id_tipo_documentos'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('id_tipo_documentos') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div>                        
 
-                        <div class="form-group">
-                            {!!Form::label('numeroIdentificacion', 'Número de idenfiticación', ['class' => 'required'])!!}
-                            {!!Form::number('numeroIdentificacion',null,['class'=>'form-control', 'placeholder'=>'Número de identificación del estudiante'])!!}
-                            @if ($errors->has('numeroIdentificacion'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('numeroIdentificacion') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            {!!Form::label('nombres', 'Nombres', ['class' => 'required'])!!}
-                            {!!Form::text('nombres',null,['class'=>'form-control', 'placeholder'=>'Nombres del estudiante'])!!}
-                            @if ($errors->has('nombres'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('nombres') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            {!!Form::label('apellidos', 'Apellidos', ['class' => 'required'])!!} 
-                            {!!Form::text('apellidos',null,['class'=>'form-control', 'placeholder'=>'Apellidos del estudiante'])!!}
-                            @if ($errors->has('apellidos'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('apellidos') }}</strong>      
-                                </div>      
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            {!!Form::label('edad', 'Edad', ['class' => 'required'])!!}    
-                            {!!Form::number('edad', null, ['class'=>'form-control', 'placeholder'=>'Edad del estudiante'])!!}
-                            @if ($errors->has('edad'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('edad') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>    
-
-                        <div class="form-group">
-                            {!!Form::label('fechaNacimiento', 'Fecha de nacimiento', ['class' => 'required'])!!}  
-                            {!!Form::text('fechaNacimiento',null,['id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'DD/MM/AAAA'])!!}                             
-                            @if ($errors->has('fechaNacimiento'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('fechaNacimiento') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>       
-
-                        <div class="form-group">
-                            {!!Form::label('direccion', 'Dirección', ['class' => 'required'])!!} 
-                            {!!Form::text('direccion',null,['class'=>'form-control', 'placeholder'=>'Dirección  del estudiante'])!!}
-                            @if ($errors->has('direccion'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('direccion') }}</strong>      
-                                </div>      
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
-                            
-                            {!!Form::select('id_municipios', $municipio, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                            @if ($errors->has('id_municipios'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('id_municipios') }}</strong>       
-                                </div>      
-                            @endif
-                        </div> 
-
-                        <div class="form-group" id="subregionDiv">
-                            {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
-                            {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
-                        </div> 
-
-                        <div class="form-group">
-                            {!!Form::label('barrio', 'Barrio', ['class' => 'required'])!!} 
-                            {!!Form::text('barrio',null,['class'=>'form-control', 'placeholder'=>'Barrio del estudiante'])!!}
-                            @if ($errors->has('barrio'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('barrio') }}</strong>      
-                                </div>      
-                            @endif
-                        </div>   
-
-                        <div class="form-group">
-                            {!!Form::label('telefono', 'Número de teléfono', ['class' => 'required'])!!}    
-                            {!!Form::number('telefono', null, ['class'=>'form-control', 'placeholder'=>'Número de teléfono del estudiante'])!!}
-                            @if ($errors->has('telefono'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('telefono') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>  
-
-                        <div class="form-group">
-                            {!!Form::label('celular', 'Número de celular', ['class' => ''])!!}    
-                            {!!Form::number('celular', null, ['class'=>'form-control', 'placeholder'=>'Número de celular del estudiante'])!!}
-                            @if ($errors->has('celular'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('celular') }}</strong>       
-                                </div>      
-                            @endif
-                        </div> 
-
-                        <div class="form-group">
-                            {!!Form::label('correo', 'Correo electrónico', ['class' => 'required'])!!} 
-                            {!!Form::email('correo',null,['class'=>'form-control', 'placeholder'=>'Correo electrónico del estudiante'])!!}
-                            @if ($errors->has('correo'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('correo') }}</strong>      
-                                </div>      
-                            @endif
-                        </div> 
-
-                        <div class="form-group">
-                            {!!Form::label('id_eps', 'EPS', ['class' => 'required'])!!}
-                            {!!Form::select('id_eps', $eps, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
-                            @if ($errors->has('id_eps'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('id_eps') }}</strong>       
-                                </div>      
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            {!!Form::label('foto', 'Imagen de perfil', ['class' => ''])!!}
-                            {!!Form::file('foto')!!}                                
-                            @if ($errors->has('foto'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('foto') }}</strong>       
-                                </div>      
-                            @endif                                
-                        </div>
-
-                        <!-- SECCIÓN PARIENTES -->
-                        <div class="panel panel-info">
-                            <div class="panel-heading">Parientes</div>
-                            <div id="divParientes" class="panel-body">
-
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">Representante legal</div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">      
-
-                                                <div class="form-group">
-                                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
-                                                    <select class="form-control" name="parientes[0][id_parentescos]">   <option selected="selected" value="">Seleccionar</option> 
-                                                            @foreach($parentesco as $item) 
-                                                                <option value="{{$item->id_parentescos}}">{{$item->nombre}}</option> 
-                                                            @endforeach 
-                                                    </select>                                                   
-                                                    @if ($errors->has('parientes.0.id_parentescos'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>El campo parentesco es obligatorio</strong>
-                                                        </div>      
-                                                    @endif                                                
-                                                </div>                          
-
-                                                <div class="form-group">                                        
-                                                    {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
-                                                    {!!Form::text('parientes[0][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
-                                                    @if ($errors->has('parientes.0.nombre'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>El campo nombre del representante legal es obligatorio</strong>      
-                                                        </div>      
-                                                    @endif                                      
-                                                </div>                                                
-
-                                                <div class="form-group">
-                                                    {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
-                                                    {!!Form::number('parientes[0][telefono]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
-                                                    @if ($errors->has('contacto'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('contacto') }}</strong>      
-                                                        </div>      
-                                                    @endif
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </div>   
-
-                                <div class="form-group">
-                                    {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
-                                </div>                                                                                
+                            <div class="form-group">
+                                {!!Form::label('numeroIdentificacion', 'Número de idenfiticación', ['class' => 'required'])!!}
+                                {!!Form::number('numeroIdentificacion',null,['class'=>'form-control', 'placeholder'=>'Número de identificación del estudiante'])!!}
+                                @if ($errors->has('numeroIdentificacion'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('numeroIdentificacion') }}</strong>       
+                                    </div>      
+                                @endif
                             </div>
-                        </div>
 
-                        <!-- SECCIÓN BANDAS -->
-                        <div class="panel panel-info">
-                            <div class="panel-heading">Bandas</div>
-                            <div id="divBandas" class="panel-body">
-
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">Banda a la que pertenece actualmente</div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">      
-
-                                                <div class="form-group">
-                                                    {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                    <select class="form-control" name="bandas[0][id_bandas]">   
-                                                    <option selected="selected" value="">Seleccionar</option> 
-                                                            @foreach($banda as $item) 
-                                                                <option value="{{$item->id_bandas}}">{{$item->nombre}}</option> 
-                                                            @endforeach 
-                                                    </select>                                                   
-                                                    @if ($errors->has('bandas.0.id_bandas'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>El campo banda es obligatorio</strong>       
-                                                        </div>      
-                                                    @endif                                   
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </div>   
-
-                                <div class="form-group">
-                                    {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
-                                </div>                                                                                
+                            <div class="form-group">
+                                {!!Form::label('nombres', 'Nombres', ['class' => 'required'])!!}
+                                {!!Form::text('nombres',null,['class'=>'form-control', 'placeholder'=>'Nombres del estudiante'])!!}
+                                @if ($errors->has('nombres'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('nombres') }}</strong>       
+                                    </div>      
+                                @endif
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            {!!Form::label('observaciones', 'Observaciones', ['class' => ''])!!}
-                            {!!Form::textarea('observaciones',null,['class'=>'form-control', 'placeholder'=>'Observaciones del estudiante'])!!}
-                            @if ($errors->has('observaciones'))
-                                <div class="list-group-item list-group-item-warning">       
-                                    <strong>{{ $errors->first('observaciones') }}</strong>        
-                                </div>      
-                            @endif
-                        </div>                                                                      
+                            <div class="form-group">
+                                {!!Form::label('apellidos', 'Apellidos', ['class' => 'required'])!!} 
+                                {!!Form::text('apellidos',null,['class'=>'form-control', 'placeholder'=>'Apellidos del estudiante'])!!}
+                                @if ($errors->has('apellidos'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('apellidos') }}</strong>      
+                                    </div>      
+                                @endif
+                            </div>
 
-                        {!!Form::submit('Registrar', ['class'=>'btn btn-primary'])!!}
+                            <div class="form-group">
+                                {!!Form::label('edad', 'Edad', ['class' => 'required'])!!}    
+                                {!!Form::number('edad', null, ['class'=>'form-control', 'placeholder'=>'Edad del estudiante'])!!}
+                                @if ($errors->has('edad'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('edad') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div>    
 
-                    {!!Form::close()!!}
-                    
+                            <div class="form-group">
+                                {!!Form::label('fechaNacimiento', 'Fecha de nacimiento', ['class' => 'required'])!!}  
+                                {!!Form::text('fechaNacimiento',null,['id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'AAAA/MM/DD'])!!}                             
+                                @if ($errors->has('fechaNacimiento'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('fechaNacimiento') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div>       
+
+                            <div class="form-group">
+                                {!!Form::label('direccion', 'Dirección', ['class' => 'required'])!!} 
+                                {!!Form::text('direccion',null,['class'=>'form-control', 'placeholder'=>'Dirección  del estudiante'])!!}
+                                @if ($errors->has('direccion'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('direccion') }}</strong>      
+                                    </div>      
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                {!!Form::label('id_municipios', 'Municipio', ['class' => 'required'])!!}
+                                
+                                {!!Form::select('id_municipios', $municipio, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                @if ($errors->has('id_municipios'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('id_municipios') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div> 
+
+                            <div class="form-group" id="subregionDiv">
+                                {!!Form::label('subregion', 'Subregión', ['class' => ''])!!}
+                                {!!Form::text('subregion',null,['class'=>'form-control', 'placeholder'=>'Subregión', 'disabled'])!!}                          
+                            </div> 
+
+                            <div class="form-group">
+                                {!!Form::label('barrio', 'Barrio', ['class' => 'required'])!!} 
+                                {!!Form::text('barrio',null,['class'=>'form-control', 'placeholder'=>'Barrio del estudiante'])!!}
+                                @if ($errors->has('barrio'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('barrio') }}</strong>      
+                                    </div>      
+                                @endif
+                            </div>   
+
+                            <div class="form-group">
+                                {!!Form::label('telefono', 'Número de teléfono', ['class' => 'required'])!!}    
+                                {!!Form::number('telefono', null, ['class'=>'form-control', 'placeholder'=>'Número de teléfono del estudiante'])!!}
+                                @if ($errors->has('telefono'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('telefono') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div>  
+
+                            <div class="form-group">
+                                {!!Form::label('celular', 'Número de celular', ['class' => ''])!!}    
+                                {!!Form::number('celular', null, ['class'=>'form-control', 'placeholder'=>'Número de celular del estudiante'])!!}
+                                @if ($errors->has('celular'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('celular') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div> 
+
+                            <div class="form-group">
+                                {!!Form::label('correo', 'Correo electrónico', ['class' => 'required'])!!} 
+                                {!!Form::email('correo',null,['class'=>'form-control', 'placeholder'=>'Correo electrónico del estudiante'])!!}
+                                @if ($errors->has('correo'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('correo') }}</strong>      
+                                    </div>      
+                                @endif
+                            </div> 
+
+                            <div class="form-group">
+                                {!!Form::label('id_eps', 'EPS', ['class' => 'required'])!!}
+                                {!!Form::select('id_eps', $eps, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
+                                @if ($errors->has('id_eps'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('id_eps') }}</strong>       
+                                    </div>      
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                {!!Form::label('foto', 'Imagen de perfil', ['class' => ''])!!}
+                                {!!Form::file('foto')!!}                                
+                                @if ($errors->has('foto'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('foto') }}</strong>       
+                                    </div>      
+                                @endif                                
+                            </div>
+
+                            <!-- SECCIÓN PARIENTES -->
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Parientes</div>
+                                <div id="divParientes" class="panel-body">
+
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">Representante legal</div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">      
+
+                                                    <div class="form-group">
+                                                        {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
+                                                        <select class="form-control" name="parientes[0][id_parentescos]">   <option selected="selected" value="">Seleccionar</option> 
+                                                                @foreach($parentesco as $item) 
+                                                                    <option value="{{$item->id_parentescos}}">{{$item->nombre}}</option> 
+                                                                @endforeach 
+                                                        </select>                                                   
+                                                        @if ($errors->has('parientes.0.id_parentescos'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>El campo parentesco es obligatorio</strong>
+                                                            </div>      
+                                                        @endif                                                
+                                                    </div>                          
+
+                                                    <div class="form-group">                                        
+                                                        {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
+                                                        {!!Form::text('parientes[0][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
+                                                        @if ($errors->has('parientes.0.nombre'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>El campo nombre del representante legal es obligatorio</strong>      
+                                                            </div>      
+                                                        @endif                                      
+                                                    </div>                                                
+
+                                                    <div class="form-group">
+                                                        {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
+                                                        {!!Form::number('parientes[0][telefono]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
+                                                        @if ($errors->has('contacto'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>{{ $errors->first('contacto') }}</strong>      
+                                                            </div>      
+                                                        @endif
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div>   
+
+                                    <div class="form-group">
+                                        {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
+                                    </div>                                                                                
+                                </div>
+                            </div>
+
+                            <!-- SECCIÓN BANDAS -->
+                            <div class="panel panel-info">
+                                <div class="panel-heading">Bandas</div>
+                                <div id="divBandas" class="panel-body">
+
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">Banda a la que pertenece actualmente</div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">      
+
+                                                    <div class="form-group">
+                                                        {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
+                                                        <select class="form-control" name="bandas[0][id_bandas]">   
+                                                        <option selected="selected" value="">Seleccionar</option> 
+                                                                @foreach($banda as $item) 
+                                                                    <option value="{{$item->id_bandas}}">{{$item->nombre}}</option> 
+                                                                @endforeach 
+                                                        </select>                                                   
+                                                        @if ($errors->has('bandas.0.id_bandas'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>El campo banda es obligatorio</strong>       
+                                                            </div>      
+                                                        @endif                                   
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div>   
+
+                                    <div class="form-group">
+                                        {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
+                                    </div>                                                                                
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {!!Form::label('observaciones', 'Observaciones', ['class' => ''])!!}
+                                {!!Form::textarea('observaciones',null,['class'=>'form-control', 'placeholder'=>'Observaciones del estudiante'])!!}
+                                @if ($errors->has('observaciones'))
+                                    <div class="list-group-item list-group-item-warning">       
+                                        <strong>{{ $errors->first('observaciones') }}</strong>        
+                                    </div>      
+                                @endif
+                            </div>                                                                      
+
+                            {!!Form::submit('Registrar', ['class'=>'btn btn-primary'])!!}
+
+                        {!!Form::close()!!}
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    &nbsp;
-    <div class="row">
-        {!!link_to_route('estudiante.index', $title = 'Regresar', null, $attributes = ['class'=>'btn btn-success'])!!}
-    </div>
-</div>    
-{{-- */$i=0;/* --}}
+        &nbsp;
+        <div class="row">
+            {!!link_to_route('estudiante.index', $title = 'Regresar', null, $attributes = ['class'=>'btn btn-success'])!!}
+        </div>
+    </div>    
 @endsection
+
 @section('scripts')
     <script type="text/javascript">
 
@@ -286,6 +286,35 @@
             format: "yyyy/mm/dd",
             language: "es"
         });   
+
+        /* Municipios y Subregiones */
+        $(function () {
+            var subregionInput = $('#subregion');
+            var subregionDiv = $('#subregionDiv')
+            subregionDiv.css('display', 'none');
+            
+            $('#id_municipios').change(function () {
+
+                var municipioDropDownValue = $('#id_municipios').val();
+                
+                var token = $("#token").val();
+
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': token},
+                    type: 'POST',                    
+                    url: "./obtenerSubregion",
+                    data: {id_municipio: municipioDropDownValue},
+                    dataType: 'json',
+                    success: function(data){
+
+                        var subregion = data[0].nombre;
+
+                        subregionDiv.show();
+                        subregionInput.val(subregion);           
+                    }
+                })
+            });
+        });
 
         $(document).ready(function() {
             var wrapper = $("#divParientes"); //Fields wrapper
@@ -390,39 +419,7 @@
                 $(this).parent('div').parent('div').remove();
             })
 
-            /* Municipios y Subregiones */
-            $(function () {
-
-            var subregionInput = $('#subregion');
-            var subregionDiv = $('#subregionDiv')
-            subregionDiv.css('display', 'none');
-            
-            $('#id_municipios').change(function () {
-
-                var municipioDropDownValue = $('#id_municipios').val();
-                
-                var token = $("#token").val();
-
-                $.ajax({
-                    headers: {'X-CSRF-TOKEN': token},
-                    type: 'POST',
-                    // url: "http://localhost/proyecto_cba/public/institucion/obtenerSubregion",
-                    url: "./obtenerSubregion",
-                    data: {id_municipio: municipioDropDownValue},
-                    dataType: 'json',
-                    success: function(data){
-
-                        var subregion = data[0].nombre;
-
-                        subregionDiv.show();
-                        subregionInput.val(subregion);           
-                    }
-                })
-            });
         });
-
-        });
-
 
     </script>
 @endsection

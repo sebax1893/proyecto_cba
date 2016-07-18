@@ -11,7 +11,6 @@ use CBA\Institucion;
 use CBA\Categoria;
 use CBA\TipoBanda;
 
-
 class BandaController extends Controller
 {
     /**

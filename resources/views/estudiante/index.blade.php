@@ -134,17 +134,7 @@
 				"aaSorting": [[2,'desc']]	
 			});
 		});			
-
-		// $('#btnBorrar').click(function() {	
-		// 	e.preventDefault();
-		// 	console.log('sdasdas');
-		// });	
-
-		// $('#dataTable').on('click', '#btnBorrar' , function (e) {
-  //       e.preventDefault();
-  //      	console.log('sdasdas');
-  //   });
-
+		
 	</script>
 
 @endsection

@@ -11,8 +11,8 @@
 	                <div class="panel-body">
 	                	{!!Form::model($estudiante, ['route'=> ['estudiante.update', $estudiante->id_estudiantes], 'method'=>'PATCH', 'files'=>true])!!}
 
-	                		<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-{{$countParientes}}
+	                	<input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+
                         <div class="form-group">
                             {!!Form::label('id_tipo_documentos', 'Tipo de documento', ['class' => 'required'])!!}
                             {!!Form::select('id_tipo_documentos', $tipoDocumento, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}
@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             {!!Form::label('fechaNacimiento', 'Fecha de nacimiento', ['class' => 'required'])!!}  
-                            {!!Form::text('fechaNacimiento',null,['id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'DD/MM/AAAA'])!!}                             
+                            {!!Form::text('fechaNacimiento',null,['id'=>'datepicker', 'class'=>'form-control', 'placeholder'=>'AAAA/MM/DD'])!!}                             
                             @if ($errors->has('fechaNacimiento'))
                                 <div class="list-group-item list-group-item-warning">       
                                     <strong>{{ $errors->first('fechaNacimiento') }}</strong>       
@@ -204,47 +204,54 @@
                                         </div>
                                     </div>
                                 </div>  
+                            
+                                @for($i = 1; $i < $countParientes; $i++)
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">Pariente</div>
+                                        <div id="divNuevoPariente" name="NuevoPariente" data-field-id="{{$i}}"></div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">      
+                                                    <div class="form-group">
+                                                        {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
+                                                        {!!Form::select('parientes[' . $i . '][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                   
+                                                        @if ($errors->has('parientes[' . $i . ']id_parentescos'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>El campo parentesco es obligatorio</strong>
+                                                            </div>      
+                                                        @endif                                                
+                                                    </div>                          
 
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">Pariente</div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">      
+                                                    <div class="form-group">                                        
+                                                        {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
+                                                        {!!Form::text('parientes[' . $i . '][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
+                                                        @if ($errors->has('parientes[' . $i . ']nombre'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>El campo nombre del representante legal es obligatorio</strong>      
+                                                            </div>      
+                                                        @endif                                      
+                                                    </div>                                                
 
-                                                <div class="form-group">
-                                                    {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
-                                                    {!!Form::select('parientes[1][id_parentescos]', $parentesco, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                   
-                                                    @if ($errors->has('parientes.1.id_parentescos'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>El campo parentesco es obligatorio</strong>
-                                                        </div>      
-                                                    @endif                                                
-                                                </div>                          
+                                                    <div class="form-group">
+                                                        {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
+                                                        {!!Form::number('parientes[' . $i . '][telefono]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
+                                                        @if ($errors->has('contacto'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>{{ $errors->first('contacto') }}</strong>      
+                                                            </div>      
+                                                        @endif
+                                                    </div>
 
-                                                <div class="form-group">                                        
-                                                    {!!Form::label('nombre', 'Nombre del representante legal', ['class' => 'required'])!!}    
-                                                    {!!Form::text('parientes[1][nombre]',null,['class'=>'form-control', 'placeholder'=>'Nombre del representante legal del estudiante'])!!}                     
-                                                    @if ($errors->has('parientes.1.nombre'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>El campo nombre del representante legal es obligatorio</strong>      
-                                                        </div>      
-                                                    @endif                                      
-                                                </div>                                                
-
-                                                <div class="form-group">
-                                                    {!!Form::label('contacto', 'Celular o fijo del pariente', ['class' => ''])!!} 
-                                                    {!!Form::number('parientes[1][telefono]', null, ['class'=>'form-control', 'placeholder'=>'Contacto del pariente del estudiante'])!!}
-                                                    @if ($errors->has('contacto'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>{{ $errors->first('contacto') }}</strong>      
-                                                        </div>      
-                                                    @endif
                                                 </div>
-
                                             </div>
                                         </div>
+                                        <div class="panel-footer">
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
+                                            </button>
+                                        </div>
                                     </div>
-                                </div> 
+                                @endfor                            
 
                                 <div class="form-group">
                                     {!!Form::button('Añadir pariente', ['id'=>'btnPariente', 'class'=>'btn btn-warning'])!!}
@@ -276,7 +283,39 @@
                                             </div>
                                         </div>
                                     </div>                                    
-                                </div>   
+                                </div>                  
+
+                                @foreach($estudiante->bandas as $pivotEstudiante)
+                                    $pivotEstudiante->pivot->id_bandas;
+                                @endforeach
+
+                                @for($i = 1; $i < $countBandas; $i++)
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">Banda a la que ha pertenecido</div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">      
+
+                                                    <div class="form-group">
+                                                        {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
+                                                        {!!Form::select('bandas[' . $i . '][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}  
+                                                        @if ($errors->has('bandas.' . $i . '.id_bandas'))
+                                                            <div class="list-group-item list-group-item-warning">       
+                                                                <strong>El campo banda es obligatorio</strong>       
+                                                            </div>      
+                                                        @endif                                   
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <div class="panel-footer">
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
+                                            </button>
+                                        </div>                                  
+                                    </div>
+                                @endfor  
 
                                 <div class="form-group">
                                     {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
@@ -297,4 +336,164 @@
     		{!!link_to_route('estudiante.index', $title = 'Regresar', null, $attributes = ['class'=>'btn btn-success'])!!}
     	</div>
 	</div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+        /* Inicializar el datepicker (calendario) de Bootstrap con formato de fecha normal y en idioma español */
+        $('#datepicker').datepicker({
+            format: "yyyy/mm/dd",
+            language: "es"
+        });   
+
+        /* Municipios y Subregiones */
+        $(function () {
+            var subregionInput = $('#subregion');
+            var subregionDiv = $('#subregionDiv')
+            subregionDiv.css('display', 'none');
+            
+            $('#id_municipios').change(function () {
+
+                var municipioDropDownValue = $('#id_municipios').val();
+                
+                var token = $("#token").val();
+
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': token},
+                    type: 'POST',                    
+                    url: "/proyecto_cba/public/institucion/obtenerSubregion",
+                    data: {id_municipio: municipioDropDownValue},
+                    dataType: 'json',
+                    success: function(data){
+
+                        var subregion = data[0].nombre;
+
+                        subregionDiv.show();
+                        subregionInput.val(subregion);           
+                    }
+                })
+            });
+        });
+
+        $(document).ready(function() {
+            var wrapper = $("#divParientes"); //Fields wrapper
+            var add_button = $("#btnPariente"); //Add button ID            
+            
+            var wrapperBandas = $('#divBandas');
+            var add_button_bandas = $('#btnBanda');
+
+            // var auxParientes = 1; 
+            var auxBandas = 1; 
+
+            var maxFieldIdPariente; // Para continuar con el siguiente id en estos brakets parientes[maxId][campo]
+
+            // var fieldId = $('#div').data("field-id");
+
+            $( "div[name=NuevoPariente]" ).each(function( index ) {
+                maxFieldIdPariente = $(this).data("field-id");
+                // console.log(index + ": " + $( this ).data("field-id"));
+            });
+
+            maxFieldIdPariente++;
+
+            console.log(maxFieldIdPariente);
+
+
+            /* AÑADIR PARIENTES */            
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+
+                //Add new inputs
+                $(wrapper).append(
+                    '<div class="panel panel-success">' +
+                        '<div class="panel-heading">Nuevo pariente</div>' +
+                        '<div class="panel-body">' + 
+                            '<div class="row">' + 
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("id_parentescos", "Parentesco", ["class" => "required"])!!}' + 
+                                        '<select class="form-control" name="parientes[' + maxFieldIdPariente + '][id_parentescos]">' + 
+                                        '<option selected="selected" value="">Seleccionar</option>' +
+                                            '@foreach($parentescos as $item)' +
+                                                '<option value="{{$item->id_parentescos}}">{{$item->nombre}}</option>' +
+                                            '@endforeach' +
+                                        '</select>' +
+                                    '</div>' +
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("nombre", "Nombre del pariente", ["class" => ""])!!}' + 
+                                        '<input class="form-control" placeholder="Nombre del pariente del estudiante" name="parientes[' + maxFieldIdPariente + '][nombre]" type="text">' + 
+                                    '</div>' +                                    
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("contacto", "Celular o fijo del pariente", ["class" => ""])!!}' + 
+                                        '<input class="form-control" placeholder="Contacto del pariente del estudiante" name="parientes[' + maxFieldIdPariente + '][telefono]" type="number">' +
+                                    '</div>' +
+                                '</div>' + 
+                            '</div>' + 
+                        '</div>' +
+                        '<div class="panel-footer">' + 
+                            '<button type="button" class="btn btn-default" aria-label="Left Align">' + 
+                                '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar' + 
+                            '</button>' + 
+                        '</div>' + 
+                    '</div>'
+                ); 
+                maxFieldIdPariente++; //text box increment                
+
+            });
+
+            /* AÑADIR BANDAS */
+            $(add_button_bandas).click(function(e){ //on add input button click
+                e.preventDefault();
+
+                //Add new inputs
+                $(wrapperBandas).append(
+                    '<div class="panel panel-success">' +
+                        '<div class="panel-heading">Nueva banda a la que ha pertenecido</div>' +
+                        '<div class="panel-body">' + 
+                            '<div class="row">' + 
+                                '<div class="col-lg-6">'+
+                                    '<div class="form-group">' + 
+                                        '{!!Form::label("id_bandas", "Banda", ["class" => ""])!!}' + 
+                                        '<select class="form-control" name="bandas[' + auxBandas + '][id_bandas]">' +
+                                        '<option selected="selected" value="">Seleccionar</option>' +
+                                            '@foreach($bandas as $item)' +
+                                                '<option value="{{$item->id_bandas}}">{{$item->nombre}}</option>' +
+                                            '@endforeach' +
+                                        '</select>' +
+                                        '@if ($errors->has("bandas.' + auxBandas + '.id_bandas"))' +
+                                            '<div class="list-group-item list-group-item-warning">' +
+                                                '<strong>{{ $errors->first("observaciones") }}</strong>' +
+                                            '</div>' +
+                                        '@endif' +
+                                    '</div>' +                                
+                                '</div>' + 
+                            '</div>' + 
+                        '</div>' +
+                        '<div class="panel-footer">' + 
+                            '<button type="button" class="btn btn-default" aria-label="Left Align">' + 
+                                '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar' + 
+                            '</button>' + 
+                        '</div>' + 
+                    '</div>'
+                ); 
+                auxBandas++; //text box increment                
+
+            });
+
+            /* ELIMINAR PARIENTE */
+            $(wrapper).on("click",".btn-default", function(e){ //user click on remove text
+                e.preventDefault(); 
+                $(this).parent('div').parent('div').remove();
+            })
+
+            /* ELIMINAR BANDAS */
+            $(wrapperBandas).on("click",".btn-default", function(e){ //user click on remove text
+                e.preventDefault(); 
+                $(this).parent('div').parent('div').remove();
+            })
+
+        });
+
+    </script>
 @endsection

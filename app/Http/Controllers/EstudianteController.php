@@ -197,17 +197,23 @@ class EstudianteController extends Controller
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
         $eps = \DB::table('eps')->lists('nombre', 'id_eps');
         $banda = \DB::table('bandas')->lists('nombre', 'id_bandas');
-        $estudiantePariente = $estudiante->parientes->lists('nombre','id_parientes');
+        $bandas = Banda::all(['id_bandas', 'nombre']);
+        $estudiantePariente = $estudiante->parientes->lists('nombre', 'id_parientes');
         $countParientes = $estudiantePariente->count();
+        $estudianteBandas = $estudiante->bandas->lists('nombre', 'id_bandas');        
+        $countBandas = $estudianteBandas->count();
+        // $cosa [] = $estudiante->bandas->select(['id_bandas', 'column2', 'column3'])->get(); 
         // $banda = Estudiante::find($id)->bandas()->lists('bandas.nombre', 'bandas.id_bandas');
         $parentesco = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
         // $banda = Banda::all(['id_bandas', 'nombre']);
+        $parentescos = Parentesco::all(['id_parentescos', 'nombre']);
 
+        // $asiste = $estudiante->where('asiste', true)->value('email')
 
         // // $bandis = \DB::table('bandas')->lists('nombre', 'id_bandas');
         // $estudiante->bandas()->lists('nombre','id_bandas');
         
-        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'countParientes')); 
+        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'countParientes', 'countBandas', 'parentescos', 'bandas', 'estudianteBandas', 'cosa')); 
     }
 
     /**
@@ -239,12 +245,34 @@ class EstudianteController extends Controller
         ]);
 
         $estudiante = Estudiante::findOrFail($id);
-        $this->notFound($estudiante);
+        // $this->notFound($estudiante);
         $estudiante->fill($request->all());
         $estudiante->save();
 
+        /* Registrar parientes */
+        $inputParientes = $request->input('parientes');
+
+        $idsParientes = [];
+
+        $arrayParientes = [];
+       
+        foreach($inputParientes as $data)
+        {
+            $idsParientes[] = $this->pariente->insertGetId($data);             
+        }        
+        
+        $arrayParientes[] = ['id_parientes' => $idsParientes[0], 'es_representante' => true];  
+
+        for ($i=1; $i < count($idsParientes); $i++) { 
+           
+            $arrayParientes[] = ['id_parientes' => $idsParientes[$i], 'es_representante' => false];
+        }
+
+        $estudiante->parientes()->sync($arrayParientes);
+
         Session::flash('message', 'Estudiante modificado correctamente');
         return Redirect::to('/estudiante');
+        // return redirect('/estudiante')->with('message','Estudiante registrado correctamente');
     }
 
     /**
