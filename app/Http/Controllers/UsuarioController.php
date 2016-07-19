@@ -87,7 +87,7 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $this->notFound($banda);
+        $this->notFound($user);
         return view('usuario.edit', ['user'=>$user]);
     }
 
@@ -109,7 +109,7 @@ class UsuarioController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $this->notFound($banda);
+        $this->notFound($user);
         $user->fill($request->all());
         $user->save();
 
@@ -128,7 +128,7 @@ class UsuarioController extends Controller
     {
         // User::findOrFail($id)->delete();
         $user = User::find($id);
-        $this->notFound($banda);
+        $this->notFound($user);
         $user->delete();
         Session::flash('message', 'Usuario eliminado correctamente');
         return Redirect::to('/usuario');

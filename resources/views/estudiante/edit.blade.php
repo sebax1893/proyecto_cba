@@ -208,7 +208,7 @@
                                 @for($i = 1; $i < $countParientes; $i++)
                                     <div class="panel panel-danger">
                                         <div class="panel-heading">Pariente</div>
-                                        <div id="divNuevoPariente" name="NuevoPariente" data-field-id="{{$i}}"></div>
+                                        <div id="divNuevoPariente" name="nuevoPariente" data-field-id="{{$i}}"></div>
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-lg-6">      
@@ -262,59 +262,61 @@
                         <!-- SECCIÓN BANDAS -->
                         <div class="panel panel-info">
                             <div class="panel-heading">Bandas</div>
-                            <div id="divBandas" class="panel-body">
+                            <div id="divBandas" class="panel-body">                                              
+                                <div id="divNuevaBanda" name="nuevaBanda" data-field-id="{{$aux}}"></div>
+                                @for($i = 0; $i < $aux; $i++)
+                                    @if ($cosa[$i] == 1)
+                                        <div class="panel panel-danger">
+                                            <div class="panel-heading">Banda a la que pertenece actualmente</div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">      
 
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">Banda a la que pertenece actualmente</div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">      
+                                                        <div class="form-group">
+                                                            {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
+                                                            {!!Form::select('bandas[' . $i . '][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}  
+                                                            @if ($errors->has('bandas.' . $i . '.id_bandas'))
+                                                                <div class="list-group-item list-group-item-warning">       
+                                                                    <strong>El campo banda es obligatorio</strong>       
+                                                                </div>      
+                                                            @endif                                   
+                                                        </div>
 
-                                                <div class="form-group">
-                                                    {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                    {!!Form::select('bandas[0][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}  
-                                                    @if ($errors->has('bandas.0.id_bandas'))
-                                                        <div class="list-group-item list-group-item-warning">       
-                                                            <strong>El campo banda es obligatorio</strong>       
-                                                        </div>      
-                                                    @endif                                   
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </div>                  
-
-                                @foreach($estudiante->bandas as $pivotEstudiante)
-                                    $pivotEstudiante->pivot->id_bandas;
-                                @endforeach
-
-                                @for($i = 1; $i < $countBandas; $i++)
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading">Banda a la que ha pertenecido</div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-lg-6">      
-
-                                                    <div class="form-group">
-                                                        {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                        {!!Form::select('bandas[' . $i . '][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}  
-                                                        @if ($errors->has('bandas.' . $i . '.id_bandas'))
-                                                            <div class="list-group-item list-group-item-warning">       
-                                                                <strong>El campo banda es obligatorio</strong>       
-                                                            </div>      
-                                                        @endif                                   
                                                     </div>
-
                                                 </div>
-                                            </div>
-                                        </div>  
-                                        <div class="panel-footer">
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
-                                            </button>
-                                        </div>                                  
-                                    </div>
+                                            </div>                                    
+                                        </div>                                    
+                                    @endif                                    
+                                @endfor
+
+                                @for($i = 0; $i < $aux; $i++)
+                                    @if ($cosa[$i] == 0)
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">Banda a la que ha pertenecido</div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">      
+
+                                                        <div class="form-group">
+                                                            {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
+                                                            {!!Form::select('bandas[' . $i . '][id_bandas]', $banda, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}  
+                                                            @if ($errors->has('bandas.' . $i . '.id_bandas'))
+                                                                <div class="list-group-item list-group-item-warning">       
+                                                                    <strong>El campo banda es obligatorio</strong>       
+                                                                </div>      
+                                                            @endif                                   
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                            <div class="panel-footer">
+                                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
+                                                </button>
+                                            </div>                                  
+                                        </div>
+                                    @endif
                                 @endfor  
 
                                 <div class="form-group">
@@ -384,20 +386,21 @@
             var add_button_bandas = $('#btnBanda');
 
             // var auxParientes = 1; 
-            var auxBandas = 1; 
+            // var auxBandas = 1; 
 
             var maxFieldIdPariente; // Para continuar con el siguiente id en estos brakets parientes[maxId][campo]
+            var maxFieldIdBanda = $("div[name=nuevaBanda]").data("field-id");
 
             // var fieldId = $('#div').data("field-id");
 
-            $( "div[name=NuevoPariente]" ).each(function( index ) {
+            $("div[name=nuevoPariente]").each(function( index ) {
                 maxFieldIdPariente = $(this).data("field-id");
                 // console.log(index + ": " + $( this ).data("field-id"));
             });
 
             maxFieldIdPariente++;
 
-            console.log(maxFieldIdPariente);
+            console.log(maxFieldIdBanda);
 
 
             /* AÑADIR PARIENTES */            
@@ -455,13 +458,13 @@
                                 '<div class="col-lg-6">'+
                                     '<div class="form-group">' + 
                                         '{!!Form::label("id_bandas", "Banda", ["class" => ""])!!}' + 
-                                        '<select class="form-control" name="bandas[' + auxBandas + '][id_bandas]">' +
+                                        '<select class="form-control" name="bandas[' + maxFieldIdBanda + '][id_bandas]">' +
                                         '<option selected="selected" value="">Seleccionar</option>' +
                                             '@foreach($bandas as $item)' +
                                                 '<option value="{{$item->id_bandas}}">{{$item->nombre}}</option>' +
                                             '@endforeach' +
                                         '</select>' +
-                                        '@if ($errors->has("bandas.' + auxBandas + '.id_bandas"))' +
+                                        '@if ($errors->has("bandas.' + maxFieldIdBanda + '.id_bandas"))' +
                                             '<div class="list-group-item list-group-item-warning">' +
                                                 '<strong>{{ $errors->first("observaciones") }}</strong>' +
                                             '</div>' +
@@ -477,7 +480,7 @@
                         '</div>' + 
                     '</div>'
                 ); 
-                auxBandas++; //text box increment                
+                maxFieldIdBanda++; //text box increment                
 
             });
 

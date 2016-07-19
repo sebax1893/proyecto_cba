@@ -1,12 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Gestionar tipo de banda')
-
-<!-- @if(Session::has('message'))
-	<div class="alert">
-		{{Session::get('message')}}
-	</div>
-@endif -->
-
 @section('content')
 <div class="container">
 
@@ -61,7 +54,7 @@
 				  "sUrl": "Espaniol.json"				  
 				}			
 			});
-		});				
+		});		
 
 	</script>
 

@@ -1,5 +1,5 @@
 
-$('#dataTable').on('click', '#btnBorrar' , function () {			
+$('#dataTable').on('click', '.btn-danger' , function () {			
 
 	var frm = $(this).closest("form"); // our form	
 

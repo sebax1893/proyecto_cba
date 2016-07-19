@@ -172,12 +172,8 @@
                                                 <div class="col-lg-6">      
 
                                                     <div class="form-group">
-                                                        {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                                                    
-                                                        <select class="form-control" name="parientes[0][id_parentescos]">   <option selected="selected" value="">Seleccionar</option> 
-                                                                @foreach($parentesco as $item) 
-                                                                    <option value="{{$item->id_parentescos}}">{{$item->nombre}}</option> 
-                                                                @endforeach 
-                                                        </select>                                                   
+                                                        {!!Form::label('id_parentescos', 'Parentesco', ['class' => 'required'])!!}                 
+                                                        {!!Form::select('parientes[0][id_parentescos]', $parentescoList, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                 
                                                         @if ($errors->has('parientes.0.id_parentescos'))
                                                             <div class="list-group-item list-group-item-warning">       
                                                                 <strong>El campo parentesco es obligatorio</strong>
@@ -229,12 +225,7 @@
 
                                                     <div class="form-group">
                                                         {!!Form::label('id_bandas', 'Banda', ['class' => 'required'])!!}
-                                                        <select class="form-control" name="bandas[0][id_bandas]">   
-                                                        <option selected="selected" value="">Seleccionar</option> 
-                                                                @foreach($banda as $item) 
-                                                                    <option value="{{$item->id_bandas}}">{{$item->nombre}}</option> 
-                                                                @endforeach 
-                                                        </select>                                                   
+                                                        {!!Form::select('bandas[0][id_bandas]', $bandaList, null, ['placeholder' => 'Seleccionar', 'class' => 'form-control'])!!}                                                   
                                                         @if ($errors->has('bandas.0.id_bandas'))
                                                             <div class="list-group-item list-group-item-warning">       
                                                                 <strong>El campo banda es obligatorio</strong>       

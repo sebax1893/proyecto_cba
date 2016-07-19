@@ -8,8 +8,7 @@
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
-                        {{ csrf_field() }}
+                    {!!Form::open(['route'=>'estudiante.store', 'method'=>'POST', 'files'=>true])!!}                    
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
@@ -61,7 +60,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    {!!Form::close()!!}
                 </div>
             </div>
         </div>

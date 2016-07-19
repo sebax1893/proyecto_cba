@@ -24,7 +24,7 @@ class EstudianteController extends Controller
 
         $this->middleware('auth');
         // $this->middleware('admin', ['only' => ['create', 'edit', 'update', 'destroy']]);
-        $this->middleware('admin', ['except' => ['index']]);
+        $this->middleware('admin', ['except' => ['index', 'show']]);
 
         $this->estudiante = $estudiante;
         $this->pariente = $pariente;
@@ -73,10 +73,12 @@ class EstudianteController extends Controller
         $tipoDocumento = \DB::table('tipo_documentos')->lists('nombre', 'id_tipo_documentos');
         $eps = \DB::table('eps')->lists('nombre', 'id_eps');
         $municipio = \DB::table('municipios')->lists('nombre', 'id_municipios');
+        $parentescoList = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
+        $bandaList = \DB::table('bandas')->lists('nombre', 'id_bandas');
         $parentesco = Parentesco::all(['id_parentescos', 'nombre']);
         $banda = Banda::all(['id_bandas', 'nombre']);
         
-        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda'));
+        return view('estudiante.create', compact('tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'parentescoList', 'bandaList'));
     }
     
     /**
@@ -101,7 +103,7 @@ class EstudianteController extends Controller
             'barrio' => 'required|string',
             'telefono' => 'required',
             'correo' => 'required|email',
-            // 'foto' => 'image|mimes:jpg,jpeg,png',            
+            'foto' => 'image|mimes:jpg,jpeg,png',            
             'parientes.*.id_parentescos' => 'required',
             'parientes.*.nombre' => 'required',
             'bandas.*.id_bandas' => 'required',
@@ -143,6 +145,8 @@ class EstudianteController extends Controller
         }
 
         /* Registrar en la tabla de banda_estudiante */
+        $dataBandaEstudiante = [];
+
         $inputBandas = $request->input('bandas');       
 
         $asiste = false;
@@ -155,13 +159,13 @@ class EstudianteController extends Controller
                 $asiste = false;
             }
 
-            $dataEstudiantePariente = [
+            $dataBandaEstudiante = [
                 "id_bandas" => $inputBandas[$i]['id_bandas'],
                 "id_estudiantes" => $idEstudiante,
                 "asiste" => $asiste,
-            ];
+            ];            
 
-            $this->banda_estudiante->insert($dataEstudiantePariente);
+            $this->banda_estudiante->insert($dataBandaEstudiante);
         }
 
         return redirect('/estudiante')->with('message','Estudiante registrado correctamente');
@@ -202,18 +206,21 @@ class EstudianteController extends Controller
         $countParientes = $estudiantePariente->count();
         $estudianteBandas = $estudiante->bandas->lists('nombre', 'id_bandas');        
         $countBandas = $estudianteBandas->count();
-        // $cosa [] = $estudiante->bandas->select(['id_bandas', 'column2', 'column3'])->get(); 
-        // $banda = Estudiante::find($id)->bandas()->lists('bandas.nombre', 'bandas.id_bandas');
         $parentesco = \DB::table('parentescos')->lists('nombre', 'id_parentescos');
-        // $banda = Banda::all(['id_bandas', 'nombre']);
         $parentescos = Parentesco::all(['id_parentescos', 'nombre']);
 
-        // $asiste = $estudiante->where('asiste', true)->value('email')
+        $cosa = [];
 
-        // // $bandis = \DB::table('bandas')->lists('nombre', 'id_bandas');
-        // $estudiante->bandas()->lists('nombre','id_bandas');
+        $aux = 0;
+
+        foreach ($estudiante->bandas as $pivotEstudiante) {
+            
+            $cosa [] = $pivotEstudiante->pivot->asiste;
+
+            $aux++;
+        } 
         
-        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'countParientes', 'countBandas', 'parentescos', 'bandas', 'estudianteBandas', 'cosa')); 
+        return view('estudiante.edit', compact('estudiante', 'tipoDocumento', 'eps', 'municipio', 'parentesco', 'banda', 'countParientes', 'countBandas', 'parentescos', 'bandas', 'estudianteBandas', 'cosa', 'aux')); 
     }
 
     /**
@@ -226,22 +233,22 @@ class EstudianteController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            // 'id_tipo_documentos' => 'required',
-            // 'id_eps' => 'required',
-            // 'id_municipios' => 'required',
-            // 'numeroIdentificacion' => 'required|numeric',            
-            // 'nombres' => 'required|string',
-            // 'apellidos' => 'required|string',
-            // 'edad' => 'required|numeric',
-            // 'fechaNacimiento' => 'required|date',            
-            // 'direccion' => 'required|string',
-            // 'barrio' => 'required|string',
-            // 'telefono' => 'required',
-            // 'correo' => 'required|email',
-            // 'foto' => 'image|mimes:jpg,jpeg,png',                 
-            // 'parientes.*.id_parentescos' => 'required',
-            // 'parientes.*.nombre' => 'required',
-            // 'bandas.*.id_bandas' => 'required',                
+            'id_tipo_documentos' => 'required',
+            'id_eps' => 'required',
+            'id_municipios' => 'required',
+            'numeroIdentificacion' => 'required|numeric',            
+            'nombres' => 'required|string',
+            'apellidos' => 'required|string',
+            'edad' => 'required|numeric',
+            'fechaNacimiento' => 'required|date',            
+            'direccion' => 'required|string',
+            'barrio' => 'required|string',
+            'telefono' => 'required',
+            'correo' => 'required|email',
+            'foto' => 'image|mimes:jpg,jpeg,png',                 
+            'parientes.*.id_parentescos' => 'required',
+            'parientes.*.nombre' => 'required',
+            'bandas.*.id_bandas' => 'required',                
         ]);
 
         $estudiante = Estudiante::findOrFail($id);
@@ -261,6 +268,7 @@ class EstudianteController extends Controller
             $idsParientes[] = $this->pariente->insertGetId($data);             
         }        
         
+        /* Registrar en la tabla de detalle estudiantes_pariente */
         $arrayParientes[] = ['id_parientes' => $idsParientes[0], 'es_representante' => true];  
 
         for ($i=1; $i < count($idsParientes); $i++) { 
@@ -269,6 +277,39 @@ class EstudianteController extends Controller
         }
 
         $estudiante->parientes()->sync($arrayParientes);
+
+        /* Registrar en la tabla de banda_estudiante */
+        $arrayBandas = [];
+        $aux = [];
+        $inputBandas = $request->input('bandas');       
+
+        $asiste = false;
+        // ksort($inputBandas);
+        // var_dump($inputBandas);
+
+        foreach ($inputBandas as $value) {
+            $aux[] = $value['id_bandas'];
+        }
+
+        var_dump($aux);
+
+        for ($i=0; $i < count($aux); $i++) { 
+
+            if ($i == 0) {
+                $asiste = true;
+            } else {
+                $asiste = false;
+            }
+
+            $arrayBandas [] = [
+                "id_bandas" => $aux[$i],
+                "id_estudiantes" => $id,
+                "asiste" => $asiste,
+            ];
+
+        }
+
+        $estudiante->bandas()->sync($arrayBandas);
 
         Session::flash('message', 'Estudiante modificado correctamente');
         return Redirect::to('/estudiante');

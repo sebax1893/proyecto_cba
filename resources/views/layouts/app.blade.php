@@ -119,15 +119,15 @@
     <!-- Bootstrap Datepicker Spanish JavaScript -->
     {!!Html::script('assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js')!!} 
     
-    <!-- Script messages -->
-    <!-- {!!Html::script('assets/js/script_messages.js')!!}         -->
+    <!-- Script messages -->    
     <script type="text/javascript">
         var message = "{{ Session::get('message') }}";
+        console.log(message);
         var messageError = "{{ Session::get('messageError') }}";    
         var hasMessage = "{{ Session::has('message') }}";
         var hasMessageError = "{{ Session::has('messageError') }}";
     </script>
-    {{ HTML::script('assets/js/script_messages.js') }}
+    {!!HTML::script('assets/js/script_messages.js')!!}
     @yield('scripts')
 </body>
 </html>

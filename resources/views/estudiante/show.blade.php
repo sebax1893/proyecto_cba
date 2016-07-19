@@ -11,7 +11,9 @@
 
 				<div class="jumbotron text-center">
 					<h2>{{ $estudiante->nombres }} {{ $estudiante->apellidos }}</h2>
-					<img src="../../storage/images/{{$estudiante->foto}}" style="width:100px;" />
+					@if($estudiante->foto)
+						<img src="../../storage/images/{{$estudiante->foto}}" style="width:100px;" />
+					@endif					
 					<p>
 						<strong>Tipo de documento:</strong> {{ $estudiante->tipo_documentos->nombre }}<br>
 						<strong>Número de documento:</strong> {{ $estudiante->numeroIdentificacion }}<br>

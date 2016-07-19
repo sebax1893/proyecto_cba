@@ -93,13 +93,17 @@
 						</td>
 						<td>{{$estudiantes->observaciones}}</td>						
 						<td>
-							<img src="../storage/images/{{$estudiantes->foto}}" style="width:100px;" />
+							@if ($estudiantes->foto)
+								<img src="../storage/images/{{$estudiantes->foto}}" style="width:100px;" />
+							@endif
 						</td>
 						<td>															
 							{!!Form::open(['method' => 'delete', 'route' => ['estudiante.destroy', $estudiantes->id_estudiantes]])!!}
-								{!!link_to_route('estudiante.edit', $title = 'Modificar', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-success'])!!}	
-								{!!link_to_route('estudiante.show', $title = 'Detalles', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-info'])!!}							
-					            {{Form::button('Eliminar', ['id' => 'btnBorrar', 'class' => 'btn btn-danger'])}}					            
+								{!!link_to_route('estudiante.show', $title = 'Detalles', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-info'])!!}	
+								@if (Auth::user()->is_admin == 1)
+									{!!link_to_route('estudiante.edit', $title = 'Modificar', $parameters = $estudiantes->id_estudiantes, $attributes = ['class'=>'btn btn-success'])!!}	
+									{{Form::button('Eliminar', ['id' => 'btnBorrar', 'class' => 'btn btn-danger'])}}
+								@endif									            					            
 							{!!Form::close()!!}
 						</td>							
 					</tr>
