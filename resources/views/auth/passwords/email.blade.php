@@ -18,8 +18,7 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             {!!Form::label('email', 'Correo electrónico', ['class' => 'required col-md-4 control-label'])!!}
                             <div class="col-md-6">
-                                
-                                
+                                                                
                                 {!!Form::text('email',null,['class'=>'form-control', 'placeholder'=>'Ingresar el correo electrónico vinculado a la cuenta'])!!}
 
                                 @if ($errors->has('email'))
@@ -30,11 +29,11 @@
                             </div>
                         </div>
 
+                        <br>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">                                
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-envelope"></i> Enviar link de reinicio de contraseña
-                                </button>
+                                {!!Form::submit('Enviar link de restablecimiento de contraseña', ['class'=>'btn btn-primary'])!!}
                             </div>
                         </div>
                     {!!Form::close()!!}

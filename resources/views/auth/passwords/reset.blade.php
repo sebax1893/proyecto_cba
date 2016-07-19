@@ -8,7 +8,7 @@
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">
-                    {!!Form::open(['route'=>'estudiante.store', 'method'=>'POST', 'files'=>true])!!}                    
+                    {!!Form::open(['url'=>'/password/reset'])!!}                   
 
                         <input type="hidden" name="token" value="{{ $token }}">
 

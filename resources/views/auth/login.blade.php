@@ -45,7 +45,7 @@
                             <div class="col-md-6 col-md-offset-4">
                                 {!!Form::submit('Ingresar', ['class'=>'btn btn-primary'])!!}                                
                                 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                {!!link_to('password/email', $title = '¿Olvidó su contraseña?', $attributes = null, $secure = null)!!}
                             </div>
                         </div>
                     {!!Form::close()!!}            

@@ -31,8 +31,10 @@ Route::resource('parentesco','ParentescoController');
 
 Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
-Route::get('password/reset','Auth\PasswordController@getEmail');
-Route::post('password/reset','Auth\PasswordController@postEmail');
+Route::get('password/email','Auth\PasswordController@getEmail');
+Route::post('password/email','Auth\PasswordController@postEmail');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 // Route::auth();
 

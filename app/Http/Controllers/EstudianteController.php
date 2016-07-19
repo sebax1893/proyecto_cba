@@ -127,6 +127,8 @@ class EstudianteController extends Controller
 
         $es_representante = false;
 
+        var_dump($idsParientes);
+
         for ($i=0; $i < count($idsParientes); $i++) { 
 
             if ($i == 0) {
@@ -135,13 +137,13 @@ class EstudianteController extends Controller
                 $es_representante = false;
             }
 
-            $dataEstudiantePariente = [
-                "id_estudiantes" => $idEstudiante,
-                "id_parientes" => $idsParientes[$i],
-                "es_representante" => $es_representante,
-            ];
+            // $dataEstudiantePariente = [
+            //     "id_estudiantes" => $idEstudiante,
+            //     "id_parientes" => $idsParientes[$i],
+            //     "es_representante" => $es_representante,
+            // ];
 
-            $this->estudiante_pariente->insert($dataEstudiantePariente);
+            $estudiante->parientes()->attach($idsParientes[$i]['id_parientes'], ['es_representante' => $es_representante]);
         }
 
         /* Registrar en la tabla de banda_estudiante */
@@ -159,14 +161,19 @@ class EstudianteController extends Controller
                 $asiste = false;
             }
 
-            $dataBandaEstudiante = [
-                "id_bandas" => $inputBandas[$i]['id_bandas'],
-                "id_estudiantes" => $idEstudiante,
-                "asiste" => $asiste,
-            ];            
+            // $dataBandaEstudiante = [
+            //     "id_bandas" => $inputBandas[$i]['id_bandas'],
+            //     "id_estudiantes" => $idEstudiante,
+            //     "asiste" => $asiste,
+            // ];         
 
-            $this->banda_estudiante->insert($dataBandaEstudiante);
+            $estudiante->bandas()->attach($inputBandas[$i]['id_bandas'], ['asiste' => $asiste]);   
+
         }
+
+        // var_dump($dataBandaEstudiante);
+
+        // $estudiante->bandas()->attach($dataBandaEstudiante);
 
         return redirect('/estudiante')->with('message','Estudiante registrado correctamente');
 
