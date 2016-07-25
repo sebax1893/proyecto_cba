@@ -94,7 +94,7 @@
 						<td>{{$estudiantes->observaciones}}</td>						
 						<td>
 							@if ($estudiantes->foto)
-								<img src="../storage/images/{{$estudiantes->foto}}" style="width:100px;" />
+								<img src="../public/images/{{$estudiantes->foto}}" style="width:100px;" />
 							@endif
 						</td>
 						<td>															

@@ -14,10 +14,16 @@ class Estudiante extends Model
     
     public function setFotoAttribute($foto)
     {
-        if (!empty($foto)) {
-            $this->attributes['foto'] = Carbon::now()->second.$foto->getClientOriginalName();
-            $name = Carbon::now()->second.$foto->getClientOriginalName();
-            \Storage::disk('local')->put($name, \File::get($foto));
+        if (!empty($foto)) {            
+            $file = $foto;
+            
+            $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+            
+            $name = $timestamp. '-' .$file->getClientOriginalName();
+            
+            $this->attributes['foto'] = $name;
+
+            $file->move(public_path().'/images/', $name);
         }
         
     } 
