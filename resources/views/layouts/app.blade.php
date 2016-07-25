@@ -121,8 +121,7 @@
     
     <!-- Script messages -->    
     <script type="text/javascript">
-        var message = "{{ Session::get('message') }}";
-        console.log(message);
+        var message = "{{ Session::get('message') }}";    
         var messageError = "{{ Session::get('messageError') }}";    
         var hasMessage = "{{ Session::has('message') }}";
         var hasMessageError = "{{ Session::has('messageError') }}";

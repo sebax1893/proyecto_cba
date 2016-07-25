@@ -68,7 +68,7 @@ class ParentescoController extends Controller
     public function edit($id)
     {
         $parentesco = Parentesco::findOrFail($id);
-        $this->notFound($banda);
+        $this->notFound($parentesco);
         return view('parentesco.edit', ['parentesco'=>$parentesco]);
     }
 
@@ -86,7 +86,7 @@ class ParentescoController extends Controller
         ]);
 
         $parentesco = Parentesco::findOrFail($id);
-        $this->notFound($banda);
+        $this->notFound($parentesco);
         $parentesco->fill($request->all());
         $parentesco->save();
 
@@ -103,7 +103,7 @@ class ParentescoController extends Controller
     public function destroy($id)
     {
         $parentesco = Parentesco::find($id);
-        $this->notFound($banda);
+        $this->notFound($parentesco);
         $parentesco->delete();
         Session::flash('message', 'Parentesco eliminado correctamente');
         return Redirect::to('/parentesco');

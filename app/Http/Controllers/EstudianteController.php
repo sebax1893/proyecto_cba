@@ -15,8 +15,6 @@ use CBA\Parentesco;
 use CBA\Estudiante_pariente;
 use CBA\Subregion;
 
-// use CBA\TipoDocumento
-
 class EstudianteController extends Controller
 {
 
@@ -127,8 +125,6 @@ class EstudianteController extends Controller
 
         $es_representante = false;
 
-        var_dump($idsParientes);
-
         for ($i=0; $i < count($idsParientes); $i++) { 
 
             if ($i == 0) {
@@ -137,13 +133,7 @@ class EstudianteController extends Controller
                 $es_representante = false;
             }
 
-            // $dataEstudiantePariente = [
-            //     "id_estudiantes" => $idEstudiante,
-            //     "id_parientes" => $idsParientes[$i],
-            //     "es_representante" => $es_representante,
-            // ];
-
-            $estudiante->parientes()->attach($idsParientes[$i]['id_parientes'], ['es_representante' => $es_representante]);
+            $estudiante->parientes()->attach($idsParientes[$i], ['es_representante' => $es_representante]);
         }
 
         /* Registrar en la tabla de banda_estudiante */
@@ -161,19 +151,9 @@ class EstudianteController extends Controller
                 $asiste = false;
             }
 
-            // $dataBandaEstudiante = [
-            //     "id_bandas" => $inputBandas[$i]['id_bandas'],
-            //     "id_estudiantes" => $idEstudiante,
-            //     "asiste" => $asiste,
-            // ];         
-
             $estudiante->bandas()->attach($inputBandas[$i]['id_bandas'], ['asiste' => $asiste]);   
 
         }
-
-        // var_dump($dataBandaEstudiante);
-
-        // $estudiante->bandas()->attach($dataBandaEstudiante);
 
         return redirect('/estudiante')->with('message','Estudiante registrado correctamente');
 
@@ -297,8 +277,6 @@ class EstudianteController extends Controller
         foreach ($inputBandas as $value) {
             $aux[] = $value['id_bandas'];
         }
-
-        var_dump($aux);
 
         for ($i=0; $i < count($aux); $i++) { 
 

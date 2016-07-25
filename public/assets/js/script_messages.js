@@ -9,7 +9,8 @@ $('#dataTable').on('click', '.btn-danger' , function () {
 		type: "warning",   showCancelButton: true,   
 		confirmButtonColor: "#DD6B55",   
 		confirmButtonText: "Sí, borrar",   
-		cancelButtonText: "No, cancelar"
+		cancelButtonText: "No, cancelar",
+		allowOutsideClick: true
 		// closeOnConfirm: false //
 		}, 
 		function(isConfirm){   
@@ -20,17 +21,21 @@ $('#dataTable').on('click', '.btn-danger' , function () {
 });
 
 if (hasMessage) {
-	swal(
-		message, 
-		"", 
-		"success"
-		)
+	swal({
+		title: "",
+		text: message,
+		type: "success",
+		confirmButtonText: "Aceptar",
+		allowOutsideClick: true
+	})
 }
 
 if (hasMessageError) {
-	swal(
-		messageError, 
-		"", 
-		"error"
-		)
+	swal({
+		title: "Error",
+		text: messageError,
+		type: "error",
+		confirmButtonText: "Aceptar",
+		allowOutsideClick: true
+	})
 }

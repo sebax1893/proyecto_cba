@@ -32,13 +32,10 @@
 							<td>No</td>
 						@endif
 						<td>
-							
-							<!-- {!!Form::open(['method' => 'delete', 'route' => ['usuario.destroy', $user->id_users], 'id'=>'form'.$user->id_users])!!}					 -->
+													
 							{!!Form::open(['method' => 'delete', 'route' => ['usuario.destroy', $user->id]])!!}					
-								{!!link_to_route('usuario.edit', $title = 'Modificar', $parameters = $user->id, $attributes = ['class'=>'btn btn-success'])!!}
-					            <!-- {{Form::button('<i class="glyphicon glyphicon-trash"></i> Eliminar', array('type' => '', 'class' => 'btn btn-danger', 'data-id' => $user->id_users))}} -->
-					            {{Form::button('Eliminar', ['id' => 'btnBorrar', 'class' => 'btn btn-danger'])}}
-					            <!-- <input type="button" value="" class="btn btn-danger" data-id="asd" /> -->
+								{!!link_to_route('usuario.edit', $title = 'Modificar', $parameters = $user->id, $attributes = ['class'=>'btn btn-success'])!!}					            
+					            <!-- {{Form::button('Eliminar', ['id' => 'btnBorrar', 'class' => 'btn btn-danger'])}} -->					            
 							{!!Form::close()!!}
 						</td>								
 					</tr>

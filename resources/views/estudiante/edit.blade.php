@@ -320,6 +320,16 @@
                                 @endfor  
 
                                 <div class="form-group">
+                                    {!!Form::label('observaciones', 'Observaciones', ['class' => ''])!!}
+                                    {!!Form::textarea('observaciones',null,['class'=>'form-control', 'placeholder'=>'Observaciones del estudiante'])!!}
+                                    @if ($errors->has('observaciones'))
+                                        <div class="list-group-item list-group-item-warning">       
+                                            <strong>{{ $errors->first('observaciones') }}</strong>        
+                                        </div>      
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
                                     {!!Form::button('Añadir banda a la que ha pertenecido', ['id'=>'btnBanda', 'class'=>'btn btn-warning'])!!}
                                 </div>                                                                                
                             </div>
